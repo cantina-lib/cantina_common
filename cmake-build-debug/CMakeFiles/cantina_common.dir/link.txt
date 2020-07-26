@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcantina_common.a  CMakeFiles/cantina_common.dir/source/cant/pan/Time.cpp.o
-/usr/bin/ranlib libcantina_common.a
