@@ -1,0 +1,8 @@
+/snap/clion/121/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/binabik/Documents/projets_gite/cantina_fam/cantina_common
+-- Version: 7.0.1
+-- Build type: Debug
+-- CXX_STANDARD: 20
+-- Required features: cxx_variadic_templates
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/binabik/Documents/projets_gite/cantina_fam/cantina_common/cmake-build-debug
