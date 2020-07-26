@@ -7,18 +7,23 @@ set(CMAKE_CXX_STANDARD 20)
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 
-set(THIRD_PARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
+set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
 
 # fmr EXTENTION FOR FUTURE SUPPORT OF format
-set(FMT_LIB_DIR ${THIRD_PARTY_DIR}/fmt)
+set(FMT_LIB_DIR ${THIRDPARTY_DIR}/fmt)
 add_subdirectory(${FMT_LIB_DIR})
 
 set(CMAKE_CXX_FLAGS "-Wall -Werror -fPIC")
 
-
-include_directories(
+set(CANTINA_COMMON_INCLUDE_DIRS
         ${CANTINA_COMMON_INCLUDE_DIR}
         ${FMT_LIB_DIR}/include
+        CACHE INTERNAL
+        "List of include directories for cantina_common"
+        )
+
+include_directories(
+        ${CANTINA_COMMON_INCLUDE_DIRS}
 )
 
 set(CANTINA_COMMON_FILES
