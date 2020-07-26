@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <functional>
 
-#include <cant/types.hpp>
+#include <cant/common/types.hpp>
 
 namespace cant::midi
 {

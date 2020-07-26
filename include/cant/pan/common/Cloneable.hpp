@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include <cant/macro.hpp>
-#include <cant/types.hpp>
+#include <cant/common/macro.hpp>
+#include <cant/common/types.hpp>
 
-#include <cant/memory.hpp>
+#include <cant/common/memory.hpp>
 
-#include <cant/pan/PantoufleException.hpp>
+#include <cant/pan/common/PantoufleException.hpp>
 
 namespace cant::midi
 {

@@ -9,6 +9,10 @@
 
 #include <fmt/format.h>
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
 namespace cant
 {
 

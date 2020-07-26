@@ -9,11 +9,11 @@
 
 #include <chrono>
 
-#include <cant/formatting.hpp>
+#include <cant/common/formatting.hpp>
+#include <cant/common/macro.hpp>
 
-#include <cant/pan/PantoufleException.hpp>
-#include <cant/macro.hpp>
-#include <cant/pan/types.hpp>
+#include <cant/pan/common/PantoufleException.hpp>
+#include <cant/pan/common/types.hpp>
 
 namespace cant::midi
 {

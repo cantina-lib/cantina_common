@@ -2,7 +2,7 @@
 // Created by piptouque on 30/04/2020.
 //
 
-#include <cant/pan/Time.hpp>
+#include <cant/pan/common/Time.hpp>
 
 namespace cant::midi
 {

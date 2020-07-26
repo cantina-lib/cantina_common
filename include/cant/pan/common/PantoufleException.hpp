@@ -7,12 +7,9 @@
 
 #pragma once
 
-#include <cant/CantinaException.hpp>
-#include <cant/macro.hpp>
-
-#include <string>
-#include <utility>
-#include <iostream>
+#include <cant/common/macro.hpp>
+#include <cant/common/formatting.hpp>
+#include <cant/common/CantinaException.hpp>
 
 #pragma once
 

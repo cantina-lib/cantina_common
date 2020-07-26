@@ -10,10 +10,9 @@
 
 #include <exception>
 #include <list>
-#include <sstream>
 
-#include <cant/formatting.hpp>
-#include <cant/macro.hpp>
+#include <cant/common/formatting.hpp>
+#include <cant/common/macro.hpp>
 
 namespace cant
 {
