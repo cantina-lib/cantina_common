@@ -48,4 +48,5 @@ set(CANTINA_COMMON_FILES
 
 add_library(cantina_common ${CANTINA_COMMON_FILES})
 
-target_link_libraries(cantina_common fmt)
+set(CANTINA_COMMON_LIBRARIES cantina_common fmt PARENT_SCOPE)
+

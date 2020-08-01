@@ -15,7 +15,7 @@
 #include <cant/pan/common/PantoufleException.hpp>
 #include <cant/pan/common/types.hpp>
 
-namespace cant::midi
+namespace cant::pan
 {
    class Time
    {

@@ -13,7 +13,7 @@
 
 #include <cant/common/types.hpp>
 
-namespace cant::midi
+namespace cant::pan
 {
     typedef uint8_t vel_mint;
     typedef uint8_t tone_mint;

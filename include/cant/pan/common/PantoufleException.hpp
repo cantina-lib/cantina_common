@@ -13,7 +13,7 @@
 
 #pragma once
 
-namespace cant::midi
+namespace cant::pan
 {
 
     class MidiException : public CantinaException
@@ -34,6 +34,6 @@ namespace cant::midi
 }
 
 #   define PANTOUFLE_EXCEPTION(msg) MidiException(CANT_CURRENT_TRACE, msg)
-#   define PANTOUFLE_TRY_RETHROW(expression) { try { expression } catch (cant::midi::MidiException& e) { e.CANTINA_EXCEPTION_ADD_TRACE(); throw; } }
+#   define PANTOUFLE_TRY_RETHROW(expression) { try { expression } catch (cant::pan::MidiException& e) { e.CANTINA_EXCEPTION_ADD_TRACE(); throw; } }
 
 #endif //CANTINA_MIDIEXCEPTION_HPP
