@@ -19,8 +19,10 @@ namespace cant::pan
     typedef uint8_t tone_mint;
 
     typedef uint8_t byte_m;
+
     typedef double vel_m;
     typedef double tone_m;
+
     typedef double time_m;
 
     template<typename T>

@@ -42,7 +42,6 @@ set(CANTINA_COMMON_FILES
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/Cloneable.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/Time.hpp
         )
 

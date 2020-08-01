@@ -16,7 +16,7 @@
 namespace cant
 {
 
-    typedef std::size_t sizeint;
+    typedef std::size_t size_m;
     typedef int32_t int_m;
     typedef double float_m;
 
