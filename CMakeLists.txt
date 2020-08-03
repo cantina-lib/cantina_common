@@ -38,11 +38,12 @@ set(CANTINA_COMMON_FILES
 
         ### common
         ## source
-        ${CANTINA_COMMON_SOURCE_DIR}/cant/pan/common/Time.cpp
+        ${CANTINA_COMMON_SOURCE_DIR}/cant/pan/common/MidiTimer.cpp
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/Time.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiTimer.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiEvent.hpp
         )
 
 add_library(cantina_common ${CANTINA_COMMON_FILES})
