@@ -11,7 +11,6 @@
 #include <cstdint>
 
 #include <cant/common/macro.hpp>
-#include <cant/common/memory.hpp>
 
 namespace cant
 {

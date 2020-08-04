@@ -11,6 +11,8 @@
 #include <vector>
 #include <memory>
 
+#include <cant/common/types.hpp>
+
 namespace cant
 {
     template<class C>
@@ -18,6 +20,9 @@ namespace cant
 
     template<class C>
     using Stream = std::vector<C>;
+
+    template <typename T, size_m n_V>
+    using Array = std::array<T, n_V>;
 
     template <typename Key_T, typename Val_T>
     using Map = std::map<Key_T, Val_T>;
