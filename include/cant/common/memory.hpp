@@ -21,6 +21,9 @@ namespace cant
     template<class C>
     using Stream = std::vector<C>;
 
+    template <class C>
+    using UStream = Stream<UPtr<C>>;
+
     template <typename T, size_m n_V>
     using Array = std::array<T, n_V>;
 

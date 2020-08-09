@@ -18,6 +18,7 @@ namespace cant
 
     /* CONTROLLERS */
     static constexpr const char* CONTROLLER_TYPE_DAMPER = "damper";
+    static constexpr const char* CONTROLLER_TYPE_PAN = "pan";
 }
 
 #endif //CANTINA_CONFIG_HPP

@@ -9,15 +9,10 @@ set(CANTINA_COMMON_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 
 set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
 
-# fmr EXTENTION FOR FUTURE SUPPORT OF format
-set(FMT_LIB_DIR ${THIRDPARTY_DIR}/fmt)
-add_subdirectory(${FMT_LIB_DIR})
-
 set(CMAKE_CXX_FLAGS "-Wall -Werror -fPIC")
 
 set(CANTINA_COMMON_INCLUDE_DIRS
         ${CANTINA_COMMON_INCLUDE_DIR}
-        ${FMT_LIB_DIR}/include
         CACHE INTERNAL
         "List of include directories for cantina_common"
         )
@@ -33,6 +28,7 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/maths.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
 
@@ -48,5 +44,5 @@ set(CANTINA_COMMON_FILES
 
 add_library(cantina_common ${CANTINA_COMMON_FILES})
 
-set(CANTINA_COMMON_LIBRARIES cantina_common fmt PARENT_SCOPE)
+set(CANTINA_COMMON_LIBRARIES cantina_common PARENT_SCOPE)
 

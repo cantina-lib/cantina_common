@@ -22,6 +22,7 @@ namespace cant::pan
 
     typedef double vel_m;
     typedef double tone_m;
+    typedef double pan_m; // should be e [-1, 1]
 
     typedef double time_m;
 
@@ -32,7 +33,7 @@ namespace cant::pan
     constexpr vel_mint MIDI_MAX_VELOCITY = 127;
     constexpr tone_mint MIDI_MAX_TONE = 127; // is it??
 
-    constexpr byte_m  MIDI_MID_VALUE = 63;
+    constexpr byte_m  MIDI_CONTROL_MID_VALUE = 63;
 }
 
 #endif //CANTINA_MIDITYPES_HPP

@@ -8,13 +8,15 @@
 #pragma once
 
 #include <cant/common/macro.hpp>
-
 #include <cant/pan/common/types.hpp>
 
 #include <cant/pan/common/MidiTimer.hpp>
 
 namespace cant::pan
 {
+    /*
+     * I probably won't ever use this stuff, but it looks nice, so it's staying.
+     */
     template<typename T>
     class MidiEvent
     {

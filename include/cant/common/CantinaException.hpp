@@ -92,7 +92,10 @@ namespace cant
             sstream << "[CANTINA_EXCEPTION] ";
             for(const auto& trace : _traces)
             {
-                sstream << fmt::format("By {0}, in {1}, line {2}__", trace.function, trace.file, trace.line);
+                sstream << "By " << trace.function
+                        << ", in file " << trace.file
+                        << ", line " << trace.line
+                        << "__";
                 sstream << std::endl;
             }
             sstream << "With message: " << _msg << std::endl;
@@ -115,10 +118,6 @@ namespace cant
                                                     } \
                                                     catch(CantinaException& e) { \
                                                         e.CANTINA_EXCEPTION_ADD_TRACE(); \
-                                                    } \
-                                                    catch(const std::exception& e) \
-                                                    { \
-                                                        throw CantinaException(e); \
                                                     } \
                                              } \
 

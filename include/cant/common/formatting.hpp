@@ -7,15 +7,8 @@
 
 #pragma once
 
-#include <fmt/format.h>
-
 #include <iostream>
 #include <string>
 #include <sstream>
-
-namespace cant
-{
-
-}
 
 #endif //CANTINA_COMMON_FORMATTING_HPP
