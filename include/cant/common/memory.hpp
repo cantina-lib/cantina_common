@@ -9,6 +9,7 @@
 
 #include <map>
 #include <vector>
+#include <tuple>
 #include <memory>
 
 #include <cant/common/types.hpp>
@@ -21,11 +22,15 @@ namespace cant
     template<class C>
     using Stream = std::vector<C>;
 
-    template <class C>
-    using UStream = Stream<UPtr<C>>;
+    template <typename... Ts>
+    using Tuple = std::tuple<Ts...>;
 
     template <typename T, size_m n_V>
     using Array = std::array<T, n_V>;
+
+    template <typename T, size_m n_V>
+    using UArray = Array<UPtr<T>, n_V>;
+
 
     template <typename Key_T, typename Val_T>
     using Map = std::map<Key_T, Val_T>;

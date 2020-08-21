@@ -28,11 +28,16 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/maths.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
 
-        ### common
+        # Maths
+        ## source
+        ## headers
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
+
+        # Pantoufle
         ## source
         ${CANTINA_COMMON_SOURCE_DIR}/cant/pan/common/MidiTimer.cpp
         ## headers
@@ -40,7 +45,12 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiTimer.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiEvent.hpp
+
+        # Eurêka
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
+
         )
+
 
 add_library(cantina_common ${CANTINA_COMMON_FILES})
 

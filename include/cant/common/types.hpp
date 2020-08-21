@@ -10,8 +10,6 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <cant/common/macro.hpp>
-
 namespace cant
 {
 
