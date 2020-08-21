@@ -13,6 +13,8 @@
 
 #include <cant/common/types.hpp>
 
+#include <cant/common/macro.hpp>
+
 namespace cant::pan
 {
     typedef uint8_t vel_mint;
@@ -30,10 +32,12 @@ namespace cant::pan
     using timefunc_m = std::function<T(time_m)>;
 
 
-    constexpr vel_mint MIDI_MAX_VELOCITY = 127;
-    constexpr tone_mint MIDI_MAX_TONE = 127; // is it??
+    CANT_CONSTEXPR vel_mint MIDI_MAX_VELOCITY = 127;
+    CANT_CONSTEXPR tone_mint MIDI_MAX_TONE = 127; // is it??
 
-    constexpr byte_m  MIDI_CONTROL_MID_VALUE = 63;
+    CANT_CONSTEXPR byte_m  MIDI_CONTROL_MID_VALUE = 63;
 }
+
+#include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_MIDITYPES_HPP

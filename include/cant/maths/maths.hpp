@@ -34,4 +34,6 @@ namespace cant::maths
 
 }
 
+#include <cant/common/undef_macro.hpp>
+
 #endif //CANTINA_TILDE_MATHS_HPP

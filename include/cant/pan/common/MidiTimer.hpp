@@ -9,55 +9,17 @@
 
 #include <chrono>
 
-#include <cant/common/macro.hpp>
-
 #include <cant/pan/common/PantoufleException.hpp>
 #include <cant/pan/common/types.hpp>
 
+#include <cant/common/macro.hpp>
 namespace cant::pan
 {
-    class MidiMoment
-    {
-    private:
-        int_m _val;
-    public:
-        CANT_CONSTEXPR MidiMoment() : MidiMoment(0) { }
-        CANT_CONSTEXPR MidiMoment(int_m val) : _val(val) { }
-        void next();
-
-        CANT_NODISCARD int_m getValue() const;
-
-        CANT_NODISCARD bool operator==(const MidiMoment& moment) const;
-        CANT_NODISCARD bool operator!=(const MidiMoment& moment) const;
-
-        CANT_NODISCARD bool operator<=(const MidiMoment& moment) const;
-        CANT_NODISCARD bool operator>(const MidiMoment& moment) const;
-
-        CANT_NODISCARD bool operator>=(const MidiMoment& moment) const;
-        CANT_NODISCARD bool operator<(const MidiMoment& moment) const;
-    };
-
-    class MidiMomentDelta
-    {
-    private:
-        MidiMoment _t1, _t2;
-
-    public:
-        MidiMomentDelta();
-        MidiMomentDelta(const MidiMoment& t1, const MidiMoment& t2)
-        : _t1(t1), _t2(t2)
-        {
-
-        }
-
-        CANT_NODISCARD int_m getDelta() const;
-    };
 
     class MidiTimer
     {
     private:
        static std::chrono::time_point<std::chrono::steady_clock> _mainTStart;
-       MidiMoment _moment;
     public:
        MidiTimer();
 
@@ -67,4 +29,5 @@ namespace cant::pan
     };
 }
 
+#include <cant/common/undef_macro.hpp>
 #endif //CANTINA_TIME_HPP

@@ -29,6 +29,7 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/undef_macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
 
         # Maths
@@ -44,7 +45,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiTimer.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiEvent.hpp
 
         # Eurêka
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp

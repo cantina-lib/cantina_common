@@ -105,20 +105,7 @@ namespace cant
     };
 }
 
-#   define CANT_CURRENT_TRACE cant::Trace(CANT_CURRENT_FUNC, CANT_CURRENT_FILE, CANT_CURRENT_LINE)
-#   define CANTINA_EXCEPTION_ADD_TRACE() _addTrace_(CANT_CURRENT_TRACE)
 
-#   define CANTINA_EXCEPTION(msg) CantinaException(CANT_CURRENT_TRACE, msg)
-/*
- * todo: should it be internal? In that case, remove namespace specifier.
- */
-#   define CANTINA_TRY_RETHROW(expression) { \
-                                                 try { \
-                                                    expression \
-                                                    } \
-                                                    catch(CantinaException& e) { \
-                                                        e.CANTINA_EXCEPTION_ADD_TRACE(); \
-                                                    } \
-                                             } \
+#include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_CANTINAEXCEPTION_HPP

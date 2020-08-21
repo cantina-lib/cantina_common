@@ -8,7 +8,9 @@
  * Should include before the end of any header file that includes macro.hpp
  */
 
-#ifdef CANTINA_MACRO_HPP
+#ifndef CANTINA_MACRO_HPP
+#error "Macros need to be defined before being un-defined, ya thick."
+#else
 
 #undef CANT_CURRENT_FUNC
 #undef CANT_CURRENT_FILE
@@ -28,6 +30,14 @@
 #undef CANT_CONSTEXPR
 #undef CANT_INLINE
 #undef CANT_EXPLICIT
+
+#undef CANT_CURRENT_TRACE
+#undef CANTINA_EXCEPTION_ADD_TRACE
+#undef CANTINA_EXCEPTION
+#undef CANTINA_TRY_RETHROW
+
+#undef PANTOUFLE_EXCEPTION
+#undef PANTOUFLE_TRY_RETHROW
 
 #undef CANTINA_MACRO_HPP
 

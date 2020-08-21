@@ -7,12 +7,11 @@
 
 #pragma once
 
-#include <cant/common/macro.hpp>
 #include <cant/common/formatting.hpp>
 #include <cant/common/CantinaException.hpp>
 
-#pragma once
 
+#include <cant/common/macro.hpp>
 namespace cant::pan
 {
 
@@ -32,8 +31,7 @@ namespace cant::pan
         {}
     };
 }
+#include <cant/common/undef_macro.hpp>
 
-#   define PANTOUFLE_EXCEPTION(msg) MidiException(CANT_CURRENT_TRACE, msg)
-#   define PANTOUFLE_TRY_RETHROW(expression) { try { expression } catch (cant::pan::MidiException& e) { e.CANTINA_EXCEPTION_ADD_TRACE(); throw; } }
 
 #endif //CANTINA_MIDIEXCEPTION_HPP
