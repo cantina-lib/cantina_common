@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define __CANT_VERSION__   0.090
-#define __CANT_BREW__      "LONE_SURVIVOR"
+#define CANTINA_VERSION   0.090
+#define CANTINA_BREW      "NO_PAIN_NO_CANT"
 
 #endif //CANTINA_INFO_HPP
