@@ -15,9 +15,9 @@ namespace cant
     {}
 
     CantinaException::CantinaException(const Trace &trace, std::string &&msg)
-            : _traces(), _msg(std::move(msg))
+    : _traces(), _msg(std::move(msg))
     {
-        _addTrace_(trace);
+        addTrace(trace);
     }
 
     CantinaException::CantinaException(const std::exception &e)

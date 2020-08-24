@@ -10,8 +10,8 @@
 
 #include <exception>
 #include <list>
+#include <string>
 
-#include <cant/common/formatting.hpp>
 #include <cant/common/macro.hpp>
 
 namespace cant
@@ -24,9 +24,7 @@ namespace cant
         std::string file;
         int line;
 
-        Trace(std::string function_, std::string file_, int line_)
-        : function(std::move(function_)), file(std::move(file_)), line(line_)
-        {}
+        Trace(std::string function, std::string file, int line);
     };
 
     class CantinaException : std::exception
@@ -40,72 +38,36 @@ namespace cant
          * todo: add levels -> one should be debug (error of architecture), another runtime
          */
     protected:
-        std::string& msg() { return _msg; }
-        CANT_NODISCARD const std::string& msg() const { return _msg; }
+        std::string& msg();
+        CANT_NODISCARD const std::string& msg() const;
     public:
         CantinaException(
                 const Trace& trace,
-                std::string&& msg)
-        : _traces(), _msg(std::move(msg))
-        {
-            _addTrace_(trace);
-        }
+                std::string&& msg);
 
         CANT_EXPLICIT CantinaException(
                 const std::exception& e
-                )
-                : _traces(), _msg(e.what())
-        {
-
-        }
+                );
 
         CantinaException(
                 const std::string& function,
                 const std::string& file,
-                const int line,
+                int line,
                 std::string&& msg
-                )
-        : CantinaException(Trace(function, file, line), std::move(msg))
-        {}
+                );
 
-        CANT_NODISCARD const char* what() const noexcept override
-        {
-            makeDisplayedLog();
-            return _displayedLog.c_str();
-        }
+        CANT_NODISCARD const char* what() const CANT_NOEXCEPT override;
 
-        void _addTrace_(const Trace& trace)
-        {
-            _traces.push_front(trace);
-        }
+        void addTrace(const Trace& trace);
 
-        virtual void makeDisplayedLog() const noexcept
-        {
-            /*
-             * the fewer the operations
-             * the less risk to throw an exception.
-             * hum.
-             * By the way:
-             ** todo: This function should logically be noexcept, how but can we guarantee that?
-             */
-            std::stringstream sstream;
-            sstream << "[CANTINA_EXCEPTION] ";
-            for(const auto& trace : _traces)
-            {
-                sstream << "By " << trace.function
-                        << ", in file " << trace.file
-                        << ", line " << trace.line
-                        << "__";
-                sstream << std::endl;
-            }
-            sstream << "With message: " << _msg << std::endl;
-            _displayedLog = sstream.str();
-        }
+        virtual void makeDisplayedLog() const CANT_NOEXCEPT;
 
     };
 }
 
 
 #include <cant/common/undef_macro.hpp>
+
+#include "CantinaException.inl"
 
 #endif //CANTINA_CANTINAEXCEPTION_HPP

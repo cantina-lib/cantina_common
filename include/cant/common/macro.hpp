@@ -31,34 +31,34 @@
 #define CANT_CONSTEXPR constexpr
 #define CANT_INLINE    inline
 #define CANT_EXPLICIT  explicit
+#define CANT_NOEXCEPT  noexcept
 
 
 /* EXCEPTION SPECIFICS */
-#define CANT_CURRENT_TRACE            ::cant::Trace(CANT_CURRENT_FUNC, CANT_CURRENT_FILE, CANT_CURRENT_LINE)
-#define CANTINA_EXCEPTION_ADD_TRACE() _addTrace_(CANT_CURRENT_TRACE)
+#ifdef CANTINA_CANTINAEXCEPTION_HPP
+#    define CANT_CURRENT_TRACE            ::cant::Trace(CANT_CURRENT_FUNC, CANT_CURRENT_FILE, CANT_CURRENT_LINE)
 
-#define CANTINA_EXCEPTION(msg)        ::cant::CantinaException(CANT_CURRENT_TRACE, msg)
-/*
- * todo: should it be internal? In that case, remove namespace specifier.
- */
-#define CANTINA_TRY_RETHROW(expression) {                                                  \
+#    define CANTINA_EXCEPTION(msg)        ::cant::CantinaException(CANT_CURRENT_TRACE, msg)
+#    define CANTINA_TRY_RETHROW(expression) {                                                  \
                                                  try {                                     \
                                                     expression                             \
                                                  } catch(::cant::CantinaException& e) {    \
-                                                    e.CANTINA_EXCEPTION_ADD_TRACE();       \
+                                                    e.addTrace(CANT_CURRENT_TRACE);       \
                                                     throw;                                 \
                                                  }                                         \
                                          }
-
-#define PANTOUFLE_EXCEPTION(msg) ::cant::pan::MidiException(CANT_CURRENT_TRACE, msg)
-#define PANTOUFLE_TRY_RETHROW(expression) {                                                \
+#endif // CANTINA_CANTINAEXCEPTION_HPP
+#ifdef CANTINA_PANTOUFLEEXCEPTION_HPP
+#     define PANTOUFLE_EXCEPTION(msg) ::cant::pan::MidiException(CANT_CURRENT_TRACE, msg)
+#     define PANTOUFLE_TRY_RETHROW(expression) {                                                \
                                                  try {                                     \
                                                      expression                            \
                                                  } catch (::cant::pan::MidiException& e) { \
-                                                    e.CANTINA_EXCEPTION_ADD_TRACE();       \
+                                                    e.addTrace(CANT_CURRENT_TRACE);       \
                                                     throw;                                 \
                                                  }                                         \
                                            }
+#endif // CANTINA_PANTOUFLEEXCEPTION_HPP
 #endif //CANTINA_MACRO_HPP
 
 

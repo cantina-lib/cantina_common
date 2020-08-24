@@ -23,7 +23,11 @@ include_directories(
 
 set(CANTINA_COMMON_FILES
         # Cantina
+        ## source
+        ${CANTINA_COMMON_SOURCE_DIR}/cant/common/CantinaException.cpp
+        ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.inl
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp

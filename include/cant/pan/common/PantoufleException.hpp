@@ -2,8 +2,8 @@
 // Created by piptouque on 28/04/2020.
 //
 
-#ifndef CANTINA_MIDIEXCEPTION_HPP
-#define CANTINA_MIDIEXCEPTION_HPP
+#ifndef CANTINA_PANTOUFLEEXCEPTION_HPP
+#define CANTINA_PANTOUFLEEXCEPTION_HPP
 
 #pragma once
 
@@ -34,4 +34,4 @@ namespace cant::pan
 #include <cant/common/undef_macro.hpp>
 
 
-#endif //CANTINA_MIDIEXCEPTION_HPP
+#endif //CANTINA_PANTOUFLEEXCEPTION_HPP
