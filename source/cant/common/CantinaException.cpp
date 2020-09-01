@@ -15,13 +15,13 @@ namespace cant
     {}
 
     CantinaException::CantinaException(const Trace &trace, std::string &&msg)
-    : _traces(), _msg(std::move(msg))
+    : m_traces(), m_msg(std::move(msg))
     {
         addTrace(trace);
     }
 
     CantinaException::CantinaException(const std::exception &e)
-            : _traces(), _msg(e.what())
+            : m_traces(), m_msg(e.what())
     {
 
     }
@@ -42,7 +42,7 @@ namespace cant
          */
         std::stringstream sstream;
         sstream << "[CANTINA_EXCEPTION] ";
-        for(const auto& trace : _traces)
+        for(const auto& trace : m_traces)
         {
             sstream << "By " << trace.function
                     << ", in file " << trace.file
@@ -50,7 +50,7 @@ namespace cant
                     << "__";
             sstream << std::endl;
         }
-        sstream << "With message: " << _msg << std::endl;
-        _displayedLog = sstream.str();
+        sstream << "With message: " << m_msg << std::endl;
+        m_displayedLog = sstream.str();
     }
 }

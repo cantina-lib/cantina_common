@@ -7,18 +7,20 @@
 
 #pragma once
 
+#include <cant/common/macro.hpp>
 namespace cant
 {
     /* ENVELOPES */
-    static constexpr const char* ENVELOPE_FIELD_VELOCITY = "velocity";
-    static constexpr const char* ENVELOPE_FIELD_TONE = "tone";
+    static CANT_CONSTEXPR const char* ENVELOPE_FIELD_VELOCITY = "velocity";
+    static CANT_CONSTEXPR const char* ENVELOPE_FIELD_TONE = "tone";
 
-    static constexpr const char* ENVELOPE_TYPE_ADSR = "adsr";
-    static constexpr const char* ENVELOPE_TYPE_FLAT = "flat";
+    static CANT_CONSTEXPR const char* ENVELOPE_TYPE_ADSR = "adsr";
+    static CANT_CONSTEXPR const char* ENVELOPE_TYPE_FLAT = "flat";
 
     /* CONTROLLERS */
-    static constexpr const char* CONTROLLER_TYPE_DAMPER = "damper";
-    static constexpr const char* CONTROLLER_TYPE_PAN = "pan";
+    static CANT_CONSTEXPR const char* CONTROLLER_TYPE_DAMPER = "damper";
+    static CANT_CONSTEXPR const char* CONTROLLER_TYPE_PAN = "pan";
 }
+#include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_CONFIG_HPP

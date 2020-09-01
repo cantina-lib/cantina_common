@@ -13,18 +13,18 @@
 namespace cant
 {
 
-    CANT_INLINE std::string& CantinaException::msg()                            { return _msg; }
-    CANT_NODISCARD CANT_INLINE const std::string& CantinaException::msg() const { return _msg; }
+    CANT_INLINE std::string& CantinaException::msg()                            { return m_msg; }
+    CANT_NODISCARD CANT_INLINE const std::string& CantinaException::msg() const { return m_msg; }
 
     CANT_NODISCARD CANT_INLINE const char* CantinaException::what() const CANT_NOEXCEPT
 {
         makeDisplayedLog();
-        return _displayedLog.c_str();
+        return m_displayedLog.c_str();
     }
 
     CANT_INLINE void CantinaException::addTrace(const Trace &trace)
     {
-        _traces.push_front(trace);
+        m_traces.push_front(trace);
     }
 
 }

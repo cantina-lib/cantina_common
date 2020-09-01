@@ -44,11 +44,10 @@ set(CANTINA_COMMON_FILES
 
         # Pantoufle
         ## source
-        ${CANTINA_COMMON_SOURCE_DIR}/cant/pan/common/MidiTimer.cpp
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/MidiTimer.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.inl
 
         # Eurêka
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp

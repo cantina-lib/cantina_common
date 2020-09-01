@@ -18,20 +18,13 @@ namespace cant::pan
     class MidiException : public CantinaException
     {
     public:
-        MidiException(const Trace& trace, std::string&& msg)
-        : CantinaException(trace, std::move(msg))
-        {}
-
-        MidiException(
-                const std::string& function,
-                const std::string& file,
-                const int line,
-                std::string&& msg)
-        : CantinaException(function, file, line, std::move(msg))
-        {}
+        /** -- methods -- **/
+        MidiException(const Trace& trace, std::string&& msg);
+        MidiException( const std::string& function, const std::string& file, int line, std::string&& msg);
     };
 }
 #include <cant/common/undef_macro.hpp>
 
+#include "PantoufleException.inl"
 
 #endif //CANTINA_PANTOUFLEEXCEPTION_HPP

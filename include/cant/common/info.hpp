@@ -7,7 +7,15 @@
 
 #pragma once
 
-#define CANTINA_VERSION   0.090
-#define CANTINA_BREW      "NO_PAIN_NO_CANT"
+#include <cant/common/types.hpp>
 
+#include <cant/common/macro.hpp>
+namespace cant
+{
+    static CANT_CONSTEXPR float_m CANTINA_VERSION  = 0.090;
+    static CANT_CONSTEXPR const char* CANTINA_BREW = "HOOKED_ON_A_CANT";
+
+}
+
+#include <cant/common/undef_macro.hpp>
 #endif //CANTINA_INFO_HPP
