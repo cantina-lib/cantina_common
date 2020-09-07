@@ -28,7 +28,7 @@ namespace cant
     template <typename... Ts>
     using Tuple = std::tuple<Ts...>;
 
-    template <typename T, size_m n_V>
+    template <typename T, size_u n_V>
     using Array = std::array<T, n_V>;
 
     template <typename Key_T, typename Val_T>

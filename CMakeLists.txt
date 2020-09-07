@@ -41,6 +41,7 @@ set(CANTINA_COMMON_FILES
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.inl
 
         # Pantoufle
         ## source
@@ -55,7 +56,7 @@ set(CANTINA_COMMON_FILES
         )
 
 
-add_library(cantina_common ${CANTINA_COMMON_FILES})
+add_library(cantina_common STATIC ${CANTINA_COMMON_FILES})
 
 set(CANTINA_COMMON_LIBRARIES cantina_common PARENT_SCOPE)
 

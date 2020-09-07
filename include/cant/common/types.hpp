@@ -13,11 +13,11 @@
 namespace cant
 {
 
-    typedef std::size_t size_m;
-    typedef int32_t int_m;
-    typedef double float_m;
+    typedef std::size_t size_u;
+    typedef int32_t type_i;
+    typedef double type_d;
 
-    typedef float sample_m;
+    typedef float sample_f;
 }
 
 #endif //CANTINA_BASETYPES_HPP

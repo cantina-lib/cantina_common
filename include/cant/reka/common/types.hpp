@@ -14,7 +14,7 @@
 
 namespace cant::reka
 {
-    template <size_m N, size_m D>
+    template <size_u N, size_u D>
     using ratio_m = std::ratio<N, D>;
 }
 

@@ -10,28 +10,34 @@
 namespace cant
 {
 
-    Trace::Trace(std::string function, std::string file, int line)
+    Trace::
+    Trace(std::string function, std::string file, int line)
             : function(std::move(function)), file(std::move(file)), line(line)
     {}
 
-    CantinaException::CantinaException(const Trace &trace, std::string &&msg)
+    CantinaException::
+    CantinaException(const Trace &trace, std::string &&msg)
     : m_traces(), m_msg(std::move(msg))
     {
         addTrace(trace);
     }
 
-    CantinaException::CantinaException(const std::exception &e)
+    CantinaException::
+    CantinaException(const std::exception &e)
             : m_traces(), m_msg(e.what())
     {
 
     }
 
-    CantinaException::CantinaException(const std::string &function, const std::string &file, const int line,
+    CantinaException::
+    CantinaException(const std::string &function, const std::string &file, const int line,
                                        std::string &&msg)
             : CantinaException(Trace(function, file, line), std::move(msg))
     {}
 
-    void CantinaException::makeDisplayedLog() const CANT_NOEXCEPT
+    void
+    CantinaException::
+    makeDisplayedLog() const CANT_NOEXCEPT
     {
         /*
          * the fewer the operations
