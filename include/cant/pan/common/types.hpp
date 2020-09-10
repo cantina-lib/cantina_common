@@ -32,10 +32,10 @@ namespace cant::pan
     using timecallback_f = std::function<T(time_d)>;
 
 
-    CANT_CONSTEXPR vel_u8 MIDI_MAX_VELOCITY = 127;
-    CANT_CONSTEXPR tone_u8 MIDI_MAX_TONE = 127; // is it??
+    CANT_CONSTEXPR vel_u8 c_midiMaxVelocity = 127;
+    CANT_CONSTEXPR tone_u8 c_midiMaxTone = 127; // is it??
 
-    CANT_CONSTEXPR id_u8  MIDI_CONTROL_MID_VALUE = 63;
+    CANT_CONSTEXPR id_u8  c_midiControlMidValue = 63;
 }
 
 #include <cant/common/undef_macro.hpp>

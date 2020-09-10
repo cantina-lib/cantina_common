@@ -11,8 +11,8 @@ namespace cant
 {
 
     Trace::
-    Trace(std::string function, std::string file, int line)
-            : function(std::move(function)), file(std::move(file)), line(line)
+    Trace(std::string a_function, std::string a_file, int a_line)
+            : function(std::move(a_function)), file(std::move(a_file)), line(a_line)
     {}
 
     CantinaException::
@@ -44,7 +44,6 @@ namespace cant
          * the less risk to throw an exception.
          * hum.
          * By the way:
-         ** todo: This function should logically be noexcept, how but can we guarantee that?
          */
         std::stringstream sstream;
         sstream << "[CANTINA_EXCEPTION] ";

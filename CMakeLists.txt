@@ -4,12 +4,26 @@ project(cantina_common)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CANTINA_MAIN_CXX_FLAGS
+        "-fPIC -Werror \
+             -Wall -pedantic \
+             -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
+        "
+        CACHE INTERNAL
+        "Compilation flags for Cantina"
+        )
+set(CANTINA_THIRDPARTY_CXX_FLAGS
+        "-fPIC"
+        CACHE INTERNAL
+        "Compilation flags for third-party libraries in Cantina"
+        )
+set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
+
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 
 set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror -fPIC")
 
 set(CANTINA_COMMON_INCLUDE_DIRS
         ${CANTINA_COMMON_INCLUDE_DIR}
@@ -20,6 +34,7 @@ set(CANTINA_COMMON_INCLUDE_DIRS
 include_directories(
         ${CANTINA_COMMON_INCLUDE_DIRS}
 )
+
 
 set(CANTINA_COMMON_FILES
         # Cantina
@@ -52,7 +67,6 @@ set(CANTINA_COMMON_FILES
 
         # Eurêka
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
-
         )
 
 
