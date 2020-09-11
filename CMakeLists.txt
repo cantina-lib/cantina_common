@@ -4,19 +4,69 @@ project(cantina_common)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CANTINA_MAIN_CXX_FLAGS
-        "-fPIC -Werror \
-             -Wall -pedantic \
-             -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
-        "
-        CACHE INTERNAL
-        "Compilation flags for Cantina"
-        )
-set(CANTINA_THIRDPARTY_CXX_FLAGS
-        "-fPIC"
-        CACHE INTERNAL
-        "Compilation flags for third-party libraries in Cantina"
-        )
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL     "GNU")
+        set(IS_GNU   ON)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        set(IS_MSVC  ON)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        set(IS_CLANG ON)
+endif()
+
+if (${IS_GNU} OR ${IS_CLANG})
+        set(CANTINA_MAIN_CXX_FLAGS
+                "-fPIC \
+                -Werror \
+                -Wall -pedantic \
+                -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
+                "
+                CACHE INTERNAL
+                "Compilation flags for Cantina"
+                )
+        set(CANTINA_THIRDPARTY_CXX_FLAGS
+                "-fPIC"
+                CACHE INTERNAL
+                "Compilation flags for third-party libraries in Cantina"
+                )
+        set(CANTINA_TILDE_CXX_FLAGS
+                "-fPIC \
+                -Werror \
+                -Wall -pedantic \
+                -Wshadow -Wnon-virtual-dtor \
+                "
+                CACHE INTERNAL
+                "Compilation flags for cantina~"
+                )
+elseif (${IS_MSVC})
+        set(CANTINA_MAIN_CXX_FLAGS
+                " \
+                /EHsc \
+                /WX \
+                /W4 /w14640 /permissive \
+                /w14242 /w14254 /w14263 /w14265 /w14287 \
+                "
+                CACHE INTERNAL
+                "Compilation flags for Cantina"
+                )
+        set(CANTINA_THIRDPARTY_CXX_FLAGS
+                ""
+                CACHE INTERNAL
+                "Compilation flags for third-party libraries in Cantina"
+                )
+        set(CANTINA_TILDE_CXX_FLAGS
+                " \
+                /EHsc \
+                /WX \
+                /W4 /w14640 /permissive \
+                /w14242 /w14254 /w14263 /w14265 /w14287 \
+                "
+                CACHE INTERNAL
+                "Compilation flags for cantina~"
+                )
+else()
+        message(ERROR "Nope!")
+endif()
+
 set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
 
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)

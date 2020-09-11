@@ -11,14 +11,14 @@
 namespace cant::pan
 {
     CANT_INLINE
-    MidiException::
-    MidiException(const Trace& trace, std::string&& msg)
+    PantoufleException::
+    PantoufleException(const Trace& trace, std::string&& msg)
             : CantinaException(trace, std::move(msg))
     {}
 
     CANT_INLINE
-    MidiException::
-    MidiException(
+    PantoufleException::
+    PantoufleException(
             const std::string& function,
             const std::string& file,
             const int line,

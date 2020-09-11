@@ -13,7 +13,6 @@
 #include <string>
 
 #include <cant/common/macro.hpp>
-
 namespace cant
 {
 
@@ -27,7 +26,7 @@ namespace cant
         Trace(std::string function, std::string file, int line);
     };
 
-    class CantinaException : std::exception
+    class CantinaException : public std::exception
     {
     public:
         /** -- methods -- **/

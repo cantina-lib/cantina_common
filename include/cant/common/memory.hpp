@@ -10,6 +10,7 @@
 #include <map>
 #include <vector>
 #include <tuple>
+#include <array>
 #include <memory>
 
 #include <cant/common/types.hpp>

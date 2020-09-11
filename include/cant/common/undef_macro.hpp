@@ -11,12 +11,20 @@
 #ifndef CANTINA_MACRO_HPP
 #error "Macros need to be defined before being un-defined, ya thick."
 #else
+    // Compilers
+    #if defined(__GNU__)
+        #undef CANTINA_GCC
+    #elif defined(_MSC_VER)
+        #undef CANTINA_MSVC
+    #elif defined(__clang__)
+        #undef CANTINA_CLANG
+    #endif // Compilers
 
     #undef CANT_CURRENT_FUNC
     #undef CANT_CURRENT_FILE
     #undef CANT_CURRENT_LINE
 
-    // Attributes
+// Attributes
     #undef CANT_NODISCARD
     #undef CANT_MAYBEUNUSED
     #undef CANT_FALLTHROUGH

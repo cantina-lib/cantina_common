@@ -17,8 +17,8 @@
 
 namespace cant::pan
 {
-    typedef std::uint8_t vel_u8;
-    typedef std::uint8_t tone_u8;
+    typedef std::int8_t vel_i8;
+    typedef std::int8_t tone_i8;
 
     typedef std::uint8_t id_u8;
 
@@ -32,8 +32,8 @@ namespace cant::pan
     using timecallback_f = std::function<T(time_d)>;
 
 
-    CANT_CONSTEXPR vel_u8 c_midiMaxVelocity = 127;
-    CANT_CONSTEXPR tone_u8 c_midiMaxTone = 127; // is it??
+    CANT_CONSTEXPR vel_i8 c_midiMaxVelocity = 127;
+    CANT_CONSTEXPR tone_i8 c_midiMaxTone = 127; // is it??
 
     CANT_CONSTEXPR id_u8  c_midiControlMidValue = 63;
 }

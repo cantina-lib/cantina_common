@@ -2,20 +2,35 @@
 // Created by binabik on 10/07/2020.
 //
 
+// not this time!
+// #pragma once
 #ifdef CANTINA_MACRO_HPP
     #error "Macros oughtn't be included twice in the same translation unit, ya thick."
 #else
+    #include <cassert>
+
     #define CANTINA_MACRO_HPP
 
-    // not this time!
-    // #pragma once
+    // compilers
+    #if defined(__GNU__)
+        #define CANTINA_GCC   __GNUC__
+    #elif defined(_MSC_VER)
+        #define CANTINA_MSVC  _MSC_VER
+    #elif defined(__clang__)
+        #define CANTINA_CLANG __clang__
+    #endif // Compilers
 
-    #include <cassert>
 
     #define CANT_CURRENT_FILE __FILE__
     #define CANT_CURRENT_LINE __LINE__
 
-    #define CANT_CURRENT_FUNC __PRETTY_FUNCTION__
+    #if defined(CANTINA_GCC)
+        #define CANT_CURRENT_FUNC __PRETTY_FUNCTION__
+    #elif defined(CANTINA_MSVC)
+        #define CANT_CURRENT_FUNC __FUNCSIG__
+    #elif define(CANTINA_CLANG)
+        #define CANT_CURRENT_FUNC __PRETTY_FUNCTION__
+    #endif // Function
 
     // Attributes
     #define CANT_NODISCARD   [[nodiscard]]
@@ -42,17 +57,17 @@
         try {                                     \
         expression                             \
         } catch(::cant::CantinaException& e) {    \
-        e.addTrace(CANT_CURRENT_TRACE);       \
+            e.addTrace(CANT_CURRENT_TRACE);       \
         throw;                                 \
         }
     #endif // CANTINA_CANTINAEXCEPTION_HPP
     #ifdef CANTINA_PANTOUFLEEXCEPTION_HPP
-        # define PANTOUFLE_EXCEPTION(msg) ::cant::pan::MidiException(CANT_CURRENT_TRACE, msg)
+        # define PANTOUFLE_EXCEPTION(msg) ::cant::pan::PantoufleException(CANT_CURRENT_TRACE, msg)
         # define PANTOUFLE_TRY_RETHROW(expression) \
         try {                                     \
         expression                            \
-        } catch (::cant::pan::MidiException& e) { \
-        e.addTrace(CANT_CURRENT_TRACE);       \
+        } catch (::cant::pan::PantoufleException& e) { \
+            e.addTrace(CANT_CURRENT_TRACE);       \
         throw;                                 \
         }
     #endif // CANTINA_PANTOUFLEEXCEPTION_HPP

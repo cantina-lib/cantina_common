@@ -15,12 +15,12 @@
 namespace cant::pan
 {
 
-    class MidiException : public CantinaException
+    class PantoufleException : public CantinaException
     {
     public:
         /** -- methods -- **/
-        MidiException(const Trace& trace, std::string&& msg);
-        MidiException( const std::string& function, const std::string& file, int line, std::string&& msg);
+        PantoufleException(const Trace& trace, std::string&& msg);
+        PantoufleException(const std::string& function, const std::string& file, int line, std::string&& msg);
     };
 }
 #include <cant/common/undef_macro.hpp>

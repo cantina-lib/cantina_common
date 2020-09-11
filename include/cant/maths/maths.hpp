@@ -8,6 +8,7 @@
 #pragma once
 
 #include <cmath>
+#include <algorithm>
 #include <functional>
 
 #include <cant/common/types.hpp>
