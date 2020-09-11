@@ -77,6 +77,7 @@ elseif (${IS_MSVC})
                 )
         set(CANTINA_THIRDPARTY_CXX_FLAGS
                 " \
+                /EHsc \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
