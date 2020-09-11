@@ -5,6 +5,10 @@ project(cantina_common)
 set(CMAKE_CXX_STANDARD 20)
 
 
+set(IS_GNU   OFF)
+set(IS_MSVC  OFF)
+set(IS_CLANG OFF)
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL     "GNU")
         set(IS_GNU   ON)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -13,18 +17,34 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set(IS_CLANG ON)
 endif()
 
+if (CMAKE_BUILD_TYPE STREQUAL 'Release')
+        set(CANTINA_OPTIMISATION ON)
+else()
+        set(CANTINA_OPTIMISATION OFF)
+endif()
+
+
 if (${IS_GNU} OR ${IS_CLANG})
+        if (${CANTINA_OPTIMISATION})
+                set(CANTINA_OPTIMISATION_LEVEL "-O3")
+        else()
+                set(CANTINA_OPTIMISATION_LEVEL "")
+        endif()
         set(CANTINA_MAIN_CXX_FLAGS
                 "-fPIC \
                 -Werror \
                 -Wall -pedantic \
                 -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
+                ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
                 "Compilation flags for Cantina"
                 )
         set(CANTINA_THIRDPARTY_CXX_FLAGS
-                "-fPIC"
+                " \
+                -fPIC \
+                ${CANTINA_OPTIMISATION_LEVEL} \
+                "
                 CACHE INTERNAL
                 "Compilation flags for third-party libraries in Cantina"
                 )
@@ -33,23 +53,32 @@ if (${IS_GNU} OR ${IS_CLANG})
                 -Werror \
                 -Wall -pedantic \
                 -Wshadow -Wnon-virtual-dtor \
+                ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
                 "Compilation flags for cantina~"
                 )
 elseif (${IS_MSVC})
+        if (${CANTINA_OPTIMISATION})
+                set(CANTINA_OPTIMISATION_LEVEL "/O2")
+        else()
+                set(CANTINA_OPTIMISATION_LEVEL "")
+        endif()
         set(CANTINA_MAIN_CXX_FLAGS
                 " \
                 /EHsc \
                 /WX \
                 /W4 /w14640 /permissive \
                 /w14242 /w14254 /w14263 /w14265 /w14287 \
+                ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
                 "Compilation flags for Cantina"
                 )
         set(CANTINA_THIRDPARTY_CXX_FLAGS
-                ""
+                " \
+                ${CANTINA_OPTIMISATION_LEVEL} \
+                "
                 CACHE INTERNAL
                 "Compilation flags for third-party libraries in Cantina"
                 )
@@ -59,6 +88,7 @@ elseif (${IS_MSVC})
                 /WX \
                 /W4 /w14640 /permissive \
                 /w14242 /w14254 /w14263 /w14265 /w14287 \
+                ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
                 "Compilation flags for cantina~"

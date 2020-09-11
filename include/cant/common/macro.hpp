@@ -12,7 +12,7 @@
     #define CANTINA_MACRO_HPP
 
     // compilers
-    #if defined(__GNU__)
+    #if defined(__GNUC__)
         #define CANTINA_GCC   __GNUC__
     #elif defined(_MSC_VER)
         #define CANTINA_MSVC  _MSC_VER
@@ -28,7 +28,7 @@
         #define CANT_CURRENT_FUNC __PRETTY_FUNCTION__
     #elif defined(CANTINA_MSVC)
         #define CANT_CURRENT_FUNC __FUNCSIG__
-    #elif define(CANTINA_CLANG)
+    #elif defined(CANTINA_CLANG)
         #define CANT_CURRENT_FUNC __PRETTY_FUNCTION__
     #endif // Function
 
