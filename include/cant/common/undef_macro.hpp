@@ -12,7 +12,7 @@
 #error "Macros need to be defined before being un-defined, ya thick."
 #else
     // Compilers
-    #if defined(__GNU__)
+    #if defined(__GNUC__)
         #undef CANTINA_GCC
     #elif defined(_MSC_VER)
         #undef CANTINA_MSVC

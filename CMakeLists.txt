@@ -35,6 +35,7 @@ if (${IS_GNU} OR ${IS_CLANG})
                 -Werror \
                 -Wall -pedantic \
                 -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
+                -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
