@@ -25,6 +25,6 @@ namespace cant::pan
 }
 #include <cant/common/undef_macro.hpp>
 
-#include "PantoufleException.inl"
+#include <cant/pan/common/PantoufleException.inl>
 
 #endif //CANTINA_PANTOUFLEEXCEPTION_HPP

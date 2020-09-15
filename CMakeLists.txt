@@ -101,14 +101,16 @@ endif()
 
 set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
 
-set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
+set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(CANTINA_COMMON_INLINE_DIR ${PROJECT_SOURCE_DIR}/inline)
 
 set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
 
 
 set(CANTINA_COMMON_INCLUDE_DIRS
         ${CANTINA_COMMON_INCLUDE_DIR}
+        ${CANTINA_COMMON_INLINE_DIR}
         CACHE INTERNAL
         "List of include directories for cantina_common"
         )
@@ -124,7 +126,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_SOURCE_DIR}/cant/common/CantinaException.cpp
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.inl
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
@@ -132,20 +133,35 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/undef_macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
+        ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/common/CantinaException.inl
 
         # Maths
         ## source
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/utils.hpp
+        ### Polynomial
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/polynomial/polynomial.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/polynomial/PackedPolynomial.hpp
+        ### Interpolation
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.inl
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/InterpolationOneD.hpp
+        ## inline
+        ### Polynomial
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/PackedPolynomial.inl
+        ### Interpolation
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/InterpolationOneD.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.inl
 
         # Pantoufle
         ## source
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.inl
+        ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/pan/common/PantoufleException.inl
 
         # Eurêka
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp

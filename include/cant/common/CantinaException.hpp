@@ -67,6 +67,6 @@ namespace cant
 
 #include <cant/common/undef_macro.hpp>
 
-#include "CantinaException.inl"
+#include <cant/common/CantinaException.inl>
 
 #endif //CANTINA_CANTINAEXCEPTION_HPP
