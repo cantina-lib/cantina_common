@@ -101,7 +101,6 @@ endif()
 
 set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
 
-set(CANTINA_COMMON_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source)
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_INLINE_DIR ${PROJECT_SOURCE_DIR}/inline)
 
@@ -122,8 +121,6 @@ include_directories(
 
 set(CANTINA_COMMON_FILES
         # Cantina
-        ## source
-        ${CANTINA_COMMON_SOURCE_DIR}/cant/common/CantinaException.cpp
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
@@ -137,7 +134,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INLINE_DIR}/cant/common/CantinaException.inl
 
         # Maths
-        ## source
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/utils.hpp
@@ -156,7 +152,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.inl
 
         # Pantoufle
-        ## source
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
@@ -167,8 +162,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
         )
 
-
-add_library(cantina_common STATIC ${CANTINA_COMMON_FILES})
-
-set(CANTINA_COMMON_LIBRARIES cantina_common PARENT_SCOPE)
+# header-only library
+set(CANTINA_COMMON_LIBRARIES "" PARENT_SCOPE)
 

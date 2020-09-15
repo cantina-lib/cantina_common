@@ -12,9 +12,8 @@
 #include <cant/common/macro.hpp>
 namespace cant
 {
-    static CANT_CONSTEXPR type_d CANTINA_VERSION  = 0.090;
-    static CANT_CONSTEXPR const char* CANTINA_BREW = "HOOKED_ON_A_CANT";
-
+    static CANT_CONSTEXPR type_d CANTINA_VERSION  = 0.091;
+    static CANT_CONSTEXPR const char* CANTINA_BREW = "HYPOTHESIS";
 }
 
 #include <cant/common/undef_macro.hpp>
