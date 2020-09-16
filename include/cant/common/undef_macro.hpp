@@ -30,8 +30,9 @@
     #undef CANT_FALLTHROUGH
     #undef CANT_LIKELY
     #undef CANT_UNLIKELY
+    #undef CANT_NODISCARD_BECAUSE
 
-    #undef CANTINA_ASSERT
+#undef CANTINA_ASSERT
 
 
     // Specifiers

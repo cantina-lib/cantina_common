@@ -35,6 +35,7 @@ namespace cant
     template <typename Key_T, typename Val_T>
     using Map = std::map<Key_T, Val_T>;
 
+
 }
 
 #endif //CANTINA_MEM_MNGMNT_H

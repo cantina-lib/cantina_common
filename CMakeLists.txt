@@ -127,6 +127,7 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/option.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/undef_macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp

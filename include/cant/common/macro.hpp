@@ -38,6 +38,8 @@
     #define CANT_FALLTHROUGH [[fallthrough]]
     #define CANT_LIKELY      [[likely]]
     #define CANT_UNLIKELY    [[unlikely]]
+    /// c++ 20
+    #define CANT_NODISCARD_BECAUSE(reason) [[nodiscard(reason)]]
 
     #define CANTINA_ASSERT(pred, message) assert((pred) && (message))
 

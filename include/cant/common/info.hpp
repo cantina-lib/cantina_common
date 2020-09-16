@@ -12,7 +12,7 @@
 #include <cant/common/macro.hpp>
 namespace cant
 {
-    static CANT_CONSTEXPR type_d CANTINA_VERSION  = 0.091;
+    static CANT_CONSTEXPR const char* CANTINA_VERSION  = "0.0.91";
     static CANT_CONSTEXPR const char* CANTINA_BREW = "HYPOTHESIS";
 }
 

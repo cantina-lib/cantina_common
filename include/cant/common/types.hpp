@@ -18,6 +18,7 @@ namespace cant
     typedef double type_d;
 
     typedef float sample_f;
+
 }
 
 #endif //CANTINA_BASETYPES_HPP

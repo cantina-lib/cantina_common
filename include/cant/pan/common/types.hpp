@@ -32,6 +32,7 @@ namespace cant::pan
     using timecallback_f = std::function<T(time_d)>;
 
 
+
     CANT_CONSTEXPR vel_i8 c_midiMaxVelocity = 127;
     CANT_CONSTEXPR tone_i8 c_midiMaxTone = 127; // is it??
 
