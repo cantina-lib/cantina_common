@@ -8,8 +8,8 @@
 #pragma once
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
-{
+CANTINA_BEGIN_MATHS_NAMESPACE
+
     template<typename Ret_T, typename... Param_Ts>
     InterpolationOneD<Ret_T, Param_Ts...>::
     InterpolationOneD( std::initializer_list<InterpolationPoint<Ret_T, Param_Ts...>> il)
@@ -24,7 +24,7 @@ namespace cant::maths
         static_assert(std::is_arithmetic<Param_Ts...>::value);
     }
 
-}
+CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_TILDE_INTERPOLATIONONED_INL

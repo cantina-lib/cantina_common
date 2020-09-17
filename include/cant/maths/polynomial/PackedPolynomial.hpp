@@ -11,8 +11,7 @@
 #include <cant/maths/utils.hpp>
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
-{
+CANTINA_BEGIN_MATHS_NAMESPACE
     template <typename... Param_Ts>
     class PackedPolynomial
     {
@@ -63,7 +62,7 @@ namespace cant::maths
         // degree's cached.
         size_u m_degree;
     };
-}
+CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/maths/polynomial/PackedPolynomial.inl>

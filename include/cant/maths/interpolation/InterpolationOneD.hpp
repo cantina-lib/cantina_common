@@ -10,7 +10,7 @@
 #include <cant/common/memory.hpp>
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
+CANTINA_BEGIN_MATHS_NAMESPACE
 {
     template <typename... Ts>
     using InterpolationPoint = Tuple<Ts...>;
@@ -34,7 +34,7 @@ namespace cant::maths
         Stream<Value> m_values;
     };
 
-}
+CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/maths/InterpolationOneD.inl>

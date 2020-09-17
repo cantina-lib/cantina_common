@@ -8,8 +8,8 @@
 #pragma once
 
 #include <cant/common/macro.hpp>
-namespace cant::pan
-{
+CANTINA_PAN_NAMESPACE_BEGIN
+
     CANT_INLINE
     PantoufleException::
     PantoufleException(const Trace& trace, std::string&& msg)
@@ -26,7 +26,7 @@ namespace cant::pan
             : CantinaException(function, file, line, std::move(msg))
     {}
 
-}
-
+CANTINA_PAN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
+
 #endif //CANTINA_TILDE_PANTOUFLEEXCEPTION_INL

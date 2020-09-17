@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.6)
 
 project(cantina_common)
 
-set(CMAKE_CXX_STANDARD 20)
 
+set(CANTINA_CXX_STANDARD 20
+        CACHE INTERNAL
+        "c++ standard for Cantina"
+)
 
 set(IS_GNU   OFF)
 set(IS_MSVC  OFF)
@@ -34,7 +37,8 @@ if (${IS_GNU} OR ${IS_CLANG})
                 "-fPIC \
                 -Werror \
                 -Wall -pedantic \
-                -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast \
+                -Wextra -Wshadow -Wnon-virtual-dtor \
+                -Wold-style-cast \
                 -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
@@ -49,15 +53,16 @@ if (${IS_GNU} OR ${IS_CLANG})
                 CACHE INTERNAL
                 "Compilation flags for third-party libraries in Cantina"
                 )
-        set(CANTINA_TILDE_CXX_FLAGS
+        set(CANTINA_MAIN_CXX_FLAGS
                 "-fPIC \
                 -Werror \
                 -Wall -pedantic \
-                -Wshadow -Wnon-virtual-dtor \
+                -Wextra -Wshadow -Wnon-virtual-dtor \
+                -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
                 CACHE INTERNAL
-                "Compilation flags for cantina~"
+                "Compilation flags for Cantina"
                 )
 elseif (${IS_MSVC})
         if (${CANTINA_OPTIMISATION})
@@ -124,7 +129,6 @@ set(CANTINA_COMMON_FILES
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/impl.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/option.hpp

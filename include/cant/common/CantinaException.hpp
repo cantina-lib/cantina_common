@@ -13,9 +13,7 @@
 #include <string>
 
 #include <cant/common/macro.hpp>
-namespace cant
-{
-
+CANTINA_CANT_NAMESPACE_BEGIN
 
     struct Trace
     {
@@ -62,9 +60,7 @@ namespace cant
         // must be mutable in order to fill inside what()
         mutable std::string m_displayedLog;
     };
-}
-
-
+CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/common/CantinaException.inl>

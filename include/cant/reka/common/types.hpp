@@ -12,10 +12,13 @@
 
 #include <cant/common/types.hpp>
 
-namespace cant::reka
-{
+#include <cant/common/macro.hpp>
+CANTINA_BEGIN_REKA_NAMESPACE
+
     template <size_u N, size_u D>
     using ratio_m = std::ratio<N, D>;
-}
+
+CANTINA_END_REKA_NAMESPACE
+#include <cant/common/undef_macro.hpp>
 
 #endif //EUREKA_TYPES_HPP

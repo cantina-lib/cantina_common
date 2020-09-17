@@ -8,8 +8,8 @@
 #pragma once
 
 #include <cant/common/macro.hpp>
-namespace cant
-{
+CANTINA_CANT_NAMESPACE_BEGIN
+
     /* ENVELOPES */
     static CANT_CONSTEXPR const char* ENVELOPE_FIELD_VELOCITY = "velocity";
     static CANT_CONSTEXPR const char* ENVELOPE_FIELD_TONE = "tone";
@@ -20,7 +20,8 @@ namespace cant
     /* CONTROLLERS */
     static CANT_CONSTEXPR const char* CONTROLLER_TYPE_DAMPER = "damper";
     static CANT_CONSTEXPR const char* CONTROLLER_TYPE_PAN = "pan";
-}
+
+CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_CONFIG_HPP

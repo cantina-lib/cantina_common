@@ -12,8 +12,7 @@
 
 
 #include <cant/common/macro.hpp>
-namespace cant::pan
-{
+CANTINA_PAN_NAMESPACE_BEGIN
 
     class PantoufleException : public CantinaException
     {
@@ -22,7 +21,7 @@ namespace cant::pan
         PantoufleException(const Trace& trace, std::string&& msg);
         PantoufleException(const std::string& function, const std::string& file, int line, std::string&& msg);
     };
-}
+CANTINA_PAN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/pan/common/PantoufleException.inl>

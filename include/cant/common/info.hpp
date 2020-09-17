@@ -7,14 +7,11 @@
 
 #pragma once
 
-#include <cant/common/types.hpp>
-
 #include <cant/common/macro.hpp>
-namespace cant
-{
+CANTINA_CANT_NAMESPACE_BEGIN
     static CANT_CONSTEXPR const char* CANTINA_VERSION  = "0.0.91";
     static CANT_CONSTEXPR const char* CANTINA_BREW = "HYPOTHESIS";
-}
+CANTINA_CANT_NAMESPACE_END
 
 #include <cant/common/undef_macro.hpp>
 #endif //CANTINA_INFO_HPP

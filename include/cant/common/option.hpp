@@ -9,10 +9,13 @@
 
 #include <optional>
 
-namespace cant
-{
+#include <cant/common/macro.hpp>
+CANTINA_CANT_NAMESPACE_BEGIN
+
     template <typename T>
     using Optional = std::optional<T>;
-}
+
+CANTINA_CANT_NAMESPACE_END
+#include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_TILDE_OPTION_HPP

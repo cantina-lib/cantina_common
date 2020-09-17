@@ -8,11 +8,9 @@
 #pragma once
 
 #include <cant/maths/interpolation/InterpolationOneD.hpp>
-#include
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
-{
+CANTINA_BEGIN_MATHS_NAMESPACE
     template <typename... Param_Ts>
     class PackedPolynomials;
 
@@ -36,6 +34,7 @@ namespace cant::maths
     };
 
 }
+CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/maths/interpolation/BrokenLinesInterpolation.inl>

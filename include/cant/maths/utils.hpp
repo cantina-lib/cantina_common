@@ -14,8 +14,8 @@
 #include <cant/common/types.hpp>
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
-{
+CANTINA_MATHS_NAMESPACE_BEGIN
+
     template <typename T>
     CANT_CONSTEXPR T barycentre(const T& a, const T& b, type_d lambda)
     {
@@ -26,7 +26,7 @@ namespace cant::maths
         );
         return a * (static_cast<type_d>(1.) - lambda) + b * lambda;
     }
-}
+CANTINA_MATHS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_TILDE_UTILS_HPP

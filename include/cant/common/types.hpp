@@ -10,15 +10,16 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace cant
-{
+#include <cant/common/macro.hpp>
+CANTINA_CANT_NAMESPACE_BEGIN
 
-    typedef std::size_t size_u;
-    typedef int32_t type_i;
+    typedef ::std::size_t size_u;
+    typedef ::std::int32_t type_i;
     typedef double type_d;
 
     typedef float sample_f;
 
-}
+CANTINA_CANT_NAMESPACE_END
+#include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_BASETYPES_HPP

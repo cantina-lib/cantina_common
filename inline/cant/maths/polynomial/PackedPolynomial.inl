@@ -10,8 +10,8 @@
 #include <cant/maths/utils.hpp>
 
 #include <cant/common/macro.hpp>
-namespace cant::maths
-{
+CANTINA_BEGIN_MATHS_NAMESPACE
+
     template <typename... Param_Ts>
     PackedPolynomial<Param_Ts...>::
     PackedPolynomial(const Stream<Coefficient>& coefficients)
@@ -227,8 +227,7 @@ namespace cant::maths
         m_degree = degree;
     }
 
-
-}
+CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_TILDE_PACKEDPOLYNOMIAL_INL

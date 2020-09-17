@@ -10,8 +10,7 @@
 #include <cant/common/formatting.hpp>
 
 #include <cant/common/macro.hpp>
-namespace cant
-{
+CANTINA_CANT_NAMESPACE_BEGIN
 
     CANT_INLINE
     Trace::
@@ -95,7 +94,8 @@ namespace cant
         sstream << "With message: " << m_msg << std::endl;
         m_displayedLog = sstream.str();
     }
-}
+
+CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #endif //CANTINA_TILDE_CANTINAEXCEPTION_INCL_H
