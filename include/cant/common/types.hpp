@@ -17,6 +17,8 @@ CANTINA_CANT_NAMESPACE_BEGIN
     typedef ::std::int32_t type_i;
     typedef double type_d;
 
+    typedef type_d time_d;
+
     typedef float sample_f;
 
 CANTINA_CANT_NAMESPACE_END

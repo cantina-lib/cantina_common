@@ -8,8 +8,8 @@
 #pragma once
 
 #include <cstdint>
-#include <functional>
 
+#include <cant/common/functor.hpp>
 #include <cant/common/types.hpp>
 
 #include <cant/common/macro.hpp>
@@ -24,10 +24,12 @@ CANTINA_PAN_NAMESPACE_BEGIN
     typedef type_d tone_d;
     typedef type_d pan_d; // should be e [-1, 1]
 
-    typedef type_d time_d;
 
     template<typename T>
-    using timecallback_f = std::function<T(time_d)>;
+    using timecallback_f = Functor<T(time_d)>;
+
+    template<typename T>
+    using reverse_timecallback_f = Functor<time_d(T)>;
 
 
 

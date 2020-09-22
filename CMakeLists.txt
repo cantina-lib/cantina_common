@@ -33,11 +33,12 @@ if (${IS_GNU} OR ${IS_CLANG})
         else()
                 set(CANTINA_OPTIMISATION_LEVEL "")
         endif()
+        ## -Warray-bounds is clang-only I think?
         set(CANTINA_MAIN_CXX_FLAGS
                 "-fPIC \
                 -Werror \
                 -Wall -pedantic \
-                -Wextra -Wshadow -Wnon-virtual-dtor \
+                -Wextra -Wshadow -Wnon-virtual-dtor  -Warray-bounds \
                 -Wold-style-cast \
                 -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
@@ -53,11 +54,12 @@ if (${IS_GNU} OR ${IS_CLANG})
                 CACHE INTERNAL
                 "Compilation flags for third-party libraries in Cantina"
                 )
-        set(CANTINA_MAIN_CXX_FLAGS
+        ## Removed -Wextra here because of warning in cast to t_newmethod in pd.
+        set(CANTINA_TILDE_CXX_FLAGS
                 "-fPIC \
                 -Werror \
                 -Wall -pedantic \
-                -Wextra -Wshadow -Wnon-virtual-dtor \
+                -Wshadow -Wnon-virtual-dtor -Warray-bounds \
                 -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
@@ -127,16 +129,27 @@ include_directories(
 set(CANTINA_COMMON_FILES
         # Cantina
         ## headers
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/undef_macro.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/option.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/macro.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/undef_macro.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/functor.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
         ## inline
         ${CANTINA_COMMON_INLINE_DIR}/cant/common/CantinaException.inl
+
+        # Pantoufle
+        ## headers
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
+        ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/pan/common/PantoufleException.inl
+
+        # Eurêka
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
 
         # Maths
         ## headers
@@ -149,24 +162,41 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/InterpolationOneD.hpp
+        ### Physics
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/physics/MagnetisedFunction.hpp
         ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/utils.inl
         ### Polynomial
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/PackedPolynomial.inl
         ### Interpolation
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/InterpolationOneD.inl
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.inl
+        ### Physics
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/physics/MagnetisedFunction.inl
 
-        # Pantoufle
+
+        # Event
         ## headers
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/event.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/event_forward.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/Listen.hpp
         ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/pan/common/PantoufleException.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/event/Listen.inl
 
-        # Eurêka
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
+        # Time
+        ## headers
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/common/types.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/time.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/time_forward.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/Clock.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/CustomClock.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/SystemClock.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/InternalClock.hpp
+        ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/time/InternalClock.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/time/CustomClock.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/time/SystemClock.inl
         )
 
 # header-only library
-set(CANTINA_COMMON_LIBRARIES "" PARENT_SCOPE)
 

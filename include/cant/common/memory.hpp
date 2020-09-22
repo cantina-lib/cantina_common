@@ -22,6 +22,9 @@ CANTINA_CANT_NAMESPACE_BEGIN
     using UPtr  = ::std::unique_ptr<C>;
 
     template<class C>
+    using ShPtr  = ::std::shared_ptr<C>;
+
+    template<class C>
     using Stream = ::std::vector<C>;
 
     template<class C>
