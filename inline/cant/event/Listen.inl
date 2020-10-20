@@ -121,7 +121,7 @@ CANTINA_EVENT_NAMESPACE_BEGIN
     addListener(Ptr <ManagedListener> listener)
     {
 
-        const auto derived = dynamic_cast<Ptr<DerivedListener>>(listener);
+        auto const derived = dynamic_cast<Ptr<DerivedListener>>(listener);
         CANTINA_ASSERT(derived, "Wrong one!");
 
         m_listeners.push_back(derived);
@@ -133,7 +133,7 @@ CANTINA_EVENT_NAMESPACE_BEGIN
     LecturerTrait<DerivedListener>::
     removeListener(Ptr<ManagedListener> baseListener)
     {
-        const auto it = std::find(m_managedlisteners.begin(), m_managedlisteners.end(), baseListener);
+        auto const it = std::find(m_managedlisteners.begin(), m_managedlisteners.end(), baseListener);
         CANTINA_ASSERT(it != m_managedlisteners.end(), "NNNOOO");
 
         const size_u dist = std::distance(m_managedlisteners.begin(), it);
@@ -153,7 +153,7 @@ CANTINA_EVENT_NAMESPACE_BEGIN
 
     template<class DerivedListener>
     CANT_INLINE
-    const Stream <Ptr<ManagedListener>>&
+    Stream <Ptr<ManagedListener>> const&
     LecturerTrait<DerivedListener>::
     getListeners() const
     {
@@ -196,10 +196,10 @@ CANTINA_EVENT_NAMESPACE_BEGIN
     ListenerTrait<DerivedLecturer>::
     removeLecturer(Ptr<ManagedLecturer> baseLecturer)
     {
-        const auto it = std::find(m_managedLecturers.begin(), m_managedLecturers.end(), baseLecturer);
+        auto const it = std::find(m_managedLecturers.begin(), m_managedLecturers.end(), baseLecturer);
         CANTINA_ASSERT(it != m_managedLecturers.end(), "NOOOOO");
 
-        const size_u dist = std::distance(m_managedLecturers.begin(), it);
+        size_u const dist = std::distance(m_managedLecturers.begin(), it);
         m_managedLecturers.erase(it);
         m_lecturers.erase(m_lecturers.begin() + dist);
 
@@ -220,7 +220,9 @@ CANTINA_EVENT_NAMESPACE_BEGIN
     void ListenerTrait<DerivedLecturer>::
     getNotifiedInternal(CPtr <ManagedLecturer> lecturer)
     {
-        const auto derived = dynamic_cast<CPtr<DerivedLecturer>>(lecturer);
+        // TODO: should not cast here!! FIND A WORK-AROUND.
+        // Dangerous, but we are quite sure that the the lecturer is indeed a DerivedLecturer.
+        auto const derived = static_cast<CPtr<DerivedLecturer>>(lecturer);
         CANTINA_ASSERT(derived, "Wrong one, damn it.");
         this->getNotified(derived);
     }

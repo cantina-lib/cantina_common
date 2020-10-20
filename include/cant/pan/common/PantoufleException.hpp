@@ -18,8 +18,8 @@ CANTINA_PAN_NAMESPACE_BEGIN
     {
     public:
         /** -- methods -- **/
-        PantoufleException(const Trace& trace, std::string&& msg);
-        PantoufleException(const std::string& function, const std::string& file, int line, std::string&& msg);
+        PantoufleException(Trace const& trace, std::string&& msg);
+        PantoufleException(std::string const& function, std::string const& file, int line, std::string&& msg);
     };
 CANTINA_PAN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>

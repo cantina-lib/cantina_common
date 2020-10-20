@@ -19,7 +19,6 @@ CANTINA_MATHS_NAMESPACE_BEGIN
 
     // approx in lower case to pretend it's a namespace
     // although the template arguments kind of give it away.
-    // humour me, won't you?
     template <typename T, int ulp = c_defaultUlp>
     class approx
     {
@@ -36,7 +35,7 @@ CANTINA_MATHS_NAMESPACE_BEGIN
 
         CANT_NODISCARD static bool inRange(T a, T b, T val);
 
-        CANT_NODISCARD static T barycentre(const T& a, const T& b, type_d lambda);
+        CANT_NODISCARD static T barycentre(T a, T b, type_d lambda);
 
     private:
         /** -- methods -- **/
@@ -47,6 +46,6 @@ CANTINA_MATHS_NAMESPACE_BEGIN
 CANTINA_MATHS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/maths/utils.inl>
+#include <cant/maths/approx.inl>
 
 #endif //CANTINA_MATHS_UTILS_HPP

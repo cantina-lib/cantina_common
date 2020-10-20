@@ -19,14 +19,14 @@ CANTINA_CANT_NAMESPACE_BEGIN
     {}
 
     CANT_INLINE
-    std::string&
+    std::string &
     CantinaException::
     msg()
     {
         return m_msg;
     }
     CANT_NODISCARD CANT_INLINE
-    const std::string&
+    std::string const &
     CantinaException::
     msg() const
     {
@@ -34,7 +34,7 @@ CANTINA_CANT_NAMESPACE_BEGIN
     }
 
     CANT_NODISCARD CANT_INLINE
-    const char*
+    char const *
     CantinaException::
     what() const CANT_NOEXCEPT
 {
@@ -45,14 +45,14 @@ CANTINA_CANT_NAMESPACE_BEGIN
     CANT_INLINE
     void
     CantinaException::
-    addTrace(const Trace &trace)
+    addTrace(Trace const & trace)
     {
         m_traces.push_front(trace);
     }
 
     CANT_INLINE
     CantinaException::
-    CantinaException(const Trace &trace, std::string &&msg)
+    CantinaException(Trace const & trace, std::string && msg)
             : m_traces(), m_msg(std::move(msg))
     {
         addTrace(trace);
@@ -60,13 +60,13 @@ CANTINA_CANT_NAMESPACE_BEGIN
 
     CANT_INLINE
     CantinaException::
-    CantinaException(const std::exception &e)
+    CantinaException(std::exception const & e)
             : m_traces(), m_msg(e.what())
     {}
 
     CANT_INLINE
     CantinaException::
-    CantinaException(const std::string &function, const std::string &file, int line, std::string &&msg)
+    CantinaException(std::string const & function, std::string const & file, int line, std::string && msg)
             : CantinaException(Trace(function, file, line), std::move(msg))
     {}
 
@@ -83,7 +83,7 @@ CANTINA_CANT_NAMESPACE_BEGIN
          */
         std::stringstream sstream;
         sstream << "[CANTINA_EXCEPTION] ";
-        for(const auto& trace : m_traces)
+        for(auto const & trace : m_traces)
         {
             sstream << "By " << trace.function
                     << ", in file " << trace.file

@@ -12,16 +12,16 @@ CANTINA_PAN_NAMESPACE_BEGIN
 
     CANT_INLINE
     PantoufleException::
-    PantoufleException(const Trace& trace, std::string&& msg)
+    PantoufleException(Trace const& trace, std::string&& msg)
             : CantinaException(trace, std::move(msg))
     {}
 
     CANT_INLINE
     PantoufleException::
     PantoufleException(
-            const std::string& function,
-            const std::string& file,
-            const int line,
+            std::string const& function,
+            std::string const& file,
+            int line,
             std::string&& msg)
             : CantinaException(function, file, line, std::move(msg))
     {}

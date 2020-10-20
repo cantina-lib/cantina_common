@@ -18,7 +18,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
 
     template<typename Ret_T, typename... Param_Ts>
     InterpolationOneD<Ret_T, Param_Ts...>::
-    InterpolationOneD(const Stream<InterpolationOneD::Value> &values)
+    InterpolationOneD(Stream<InterpolationOneD::Value> const& values)
             : m_values(values)
     {
         static_assert(std::is_arithmetic<Param_Ts...>::value);

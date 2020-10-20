@@ -7,6 +7,10 @@
 
 #pragma once
 
-#include "utils.hpp"
+#include "approx.hpp"
+
+#include "interpolation/interpolation.hpp"
+
+#include "polynomial/polynomial.hpp"
 
 #endif //CANTINA_TILDE_MATHS_HPP

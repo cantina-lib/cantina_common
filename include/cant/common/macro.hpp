@@ -4,12 +4,12 @@
 
 // not this time!
 // #pragma once
-#ifdef CANTINA_MACRO_HPP
+#ifdef CANTINA_COMMON_MACRO_HPP
     #error "Macros oughtn't be included twice in the same translation unit, ya thick."
 #else
     #include <cassert>
 
-    #define CANTINA_MACRO_HPP
+    #define CANTINA_COMMON_MACRO_HPP
 
     // compilers
     #if defined(__GNUC__)
@@ -25,6 +25,7 @@
     #define CANTINA_PAN_NAMESPACE  pan
     #define CANTINA_REKA_NAMESPACE reka
     #define CANTINA_MATHS_NAMESPACE maths
+    #define CANTINA_PHYSICS_NAMESPACE physics
     #define CANTINA_EVENT_NAMESPACE event
     #define CANTINA_TIME_NAMESPACE time
 
@@ -36,6 +37,8 @@
     #define CANTINA_REKA_NAMESPACE_END }
     #define CANTINA_MATHS_NAMESPACE_BEGIN namespace CANTINA_CANT_NAMESPACE::CANTINA_MATHS_NAMESPACE {
     #define CANTINA_MATHS_NAMESPACE_END }
+    #define CANTINA_PHYSICS_NAMESPACE_BEGIN namespace CANTINA_CANT_NAMESPACE::CANTINA_PHYSICS_NAMESPACE {
+    #define CANTINA_PHYSICS_NAMESPACE_END }
     #define CANTINA_EVENT_NAMESPACE_BEGIN namespace CANTINA_CANT_NAMESPACE::CANTINA_EVENT_NAMESPACE {
     #define CANTINA_EVENT_NAMESPACE_END }
     #define CANTINA_TIME_NAMESPACE_BEGIN namespace CANTINA_CANT_NAMESPACE::CANTINA_TIME_NAMESPACE {

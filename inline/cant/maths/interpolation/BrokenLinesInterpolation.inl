@@ -14,7 +14,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
 
     template<typename Ret_T, typename... Param_Ts>
     BrokenLinesInterpolation<Ret_T, Param_Ts...>::
-    BrokenLinesInterpolation(const typename InterpolationOneD<Ret_T, Param_Ts...>::Values &values)
+    BrokenLinesInterpolation(typename InterpolationOneD<Ret_T, Param_Ts...>::Values const& values)
             :InterpolationOneD(values)
     {
 
@@ -23,7 +23,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     template<typename Ret_T, typename... Param_Ts>
     Ret_T
     BrokenLinesInterpolation<Ret_T, Param_Ts...>::
-    operator()(const Tuple<Param_Ts>&... args) const
+    operator()(Tuple<Param_Ts> const&... args) const
     {
 
     }
@@ -32,12 +32,12 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_NODISCARD
     Stream<typename BrokenLinesInterpolation<Ret_T, Param_Ts...>::Line>
     BrokenLinesInterpolation<Ret_T, Param_Ts...>::
-    computeLines(const Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value>& values)
+    computeLines(Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value> const& values)
     {
         for (size_u i = 0; i < values.size(); ++i)
         {
-            const auto& v1 = values.at(i);
-            const auto& v2 = values.at(i + 1);
+            auto const& v1 = values.at(i);
+            auto const& v2 = values.at(i + 1);
 
 
         }

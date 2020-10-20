@@ -11,15 +11,15 @@
 CANTINA_CANT_NAMESPACE_BEGIN
 
     /* ENVELOPES */
-    static CANT_CONSTEXPR const char* ENVELOPE_FIELD_VELOCITY = "velocity";
-    static CANT_CONSTEXPR const char* ENVELOPE_FIELD_TONE = "tone";
+    static CANT_CONSTEXPR char const * ENVELOPE_FIELD_VELOCITY = "velocity";
+    static CANT_CONSTEXPR char const * ENVELOPE_FIELD_TONE = "tone";
 
-    static CANT_CONSTEXPR const char* ENVELOPE_TYPE_ADSR = "adsr";
-    static CANT_CONSTEXPR const char* ENVELOPE_TYPE_FLAT = "flat";
+    static CANT_CONSTEXPR char const * ENVELOPE_TYPE_ADSR = "adsr";
+    static CANT_CONSTEXPR char const * ENVELOPE_TYPE_FLAT = "flat";
 
     /* CONTROLLERS */
-    static CANT_CONSTEXPR const char* CONTROLLER_TYPE_DAMPER = "damper";
-    static CANT_CONSTEXPR const char* CONTROLLER_TYPE_PAN = "pan";
+    static CANT_CONSTEXPR char const * CONTROLLER_TYPE_DAMPER = "damper";
+    static CANT_CONSTEXPR char const * CONTROLLER_TYPE_PAN = "pan";
 
 CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>

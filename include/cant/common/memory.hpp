@@ -2,13 +2,14 @@
 // Created by binabik on 18/07/2020.
 //
 
-#ifndef CANTINA_MEM_MNGMNT_HPP
-#define CANTINA_MEM_MNGMNT_HPP
+#ifndef CANTINA_COMMON_MEMORY_HPP
+#define CANTINA_COMMON_MEMORY_HPP
 
 #pragma once
 
 #include <map>
 #include <vector>
+#include <list>
 #include <tuple>
 #include <array>
 #include <memory>
@@ -25,6 +26,9 @@ CANTINA_CANT_NAMESPACE_BEGIN
     using ShPtr  = ::std::shared_ptr<C>;
 
     template<class C>
+    using WPtr  = ::std::weak_ptr<C>;
+
+    template<class C>
     using Stream = ::std::vector<C>;
 
     template<class C>
@@ -36,11 +40,17 @@ CANTINA_CANT_NAMESPACE_BEGIN
     template <typename T, size_u n_V>
     using Array = ::std::array<T, n_V>;
 
+    template <class C>
+    using List  = ::std::list<C>;
+
     template <typename Key_T, typename Val_T>
-    using Map = ::std::map<Key_T, Val_T>;
+    using Map   = ::std::map<Key_T, Val_T>;
+
+    template <typename T1, typename T2>
+    using Pair = ::std::pair<T1, T2>;
 
 CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 
-#endif //CANTINA_MEM_MNGMNT_HPP
+#endif //CANTINA_COMMON_MEMORY_HPP

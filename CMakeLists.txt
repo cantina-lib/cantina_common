@@ -155,6 +155,11 @@ set(CANTINA_COMMON_FILES
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/utils.hpp
+        ### Algebra
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/algebra/algebra.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/algebra/Vector.hpp
+        ### Geometry
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/geometry/Rectangle.hpp
         ### Polynomial
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/polynomial/polynomial.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/polynomial/PackedPolynomial.hpp
@@ -162,18 +167,58 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/InterpolationOneD.hpp
-        ### Physics
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/physics/MagnetisedFunction.hpp
         ## inline
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/utils.inl
+        ### Algebra
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/algebra/Vector.inl
+        ### Geometry
+        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/geometry/Rectangle.inl
         ### Polynomial
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/PackedPolynomial.inl
         ### Interpolation
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/InterpolationOneD.inl
         ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.inl
-        ### Physics
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/physics/MagnetisedFunction.inl
 
+        # Physics
+        ## headers
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Positionable.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Kinetic.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollider.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForce.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalAppliedForce.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForceField.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomForceField.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/IsotropicPullField.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalState.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticState.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/RigidObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionDetector.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionSolver.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicsSimulation.hpp
+        ## inline
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalPosition.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalForce.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalForceField.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalAppliedForce.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CustomForceField.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/IsotropicPullField.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalShape.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CustomShape.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalState.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/KineticState.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalObject.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CollisionObject.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/KineticObject.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/RigidObject.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalCollision.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicsSimulation.inl
+        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CollisionDetector.inl
 
         # Event
         ## headers

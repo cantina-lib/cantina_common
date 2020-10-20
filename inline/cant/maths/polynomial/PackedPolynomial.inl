@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include <cant/maths/utils.hpp>
+#include <cant/maths/approx.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_BEGIN_MATHS_NAMESPACE
 
     template <typename... Param_Ts>
     PackedPolynomial<Param_Ts...>::
-    PackedPolynomial(const Stream<Coefficient>& coefficients)
+    PackedPolynomial(Stream<Coefficient> const& coefficients)
             : m_coefficients(coefficients), // just be mindful that this init is order-dependant (m_coefficient before m_degree).
             // so m_coefficients must be declared before m_degree in the class.
               m_degree(computeDegree(m_coefficients))
@@ -42,7 +42,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
                         m_coefficients.begin(),
                         m_coefficients.end(),
                         m_coefficients.begin(),
-                        [](const Coefficient& coef) { return - coef; }
+                        [](Coefficient const& coef) { return - coef; }
                 );
     }
 
@@ -50,12 +50,12 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     void
     PackedPolynomial<Param_Ts...>::
-    add(const PackedPolynomial &other)
+    add(PackedPolynomial const& other)
     {
         applyCoefficientwise
         (
                 other,
-                [](const Coefficient& coef1, const Coefficient& coef2)
+                [](Coefficient const& coef1, Coefficient const& coef2)
                 {
                     return coef1 + coef2;
                 }
@@ -66,12 +66,12 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     void
     PackedPolynomial<Param_Ts...>::
-    substract(const PackedPolynomial &other)
+    substract(PackedPolynomial const& other)
     {
         applyCoefficientwise
         (
                 other,
-                [](const Coefficient& coef1, const Coefficient& coef2)
+                [](Coefficient const& coef1, Coefficient const& coef2)
                 {
                     return coef1 - coef2;
                 }
@@ -81,7 +81,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     template<typename... Param_Ts>
     void
     PackedPolynomial<Param_Ts...>::
-    multiply(const PackedPolynomial &other)
+    multiply(PackedPolynomial const& other)
     {
         const size_u d1 = this->getDegree();
         const size_u d2 = other.getDegree();
@@ -89,7 +89,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
         // we know the resulting degree from the start.
         m_degree = d1 + d2;
         this->fitToDegree();
-        for (const auto& coef : other.m_coefficients)
+        for (auto const& coef : other.m_coefficients)
         {
             this->multiply(coef);
         }
@@ -99,13 +99,13 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     void
     PackedPolynomial<Param_Ts...>::
-    multiply(const Coefficient &coef)
+    multiply(Coefficient const& coef)
     {
         std::transform(
                 m_coefficients.begin(),
                 m_coefficients.end(),
                 m_coefficients.begin(),
-                [&coef](const Coefficient& thisCoef)
+                [&coef](Coefficient const& thisCoef)
                 {
                     return thisCoef * coef;
                 }
@@ -134,7 +134,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_NODISCARD
     size_u
     PackedPolynomial<Param_Ts...>::
-    computeDegree(const Stream<PackedPolynomial::Coefficient> &coefficients)
+    computeDegree(Stream<PackedPolynomial::Coefficient> const& coefficients)
     {
         size_u rcounter = coefficients.size();
         for (auto it = coefficients.rbegin(); it != coefficients.rend(); ++it)
@@ -158,7 +158,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
                         coefficients.begin(),
                         coefficients.end(),
                         coefficients.begin(),
-                        [](const Coefficient& coef) { return - coef; }
+                        [](Coefficient const& coef) { return - coef; }
                 );
         return PackedPolynomial<Param_Ts...>(coefficients);
     }
@@ -167,7 +167,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     PackedPolynomial<Param_Ts...>&
     PackedPolynomial<Param_Ts...>::
-    operator+(const PackedPolynomial &other)
+    operator+(PackedPolynomial const& other)
     {
         return add(other);
     }
@@ -176,7 +176,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     PackedPolynomial<Param_Ts...>&
     PackedPolynomial<Param_Ts...>::
-    operator-(const PackedPolynomial &other)
+    operator-(PackedPolynomial const& other)
     {
         return substract(other);
     }
@@ -185,14 +185,14 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     CANT_INLINE
     PackedPolynomial<Param_Ts...>&
     PackedPolynomial<Param_Ts...>::
-    operator*(const PackedPolynomial &other)
+    operator*(PackedPolynomial const& other)
     {
         return multiply(other);
     }
 
     template<typename... Param_Ts>
     void PackedPolynomial<Param_Ts...>::
-    applyCoefficientwise(const PackedPolynomial &other, CoefficientwiseOp op)
+    applyCoefficientwise(PackedPolynomial const& other, CoefficientwiseOp op)
     {
         const size_u d1 = this->getDegree();
         const size_u d2 = other.getDegree();
@@ -209,7 +209,7 @@ CANTINA_BEGIN_MATHS_NAMESPACE
                         other.m_coefficients.rend(),
                         this->m_coefficients.rbegin(),
                         this->m_coefficients.rbegin(),
-                        [&degree, &index, &degreeFound, op](const Coefficient& coef1, const Coefficient& coef2)
+                        [&degree, &index, &degreeFound, op](Coefficient const& coef1, Coefficient const& coef2)
                         {
                             const Coefficient res = op(coef1, coef2);
                             if (!degreeFound)

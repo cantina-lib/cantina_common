@@ -8,7 +8,7 @@
  * Should include before the end of any header file that includes macro.hpp
  */
 
-#ifndef CANTINA_MACRO_HPP
+#ifndef CANTINA_COMMON_MACRO_HPP
 #error "Macros need to be defined before being un-defined, ya thick."
 #else
     // Compilers
@@ -36,12 +36,14 @@
     #undef CANTINA_REKA_NAMESPACE_END
     #undef CANTINA_MATHS_NAMESPACE_BEGIN
     #undef CANTINA_MATHS_NAMESPACE_END
+    #undef CANTINA_PHYSICS_NAMESPACE_BEGIN
+    #undef CANTINA_PHYSICS_NAMESPACE_END
     #undef CANTINA_EVENT_NAMESPACE_BEGIN
     #undef CANTINA_EVENT_NAMESPACE_END
     #undef CANTINA_TIME_NAMESPACE_BEGIN
     #undef CANTINA_TIME_NAMESPACE_END
 
-    #undef CANT_CURRENT_FUNC
+#undef CANT_CURRENT_FUNC
     #undef CANT_CURRENT_FILE
     #undef CANT_CURRENT_LINE
 
@@ -73,7 +75,7 @@
         #undef PANTOUFLE_TRY_RETHROW
     #endif // CANTINA_PANTOUFLEEXCEPTION_HPP
 
-    #undef CANTINA_MACRO_HPP
+    #undef CANTINA_COMMON_MACRO_HPP
 
 #endif //not def CANTINA_MACRO_HPP
 
@@ -90,13 +92,13 @@
 
 /*
  *
- *                        zzz
- *                      zzzzz
- *              A___A   zzz
- *      _____ /  _ _ \ /
+ *                        z
+ *                      zzz
+ *              A___A   z?
+ *      _____ /  _ o \ /
  * ___/~____     ='= /
  *   (______)___m_m_)
  *
- * - Awesome, you found the cat! But it's sleeping now.
+ * - Awesome, you found the cat! It looks like it has noticed you.
  *
  */

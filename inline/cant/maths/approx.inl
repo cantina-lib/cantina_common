@@ -62,9 +62,9 @@ CANTINA_MATHS_NAMESPACE_BEGIN
     CANT_INLINE
     T
     approx<T, ulp>::
-    barycentre(const T& a, const T& b, type_d lambda)
+    barycentre(T a, T b, type_d lambda)
     {
-        const bool inBounds = inRange<T, ulp>(a, b, lambda);
+        const bool inBounds = inRange(a, b, lambda);
         CANTINA_ASSERT(inBounds, "Noooo!!");
         if (!inBounds)
         {

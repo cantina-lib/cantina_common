@@ -24,11 +24,11 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     public:
         /** -- methods -- **/
         virtual ~InterpolationOneD() = default;
-        CANT_EXPLICIT InterpolationOneD(const Stream<Value>& values);
+        CANT_EXPLICIT InterpolationOneD(Stream<Value> const& values);
 
         InterpolationOneD(std::initializer_list<InterpolationPoint<Ret_T, Param_Ts...>> il);
 
-        CANT_NODISCARD virtual Ret_T operator()(const Tuple<Param_Ts>&... args) const  = 0;
+        CANT_NODISCARD virtual Ret_T operator()(Tuple<Param_Ts> const&... args) const  = 0;
     protected:
         /** -- fields -- **/
         Stream<Value> m_values;

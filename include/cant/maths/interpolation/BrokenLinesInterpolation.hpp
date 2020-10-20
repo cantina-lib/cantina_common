@@ -21,13 +21,14 @@ CANTINA_BEGIN_MATHS_NAMESPACE
         /** -- internal structs -- **/
         typedef PackedPolynomials<Ret_T, Tuple<Param_Ts...>> Line;
         /** -- methods -- **/
-        CANT_EXPLICIT BrokenLinesInterpolation(const typename InterpolationOneD<Ret_T, Param_Ts...>::Values& values);
-        CANT_NODISCARD Ret_T operator()(const Tuple<Param_Ts>&... args) const override;
+        CANT_EXPLICIT BrokenLinesInterpolation(typename InterpolationOneD<Ret_T, Param_Ts...>::Values const& values);
+        CANT_NODISCARD Ret_T operator()(Tuple<Param_Ts> const&... args) const override;
     private:
         /** -- methods -- **/
 
         // static
-        CANT_NODISCARD static Stream<Line> computeLines(const Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value>& values);
+        CANT_NODISCARD
+        static Stream<Line> computeLines(Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value> const& values);
 
         /** -- fields -- **/
         Stream<Line> m_lines;

@@ -81,7 +81,7 @@ CANTINA_EVENT_NAMESPACE_BEGIN
         virtual void removeListener(Ptr<ManagedListener> Listener) = 0;
 
         CANT_NODISCARD virtual Stream<Ptr<ManagedListener>>& getListeners() = 0;
-        CANT_NODISCARD virtual const Stream<Ptr<ManagedListener>>& getListeners() const = 0;
+        CANT_NODISCARD virtual Stream<Ptr<ManagedListener>> const& getListeners() const = 0;
 
         /** -- friends -- **/
         friend class ListenManager;
@@ -109,6 +109,18 @@ CANTINA_EVENT_NAMESPACE_BEGIN
 
         /** -- friends -- **/
         friend class ListenManager;
+    };
+
+    template <class DerivedLecturer>
+    class ExtraManagedListener : public ManagedListener
+    {
+    private:
+        /** -- methods -- **/
+        /*
+         * We indirect public methods in order to type-check at compile-time.
+         */
+        virtual void getNotified(CPtr<DerivedLecturer> lecturer) = 0;
+
     };
 
     // static
@@ -146,8 +158,8 @@ CANTINA_EVENT_NAMESPACE_BEGIN
         ~LecturerTrait() override;
 
         LecturerTrait();
-        LecturerTrait(const LecturerTrait&) = delete;
-        LecturerTrait& operator=(const LecturerTrait&) = delete;
+        LecturerTrait(LecturerTrait const&) = delete;
+        LecturerTrait& operator=(LecturerTrait const&) = delete;
 
 
 
@@ -158,7 +170,7 @@ CANTINA_EVENT_NAMESPACE_BEGIN
         void removeListener(Ptr<ManagedListener> listener) final;
 
         CANT_NODISCARD Stream<Ptr<ManagedListener>>& getListeners() final;
-        CANT_NODISCARD const Stream<Ptr<ManagedListener>>& getListeners() const final;
+        CANT_NODISCARD Stream<Ptr<ManagedListener>> const& getListeners() const final;
 
 
         /** -- fields -- **/
@@ -183,8 +195,8 @@ CANTINA_EVENT_NAMESPACE_BEGIN
         ~ListenerTrait() override;
 
         ListenerTrait();
-        ListenerTrait(const ListenerTrait&) = delete;
-        ListenerTrait& operator=(const ListenerTrait&) = delete;
+        ListenerTrait(ListenerTrait const&) = delete;
+        ListenerTrait& operator=(ListenerTrait const&) = delete;
 
         void subscribe(Ptr<DerivedLecturer> lecturer) override;
         void unsubscribe(Ptr<DerivedLecturer> lecturer) override;

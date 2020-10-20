@@ -8,7 +8,7 @@
 #pragma once
 
 #include <cant/common/memory.hpp>
-#include <cant/maths/utils.hpp>
+#include <cant/maths/approx.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_BEGIN_MATHS_NAMESPACE

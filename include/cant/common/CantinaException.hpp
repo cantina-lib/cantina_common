@@ -29,29 +29,29 @@ CANTINA_CANT_NAMESPACE_BEGIN
     public:
         /** -- methods -- **/
         CantinaException(
-                const Trace& trace,
-                std::string&& msg);
+                Trace const & trace,
+                std::string && msg);
 
         CANT_EXPLICIT CantinaException(
-                const std::exception& e
+                std::exception const & e
         );
 
         CantinaException(
-                const std::string& function,
-                const std::string& file,
+                std::string const & function,
+                std::string const & file,
                 int line,
-                std::string&& msg
+                std::string && msg
         );
 
-        CANT_NODISCARD const char* what() const CANT_NOEXCEPT override;
+        CANT_NODISCARD char const * what() const CANT_NOEXCEPT override;
 
-        void addTrace(const Trace& trace);
+        void addTrace(Trace const & trace);
 
         virtual void makeDisplayedLog() const CANT_NOEXCEPT;
     protected:
         /** -- methods -- **/
         std::string& msg();
-        CANT_NODISCARD const std::string& msg() const;
+        CANT_NODISCARD std::string const & msg() const;
     private:
         /** -- fields -- **/
         std::list<Trace> m_traces;
@@ -60,6 +60,7 @@ CANTINA_CANT_NAMESPACE_BEGIN
         // must be mutable in order to fill inside what()
         mutable std::string m_displayedLog;
     };
+
 CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
