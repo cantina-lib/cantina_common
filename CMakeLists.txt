@@ -134,19 +134,16 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/config.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/info.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/types.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/traits.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/option.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/functor.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/memory.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/common/CantinaException.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/common/CantinaException.inl
 
         # Pantoufle
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/pan/common/PantoufleException.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/pan/common/PantoufleException.inl
 
         # Eurêka
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/reka/common/types.hpp
@@ -167,17 +164,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/interpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/interpolation/InterpolationOneD.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/utils.inl
-        ### Algebra
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/algebra/Vector.inl
-        ### Geometry
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/geometry/Rectangle.inl
-        ### Polynomial
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/polynomial/PackedPolynomial.inl
-        ### Interpolation
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/InterpolationOneD.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/maths/interpolation/BrokenLinesInterpolation.inl
 
         # Physics
         ## headers
@@ -201,32 +187,10 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionDetector.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionSolver.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicsSimulation.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalPosition.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalForce.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalForceField.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalAppliedForce.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CustomForceField.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/IsotropicPullField.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalShape.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CustomShape.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalState.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/KineticState.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalObject.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CollisionObject.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/KineticObject.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/RigidObject.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicalCollision.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/PhysicsSimulation.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/physics/CollisionDetector.inl
 
-        # Event
+        # Patterns
         ## headers
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/event.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/event_forward.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/event/Listen.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/event/Listen.inl
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Event.hpp
 
         # Time
         ## headers
@@ -237,10 +201,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/CustomClock.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/SystemClock.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/InternalClock.hpp
-        ## inline
-        ${CANTINA_COMMON_INLINE_DIR}/cant/time/InternalClock.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/time/CustomClock.inl
-        ${CANTINA_COMMON_INLINE_DIR}/cant/time/SystemClock.inl
         )
 
 # header-only library

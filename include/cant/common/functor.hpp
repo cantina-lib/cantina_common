@@ -12,6 +12,7 @@ CANTINA_CANT_NAMESPACE_BEGIN
     template <class Sig_Ts>
     using Functor = ::std::function<Sig_Ts>;
 
+
 CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
