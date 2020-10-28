@@ -80,8 +80,12 @@ Event<Arg_T, Args...>::Event() = default;
     EventListener<Arg_T, Args...>::addEvent(E * event)
     {
         auto const it      = std::find(m_events.cbegin(), m_events.cend(), event);
-        CANTINA_ASSERT(it != m_events.cend(), "EventListener is managed by Event, this should not happen.");
-        m_events.push_back(event);
+        bool const found   = it != m_events.cend();
+        CANTINA_ASSERT(!found, "EventListener is managed by Event, this should not happen.");
+        if (!found)
+        {
+            m_events.push_back(event);
+        }
     }
 
     template <typename Arg_T, typename... Args>
@@ -89,8 +93,12 @@ Event<Arg_T, Args...>::Event() = default;
       EventListener<Arg_T, Args...>::removeEvent(E const * event)
     {
         auto const it      = std::find(m_events.cbegin(), m_events.cend(), event);
-        CANTINA_ASSERT(it == m_events.cend(), "EventListener is managed by Event, this should not happen.");
-        m_events.erase(it);
+        bool const found   = it != m_events.cend();
+        CANTINA_ASSERT(found, "EventListener is managed by Event, this should not happen.");
+        if (found)
+        {
+            m_events.erase(it);
+        }
     }
     template <typename Arg_T, typename... Args>
     void

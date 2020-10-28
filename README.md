@@ -19,7 +19,6 @@ There's also a format that's meant to be respected in Cantina as a whole.
 
 And a cat. It's still here, it hasn't moved, you can still come and say hi.
 
-
 ### Build 
 
 This is a header-only library, it can be used by including this directory in CMake.
@@ -29,7 +28,7 @@ This is a header-only library, it can be used by including this directory in CMa
 #### Features 
 
 - [ ] Implement C#-style properties. (template, overload = etc.)
-- [ ] Implement Slider (and SliderProperty as a convenience?)
+- [ ] Implement Slider. (and SliderProperty as a convenience?)
 - [ ] Update Pantoufle.
 
 
