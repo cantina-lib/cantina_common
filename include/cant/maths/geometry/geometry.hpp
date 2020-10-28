@@ -6,4 +6,4 @@
 
 #include "Rectangle.hpp"
 
-#endif //CANTINA_MATHS_GEOMETRY_HPP
+#endif  // CANTINA_MATHS_GEOMETRY_HPP

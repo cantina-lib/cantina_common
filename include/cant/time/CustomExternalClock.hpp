@@ -12,31 +12,37 @@
 #include <cant/common/macro.hpp>
 CANTINA_TIME_NAMESPACE_BEGIN
 
-    class CustomExternalClock : public ExternalClock
-    {
-    public:
-        /** -- methods -- **/
-        // factory method
-        CANT_NODISCARD static UPtr <ExternalClock> make(AbsoluteTimeGetter absoluteTimeGetter);
+class CustomExternalClock : public ExternalClock
+{
+   public:
+    /** -- methods -- **/
+    // factory method
+    CANT_NODISCARD static UPtr<ExternalClock>
+      make(AbsoluteTimeGetter absoluteTimeGetter);
 
-        void updateTime() override;
-    private:
-        /** -- methods -- **/
-        CANT_EXPLICIT CustomExternalClock(AbsoluteTimeGetter absoluteTimeGetter);
+    void
+      updateTime() override;
 
-        CANT_NODISCARD type_d getCurrentTimeSeconds() const override;
-        CANT_NODISCARD type_d getDeltaTimeSeconds() const override;
+   private:
+    /** -- methods -- **/
+    CANT_EXPLICIT
+    CustomExternalClock(AbsoluteTimeGetter absoluteTimeGetter);
 
-        /** -- fields -- **/
-        AbsoluteTimeGetter m_absoluteTimeGetter;
-        time_d m_tStart;
-        time_d m_tAbsolute;
-        time_d m_tLast;
-    };
+    CANT_NODISCARD type_d
+      getCurrentTimeSeconds() const override;
+    CANT_NODISCARD type_d
+      getDeltaTimeSeconds() const override;
+
+    /** -- fields -- **/
+    AbsoluteTimeGetter m_absoluteTimeGetter;
+    time_d             m_tStart;
+    time_d             m_tAbsolute;
+    time_d             m_tLast;
+};
 
 CANTINA_TIME_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/time/CustomExternalClock.inl>
 
-#endif //CANTINA_TIME_CUSTOMCLOCK_HPP
+#endif  // CANTINA_TIME_CUSTOMCLOCK_HPP

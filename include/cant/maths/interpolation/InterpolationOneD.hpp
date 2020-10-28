@@ -19,24 +19,28 @@ CANTINA_BEGIN_MATHS_NAMESPACE
     class InterpolationOneD
     {
         /** -- internal structs -- **/
-    protected:
+       protected:
         typedef InterpolationPoint<Ret_T, Param_Ts...> Value;
-    public:
+
+       public:
         /** -- methods -- **/
         virtual ~InterpolationOneD() = default;
-        CANT_EXPLICIT InterpolationOneD(Stream<Value> const& values);
+        CANT_EXPLICIT
+        InterpolationOneD(Stream<Value> const & values);
 
         InterpolationOneD(std::initializer_list<InterpolationPoint<Ret_T, Param_Ts...>> il);
 
-        CANT_NODISCARD virtual Ret_T operator()(Tuple<Param_Ts> const&... args) const  = 0;
-    protected:
+        CANT_NODISCARD virtual Ret_T
+          operator()(Tuple<Param_Ts> const &... args) const = 0;
+
+       protected:
         /** -- fields -- **/
         Stream<Value> m_values;
     };
 
-CANTINA_END_MATHS_NAMESPACE
+    CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/maths/InterpolationOneD.inl>
 
-#endif //CANTINA_TILDE_INTERPOLATIONONED_HPP
+#endif  // CANTINA_TILDE_INTERPOLATIONONED_HPP

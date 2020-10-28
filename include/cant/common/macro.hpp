@@ -5,8 +5,7 @@
 // not this time!
 // #pragma once
 #ifdef CANTINA_COMMON_MACRO_HPP
-#error                                                                         \
-  "Macros oughtn't be included twice in the same translation unit, ya thick."
+#error "Macros oughtn't be included twice in the same translation unit, ya thick."
 #else
 #include <cassert>
 
@@ -30,32 +29,32 @@
 #define CANTINA_PATTERNS_NAMESPACE patterns
 #define CANTINA_TIME_NAMESPACE time
 
-#define CANTINA_CANT_NAMESPACE_BEGIN                                           \
-    namespace CANTINA_CANT_NAMESPACE                                           \
+#define CANTINA_CANT_NAMESPACE_BEGIN                                                                                   \
+    namespace CANTINA_CANT_NAMESPACE                                                                                   \
     {
 #define CANTINA_CANT_NAMESPACE_END }
-#define CANTINA_PAN_NAMESPACE_BEGIN                                            \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_PAN_NAMESPACE                    \
+#define CANTINA_PAN_NAMESPACE_BEGIN                                                                                    \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_PAN_NAMESPACE                                                            \
     {
 #define CANTINA_PAN_NAMESPACE_END }
-#define CANTINA_REKA_NAMESPACE_BEGIN                                           \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_REKA_NAMESPACE                   \
+#define CANTINA_REKA_NAMESPACE_BEGIN                                                                                   \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_REKA_NAMESPACE                                                           \
     {
 #define CANTINA_REKA_NAMESPACE_END }
-#define CANTINA_MATHS_NAMESPACE_BEGIN                                          \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_MATHS_NAMESPACE                  \
+#define CANTINA_MATHS_NAMESPACE_BEGIN                                                                                  \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_MATHS_NAMESPACE                                                          \
     {
 #define CANTINA_MATHS_NAMESPACE_END }
-#define CANTINA_PHYSICS_NAMESPACE_BEGIN                                        \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_PHYSICS_NAMESPACE                \
+#define CANTINA_PHYSICS_NAMESPACE_BEGIN                                                                                \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_PHYSICS_NAMESPACE                                                        \
     {
 #define CANTINA_PHYSICS_NAMESPACE_END }
-#define CANTINA_PATTERNS_NAMESPACE_BEGIN \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_PATTERNS_NAMESPACE               \
+#define CANTINA_PATTERNS_NAMESPACE_BEGIN                                                                               \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_PATTERNS_NAMESPACE                                                       \
     {
 #define CANTINA_PATTERNS_NAMESPACE_END }
-#define CANTINA_TIME_NAMESPACE_BEGIN                                           \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_TIME_NAMESPACE                   \
+#define CANTINA_TIME_NAMESPACE_BEGIN                                                                                   \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_TIME_NAMESPACE                                                           \
     {
 #define CANTINA_TIME_NAMESPACE_END }
 
@@ -89,33 +88,31 @@
 
 /* EXCEPTION SPECIFICS */
 #ifdef CANTINA_CANTINAEXCEPTION_HPP
-#define CANT_CURRENT_TRACE                                                     \
-    ::cant::Trace(CANT_CURRENT_FUNC, CANT_CURRENT_FILE, CANT_CURRENT_LINE)
+#define CANT_CURRENT_TRACE ::cant::Trace(CANT_CURRENT_FUNC, CANT_CURRENT_FILE, CANT_CURRENT_LINE)
 
 #define CANTINA_EXCEPTION(msg) ::cant::CantinaException(CANT_CURRENT_TRACE, msg)
-#define CANTINA_TRY_RETHROW(expression)                                        \
-    try                                                                        \
-    {                                                                          \
-        expression                                                             \
-    }                                                                          \
-    catch (::cant::CantinaException & e)                                       \
-    {                                                                          \
-        e.addTrace(CANT_CURRENT_TRACE);                                        \
-        throw;                                                                 \
+#define CANTINA_TRY_RETHROW(expression)                                                                                \
+    try                                                                                                                \
+    {                                                                                                                  \
+        expression                                                                                                     \
+    }                                                                                                                  \
+    catch (::cant::CantinaException & e)                                                                               \
+    {                                                                                                                  \
+        e.addTrace(CANT_CURRENT_TRACE);                                                                                \
+        throw;                                                                                                         \
     }
 #endif  // CANTINA_CANTINAEXCEPTION_HPP
 #ifdef CANTINA_PANTOUFLEEXCEPTION_HPP
-#define PANTOUFLE_EXCEPTION(msg)                                               \
-    ::cant::pan::PantoufleException(CANT_CURRENT_TRACE, msg)
-#define PANTOUFLE_TRY_RETHROW(expression)                                      \
-    try                                                                        \
-    {                                                                          \
-        expression                                                             \
-    }                                                                          \
-    catch (::cant::pan::PantoufleException & e)                                \
-    {                                                                          \
-        e.addTrace(CANT_CURRENT_TRACE);                                        \
-        throw;                                                                 \
+#define PANTOUFLE_EXCEPTION(msg) ::cant::pan::PantoufleException(CANT_CURRENT_TRACE, msg)
+#define PANTOUFLE_TRY_RETHROW(expression)                                                                              \
+    try                                                                                                                \
+    {                                                                                                                  \
+        expression                                                                                                     \
+    }                                                                                                                  \
+    catch (::cant::pan::PantoufleException & e)                                                                        \
+    {                                                                                                                  \
+        e.addTrace(CANT_CURRENT_TRACE);                                                                                \
+        throw;                                                                                                         \
     }
 #endif  // CANTINA_PANTOUFLEEXCEPTION_HPP
 

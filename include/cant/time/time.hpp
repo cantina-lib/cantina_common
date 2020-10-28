@@ -9,8 +9,7 @@
 
 #include "Clock.hpp"
 
-#include "SystemExternalClock.hpp"
 #include "CustomExternalClock.hpp"
+#include "SystemExternalClock.hpp"
 
-
-#endif //CANTINA_TIME_TIME_HPP
+#endif  // CANTINA_TIME_TIME_HPP

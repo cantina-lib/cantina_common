@@ -11,52 +11,64 @@
 #include <cant/common/macro.hpp>
 
 CANTINA_TIME_NAMESPACE_BEGIN
-    /*
-     * decorator for Clock that can be stopped
-     * and keeps its own internal time reckoning base on another clock.
-     */
-    class InternalClock : public Clock
-    {
-    public:
-        /** -- methods -- **/
-        CANT_NODISCARD static UPtr<InternalClock> make(UPtr<ExternalClock> externalClock);
+/*
+ * decorator for Clock that can be stopped
+ * and keeps its own internal time reckoning base on another clock.
+ */
+class InternalClock : public Clock
+{
+   public:
+    /** -- methods -- **/
+    CANT_NODISCARD static UPtr<InternalClock>
+      make(UPtr<ExternalClock> externalClock);
 
-        void setCustomTimeGetter(time::AbsoluteTimeGetter absoluteTimeGetter);
+    void
+      setCustomTimeGetter(time::AbsoluteTimeGetter absoluteTimeGetter);
 
-        void start();
-        void stop();
-        void update();
+    void
+      start();
+    void
+      stop();
+    void
+      update();
 
-        void reset();
+    void
+      reset();
 
-        CANT_NODISCARD bool isRunning() const;
+    CANT_NODISCARD bool
+      isRunning() const;
 
-        /** -- fields -- **/
+    /** -- fields -- **/
 
-        void updateTime() override;
-    private:
-        /** -- methods -- **/
-        CANT_EXPLICIT InternalClock(UPtr<ExternalClock> externalClock);
+    void
+      updateTime() override;
 
-        // private inheritance
-        // Contrarily to Clock, this is Cantina internal time
-        // So that it stops when this clock is not updated.
-        CANT_NODISCARD type_d getCurrentTimeSeconds() const override;
-        CANT_NODISCARD type_d getDeltaTimeSeconds() const override;
+   private:
+    /** -- methods -- **/
+    CANT_EXPLICIT
+    InternalClock(UPtr<ExternalClock> externalClock);
 
-        /** -- fields -- **/
-        UPtr<ExternalClock> m_externalClock;
+    // private inheritance
+    // Contrarily to Clock, this is Cantina internal time
+    // So that it stops when this clock is not updated.
+    CANT_NODISCARD type_d
+      getCurrentTimeSeconds() const override;
+    CANT_NODISCARD type_d
+      getDeltaTimeSeconds() const override;
 
-        time_d m_tStartAbsoluteExternal;
+    /** -- fields -- **/
+    UPtr<ExternalClock> m_externalClock;
 
-        time_d m_tStartRunningExternal;
-        time_d m_tStopRunningExternal;
+    time_d m_tStartAbsoluteExternal;
 
-        time_d m_tLastInternal;
+    time_d m_tStartRunningExternal;
+    time_d m_tStopRunningExternal;
 
-        time_d m_tNotRunningTotal;
-        bool m_isRunning;
-    };
+    time_d m_tLastInternal;
+
+    time_d m_tNotRunningTotal;
+    bool   m_isRunning;
+};
 
 CANTINA_TIME_NAMESPACE_END
 
@@ -64,4 +76,4 @@ CANTINA_TIME_NAMESPACE_END
 
 #include <cant/time/InternalClock.inl>
 
-#endif //CANTINA_TIME_INTERNALTIME_HPP
+#endif  // CANTINA_TIME_INTERNALTIME_HPP

@@ -9,4 +9,4 @@
 
 #include "PackedPolynomial.hpp"
 
-#endif //CANTINA_TILDE_POLYNOMIAL_HPP
+#endif  // CANTINA_TILDE_POLYNOMIAL_HPP

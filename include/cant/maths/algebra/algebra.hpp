@@ -6,4 +6,4 @@
 
 #include "Vector.hpp"
 
-#endif //CANTINA_MATHS_ALGEBRA_HPP
+#endif  // CANTINA_MATHS_ALGEBRA_HPP

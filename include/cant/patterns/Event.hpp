@@ -27,11 +27,11 @@ class Event
     /** -- methods -- **/
     Event();
     bool
-      addListener(ShPtr<Listener>& listener);
+      addListener(ShPtr<Listener> & listener);
     bool
-      removeListener(ShPtr<Listener> const& listener);
+      removeListener(ShPtr<Listener> const & listener);
     bool
-    removeListener(Listener const* listener);
+      removeListener(Listener const * listener);
     /**
      * @brief Calls actions for every listener.
      * @param action: callback to be called on notification.
@@ -39,7 +39,7 @@ class Event
      */
     CANT_INLINE
     void
-      notify(Arg_T arg, Args ... args);
+      notify(Arg_T arg, Args... args);
 
    private:
     /** -- fields -- **/
@@ -51,7 +51,7 @@ class EventListener
 {
    public:
     /** -- typedefs -- **/
-    typedef Event<Arg_T, Args...>       E;
+    typedef Event<Arg_T, Args...> E;
 
     /** -- methods -- **/
     EventListener();
@@ -67,9 +67,9 @@ class EventListener
     void
       removeEvent(E const * event);
 
-    virtual
-    void
-      invoke(Arg_T , Args ...) = 0;
+    virtual void
+      invoke(Arg_T, Args...)
+      = 0;
 
     /** -- fields -- **/
 
@@ -83,7 +83,7 @@ class SelfEventListener : public EventListener<Arg_T, Args...>
 {
    public:
     /** -- typedefs -- **/
-    typedef void(C::*Method)(Arg_T , Args...);
+    typedef void (C::*Method)(Arg_T, Args...);
 
     /** -- methods -- **/
     // Conversion
@@ -93,35 +93,34 @@ class SelfEventListener : public EventListener<Arg_T, Args...>
    private:
     /** -- methods -- **/
     void
-      invoke(Arg_T , Args ...) override;
+      invoke(Arg_T, Args...) override;
 
     /** -- fields -- **/
     // dangerous,
     // We have to make sure that this listener's lifecycle is managed by the owner.
-    C * const m_this;
+    C * const    m_this;
     const Method m_method;
 };
 
 template <typename Arg_T, typename... Args>
 class StaticEventListener : public EventListener<Arg_T, Args...>
-    {
-       public:
-        /** -- typedefs -- **/
-        typedef void(Action)(Arg_T, Args...);
+{
+   public:
+    /** -- typedefs -- **/
+    typedef void(Action)(Arg_T, Args...);
 
-        /** -- methods -- **/
+    /** -- methods -- **/
 
-       private:
-        /** -- methods -- **/
-        void
-        invoke(Arg_T , Args ...) override;
+   private:
+    /** -- methods -- **/
+    void
+      invoke(Arg_T, Args...) override;
 
-        /** -- fields -- **/
-        UPtr<Action> m_action;
+    /** -- fields -- **/
+    UPtr<Action> m_action;
+};
 
-    };
-
-    CANTINA_PATTERNS_NAMESPACE_END
+CANTINA_PATTERNS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/patterns/Event.inl>

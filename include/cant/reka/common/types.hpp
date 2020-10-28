@@ -12,8 +12,7 @@
 #include <cant/common/macro.hpp>
 CANTINA_REKA_NAMESPACE_BEGIN
 
-
 CANTINA_REKA_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#endif //EUREKA_TYPES_HPP
+#endif  // EUREKA_TYPES_HPP

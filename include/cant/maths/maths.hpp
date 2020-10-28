@@ -13,4 +13,4 @@
 
 #include "polynomial/polynomial.hpp"
 
-#endif //CANTINA_TILDE_MATHS_HPP
+#endif  // CANTINA_TILDE_MATHS_HPP

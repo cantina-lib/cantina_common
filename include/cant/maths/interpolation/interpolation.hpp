@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "InterpolationOneD.hpp"
 #include "BrokenLinesInterpolation.hpp"
+#include "InterpolationOneD.hpp"
 
-#endif //CANTINA_INTERPOLATION_HPP
+#endif  // CANTINA_INTERPOLATION_HPP

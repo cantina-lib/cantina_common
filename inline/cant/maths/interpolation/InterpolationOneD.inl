@@ -10,21 +10,20 @@
 #include <cant/common/macro.hpp>
 CANTINA_BEGIN_MATHS_NAMESPACE
 
-    template<typename Ret_T, typename... Param_Ts>
-    InterpolationOneD<Ret_T, Param_Ts...>::
-    InterpolationOneD( std::initializer_list<InterpolationPoint<Ret_T, Param_Ts...>> il)
-        : m_values(il)
-    {}
+template <typename Ret_T, typename... Param_Ts>
+InterpolationOneD<Ret_T, Param_Ts...>::InterpolationOneD(
+  std::initializer_list<InterpolationPoint<Ret_T, Param_Ts...>> il)
+    : m_values(il)
+{}
 
-    template<typename Ret_T, typename... Param_Ts>
-    InterpolationOneD<Ret_T, Param_Ts...>::
-    InterpolationOneD(Stream<InterpolationOneD::Value> const& values)
-            : m_values(values)
-    {
-        static_assert(std::is_arithmetic<Param_Ts...>::value);
-    }
+template <typename Ret_T, typename... Param_Ts>
+InterpolationOneD<Ret_T, Param_Ts...>::InterpolationOneD(Stream<InterpolationOneD::Value> const & values)
+    : m_values(values)
+{
+    static_assert(std::is_arithmetic<Param_Ts...>::value);
+}
 
 CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
-#endif //CANTINA_TILDE_INTERPOLATIONONED_INL
+#endif  // CANTINA_TILDE_INTERPOLATIONONED_INL

@@ -8,7 +8,7 @@
 #pragma once
 
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 
-#endif //CANTINA_COMMON_FORMATTING_HPP
+#endif  // CANTINA_COMMON_FORMATTING_HPP

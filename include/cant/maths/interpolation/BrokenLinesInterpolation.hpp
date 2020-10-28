@@ -11,33 +11,36 @@
 
 #include <cant/common/macro.hpp>
 CANTINA_BEGIN_MATHS_NAMESPACE
-    template <typename... Param_Ts>
-    class PackedPolynomials;
+template <typename... Param_Ts>
+class PackedPolynomials;
 
-    template <typename Ret_T, typename... Param_Ts>
-    class BrokenLinesInterpolation : public InterpolationOneD<Ret_T, Param_Ts...>
-    {
-    public:
-        /** -- internal structs -- **/
-        typedef PackedPolynomials<Ret_T, Tuple<Param_Ts...>> Line;
-        /** -- methods -- **/
-        CANT_EXPLICIT BrokenLinesInterpolation(typename InterpolationOneD<Ret_T, Param_Ts...>::Values const& values);
-        CANT_NODISCARD Ret_T operator()(Tuple<Param_Ts> const&... args) const override;
-    private:
-        /** -- methods -- **/
+template <typename Ret_T, typename... Param_Ts>
+class BrokenLinesInterpolation : public InterpolationOneD<Ret_T, Param_Ts...>
+{
+   public:
+    /** -- internal structs -- **/
+    typedef PackedPolynomials<Ret_T, Tuple<Param_Ts...>> Line;
+    /** -- methods -- **/
+    CANT_EXPLICIT
+    BrokenLinesInterpolation(typename InterpolationOneD<Ret_T, Param_Ts...>::Values const & values);
+    CANT_NODISCARD Ret_T
+      operator()(Tuple<Param_Ts> const &... args) const override;
 
-        // static
-        CANT_NODISCARD
-        static Stream<Line> computeLines(Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value> const& values);
+   private:
+    /** -- methods -- **/
 
-        /** -- fields -- **/
-        Stream<Line> m_lines;
-    };
+    // static
+    CANT_NODISCARD
+    static Stream<Line>
+      computeLines(Stream<typename InterpolationOneD<Ret_T, Param_Ts>::Value> const & values);
 
+    /** -- fields -- **/
+    Stream<Line> m_lines;
+};
 }
 CANTINA_END_MATHS_NAMESPACE
 #include <cant/common/undef_macro.hpp>
 
 #include <cant/maths/interpolation/BrokenLinesInterpolation.inl>
 
-#endif //CANTINA_TILDE_BROKENLINESINTERPOLATION_HPP
+#endif  // CANTINA_TILDE_BROKENLINESINTERPOLATION_HPP

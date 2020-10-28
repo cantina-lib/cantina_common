@@ -6,36 +6,36 @@ project(cantina_common)
 set(CANTINA_CXX_STANDARD 20
         CACHE INTERNAL
         "c++ standard for Cantina"
-)
+        )
 
-set(IS_GNU   OFF)
-set(IS_MSVC  OFF)
+set(IS_GNU OFF)
+set(IS_MSVC OFF)
 set(IS_CLANG OFF)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL     "GNU")
-        set(IS_GNU   ON)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(IS_GNU ON)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-        set(IS_MSVC  ON)
+    set(IS_MSVC ON)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        set(IS_CLANG ON)
-endif()
+    set(IS_CLANG ON)
+endif ()
 
 if (CMAKE_BUILD_TYPE STREQUAL 'Release')
-        set(CANTINA_OPTIMISATION ON)
-else()
-        set(CANTINA_OPTIMISATION OFF)
-endif()
+    set(CANTINA_OPTIMISATION ON)
+else ()
+    set(CANTINA_OPTIMISATION OFF)
+endif ()
 
 
 if (${IS_GNU} OR ${IS_CLANG})
-        if (${CANTINA_OPTIMISATION})
-                set(CANTINA_OPTIMISATION_LEVEL "-O3")
-        else()
-                set(CANTINA_OPTIMISATION_LEVEL "")
-        endif()
-        ## -Warray-bounds is clang-only I think?
-        set(CANTINA_MAIN_CXX_FLAGS
-                "-fPIC \
+    if (${CANTINA_OPTIMISATION})
+        set(CANTINA_OPTIMISATION_LEVEL "-O3")
+    else ()
+        set(CANTINA_OPTIMISATION_LEVEL "")
+    endif ()
+    ## -Warray-bounds is clang-only I think?
+    set(CANTINA_MAIN_CXX_FLAGS
+            "-fPIC \
                 -Werror \
                 -Wall -pedantic \
                 -Wextra -Wshadow -Wnon-virtual-dtor  -Warray-bounds \
@@ -43,68 +43,68 @@ if (${IS_GNU} OR ${IS_CLANG})
                 -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for Cantina"
-                )
-        set(CANTINA_THIRDPARTY_CXX_FLAGS
-                " \
+            CACHE INTERNAL
+            "Compilation flags for Cantina"
+            )
+    set(CANTINA_THIRDPARTY_CXX_FLAGS
+            " \
                 -fPIC \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for third-party libraries in Cantina"
-                )
-        ## Removed -Wextra here because of warning in cast to t_newmethod in pd.
-        set(CANTINA_TILDE_CXX_FLAGS
-                "-fPIC \
+            CACHE INTERNAL
+            "Compilation flags for third-party libraries in Cantina"
+            )
+    ## Removed -Wextra here because of warning in cast to t_newmethod in pd.
+    set(CANTINA_TILDE_CXX_FLAGS
+            "-fPIC \
                 -Werror \
                 -Wall -pedantic \
                 -Wshadow -Wnon-virtual-dtor -Warray-bounds \
                 -Wimplicit-fallthrough=5 -Wconversion \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for Cantina"
-                )
+            CACHE INTERNAL
+            "Compilation flags for Cantina"
+            )
 elseif (${IS_MSVC})
-        if (${CANTINA_OPTIMISATION})
-                set(CANTINA_OPTIMISATION_LEVEL "/O2")
-        else()
-                set(CANTINA_OPTIMISATION_LEVEL "")
-        endif()
-        set(CANTINA_MAIN_CXX_FLAGS
-                " \
+    if (${CANTINA_OPTIMISATION})
+        set(CANTINA_OPTIMISATION_LEVEL "/O2")
+    else ()
+        set(CANTINA_OPTIMISATION_LEVEL "")
+    endif ()
+    set(CANTINA_MAIN_CXX_FLAGS
+            " \
                 /EHsc \
                 /WX \
                 /W4 /w14640 /permissive \
                 /w14242 /w14254 /w14263 /w14265 /w14287 \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for Cantina"
-                )
-        set(CANTINA_THIRDPARTY_CXX_FLAGS
-                " \
+            CACHE INTERNAL
+            "Compilation flags for Cantina"
+            )
+    set(CANTINA_THIRDPARTY_CXX_FLAGS
+            " \
                 /EHsc \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for third-party libraries in Cantina"
-                )
-        set(CANTINA_TILDE_CXX_FLAGS
-                " \
+            CACHE INTERNAL
+            "Compilation flags for third-party libraries in Cantina"
+            )
+    set(CANTINA_TILDE_CXX_FLAGS
+            " \
                 /EHsc \
                 /WX \
                 /W4 /w14640 /permissive \
                 /w14242 /w14254 /w14263 /w14265 /w14287 \
                 ${CANTINA_OPTIMISATION_LEVEL} \
                 "
-                CACHE INTERNAL
-                "Compilation flags for cantina~"
-                )
-else()
-        message(ERROR "Nope!")
-endif()
+            CACHE INTERNAL
+            "Compilation flags for cantina~"
+            )
+else ()
+    message(ERROR "Nope!")
+endif ()
 
 set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
 

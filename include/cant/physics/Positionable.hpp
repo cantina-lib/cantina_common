@@ -11,26 +11,28 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-    template <typename Len_T, size_u dim>
-    class Positionable
-    {
-    public:
-        /** -- typedefs -- **/
-        typedef maths::Vector<Len_T, dim> Position;
-        typedef maths::Vector<Len_T, dim> Vector;
+template <typename Len_T, size_u dim>
+class Positionable
+{
+   public:
+    /** -- typedefs -- **/
+    typedef maths::Vector<Len_T, dim> Position;
+    typedef maths::Vector<Len_T, dim> Vector;
 
-        /** -- methods -- **/
-        virtual ~Positionable() = default;
+    /** -- methods -- **/
+    virtual ~Positionable() = default;
 
-        virtual void setPosition(Position position) = 0;
+    virtual void
+      setPosition(Position position)
+      = 0;
 
-        virtual Position const& getPosition() const = 0;
+    virtual Position const &
+      getPosition() const = 0;
 
-        /** -- fields -- **/
-
-    };
+    /** -- fields -- **/
+};
 
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#endif //CANTINA_PHYSICS_PHYSICALPOSITION_HPP
+#endif  // CANTINA_PHYSICS_PHYSICALPOSITION_HPP
