@@ -18,7 +18,7 @@ template <typename Arg_T, typename... Args>
 class EventListener;
 
 template <typename Arg_T, typename... Args>
-class Event
+class Event : std::enable_shared_from_this<Event<Arg_T, Args...>>
 {
    public:
     /** -- typedef -- **/
@@ -30,8 +30,6 @@ class Event
       addListener(ShPtr<Listener> & listener);
     bool
       removeListener(ShPtr<Listener> const & listener);
-    bool
-      removeListener(Listener const * listener);
     /**
      * @brief Calls actions for every listener.
      * @param action: callback to be called on notification.
@@ -47,7 +45,7 @@ class Event
 };
 
 template <typename Arg_T, typename... Args>
-class EventListener
+class EventListener : std::enable_shared_from_this<EventListener<Arg_T, Args...>>
 {
    public:
     /** -- typedefs -- **/
@@ -63,9 +61,9 @@ class EventListener
       unsubscribeFromAllEvents();
 
     void
-      addEvent(E * event);
+      addEvent(ShPtr<E> event);
     void
-      removeEvent(E const * event);
+      removeEvent(ShPtr<E> const & event);
 
     virtual void
       invoke(Arg_T, Args...)
@@ -73,7 +71,7 @@ class EventListener
 
     /** -- fields -- **/
 
-    Stream<E *> m_events;
+    Stream<ShPtr<E>> m_events;
 
     friend class Event<Arg_T, Args...>;
 };

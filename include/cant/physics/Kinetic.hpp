@@ -6,6 +6,8 @@
 
 #include <cant/common/types.hpp>
 
+#include <cant/physics/Positionable.hpp>
+
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 

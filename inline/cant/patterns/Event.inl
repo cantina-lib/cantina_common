@@ -26,7 +26,7 @@ CANT_INLINE void
 
 template <typename Arg_T, typename... Args>
 bool
-  Event<Arg_T, Args...>::addListener(ShPtr<Event::Listener> & listener)
+  Event<Arg_T, Args...>::addListener(ShPtr<Listener> & listener)
 {
     auto const it = std::find(m_listeners.cbegin(), m_listeners.cend(), listener);
     if (it != m_listeners.cend())
@@ -35,28 +35,24 @@ bool
         return false;
     }
     m_listeners.push_back(listener);
-    m_listeners.back()->addEvent(this);
+    m_listeners.back()->addEvent(this->shared_from_this());
     return true;
 }
 template <typename Arg_T, typename... Args>
 bool
-  Event<Arg_T, Args...>::removeListener(ShPtr<Event::Listener> const & listener)
+  Event<Arg_T, Args...>::removeListener(ShPtr<Listener> const & listener)
 {
-    return removeListener(listener.get());
-}
-
-template <typename Arg_T, typename... Args>
-bool
-  Event<Arg_T, Args...>::removeListener(Listener const * listener)
-{
-    auto const it = std::find_if(
-      m_listeners.cbegin(), m_listeners.cend(), [listener](auto const & el) { return el.get() == listener; });
+    auto const it = std::find(
+      m_listeners.cbegin(),
+      m_listeners.cend(),
+      listener
+      );
     if (it == m_listeners.cend())
     {
         // listener is not in the list.
         return false;
     }
-    (*it)->removeEvent(this);
+    (*it)->removeEvent(this->shared_from_this());
     m_listeners.erase(it);
     return true;
 }
@@ -72,7 +68,7 @@ EventListener<Arg_T, Args...>::~EventListener()
 
 template <typename Arg_T, typename... Args>
 void
-  EventListener<Arg_T, Args...>::addEvent(E * event)
+  EventListener<Arg_T, Args...>::addEvent(ShPtr<E>  event)
 {
     auto const it    = std::find(m_events.cbegin(), m_events.cend(), event);
     bool const found = it != m_events.cend();
@@ -85,7 +81,7 @@ void
 
 template <typename Arg_T, typename... Args>
 void
-  EventListener<Arg_T, Args...>::removeEvent(E const * event)
+  EventListener<Arg_T, Args...>::removeEvent(ShPtr<E> const & event)
 {
     auto const it    = std::find(m_events.cbegin(), m_events.cend(), event);
     bool const found = it != m_events.cend();
@@ -103,7 +99,12 @@ void
     // Sadly, there's no way to check whether the events point to valid memory.
     // This whole thing made me realise the value of forcing object allocation of the heap.
     // Interesting to realise how little I know about this stuff.
-    std::for_each(m_events.begin(), m_events.end(), [this](E * event) { event->removeListener(this); });
+    std::for_each(m_events.begin(),
+                  m_events.end(),
+                  [this](ShPtr<E> & event)
+                  {
+                      event->removeListener(this->shared_from_this());
+                  });
 }
 template <typename Arg_T, typename... Args>
 EventListener<Arg_T, Args...>::EventListener() : m_events()
