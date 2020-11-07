@@ -27,9 +27,8 @@ This is a header-only library, it can be used by including this directory in CMa
 
 #### Features 
 
-- [ ] Implement C#-style properties. (template, overload = etc.)
-- [ ] Implement Slider. (and SliderProperty as a convenience?)
-- [ ] Update Pantoufle.
+- [x] Implement C#-style properties. (template, overload = etc.)
+- [x] Implement Slider. (and SliderProperty as a convenience?)
 
 
 ###### ~ tut-tut-tut-tut-tulut-tut ~
