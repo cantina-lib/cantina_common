@@ -53,10 +53,14 @@ T
 }
 
 template <typename T, int ulp>
+template <typename Scalar_T>
 CANT_INLINE T
-  approx<T, ulp>::barycentre(T a, T b, type_d lambda)
+  approx<T, ulp>::barycentre(T a, T b, Scalar_T lambda)
 {
-    const bool inBounds = inRange(a, b, lambda);
+    bool const inBounds = inRange(
+      static_cast<Scalar_T>(0.),
+      static_cast<Scalar_T>(1.),
+      lambda);
     CANTINA_ASSERT(inBounds, "Noooo!!");
     if (!inBounds)
     {

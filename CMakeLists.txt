@@ -191,6 +191,8 @@ set(CANTINA_COMMON_FILES
         # Patterns
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Event.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Property.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Slider.hpp
 
         # Time
         ## headers

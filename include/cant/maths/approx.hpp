@@ -38,8 +38,9 @@ class approx
     CANT_NODISCARD static bool
       inRange(T a, T b, T val);
 
+    template <typename Scalar_T>
     CANT_NODISCARD static T
-      barycentre(T a, T b, type_d lambda);
+      barycentre(T a, T b, Scalar_T lambda);
 
    private:
     /** -- methods -- **/

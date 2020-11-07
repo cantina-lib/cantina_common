@@ -17,8 +17,18 @@ CANTINA_PATTERNS_NAMESPACE_BEGIN
 template <typename Arg_T, typename... Args>
 class EventListener;
 
+/*
+ * Note:
+ * (C++17) public inheritance from std::enable_shared_from_this is compulsory.
+ * see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+ * Otherwise you'll get a null weak_ptr when trying to construct a shared_ptr.
+ */
+/*
+* Event. SHOULD BE STORED IN A ShPtr!!
+* see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+ */
 template <typename Arg_T, typename... Args>
-class Event : std::enable_shared_from_this<Event<Arg_T, Args...>>
+class Event : public std::enable_shared_from_this<Event<Arg_T, Args...>>
 {
    public:
     /** -- typedef -- **/
@@ -44,8 +54,14 @@ class Event : std::enable_shared_from_this<Event<Arg_T, Args...>>
     Stream<ShPtr<Listener>> m_listeners;
 };
 
+/**
+ * Event listener. SHOULD BE STORED IN A ShPtr!!
+ * see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+ * @tparam Arg_T
+ * @tparam Args
+ */
 template <typename Arg_T, typename... Args>
-class EventListener : std::enable_shared_from_this<EventListener<Arg_T, Args...>>
+class EventListener : public std::enable_shared_from_this<EventListener<Arg_T, Args...>>
 {
    public:
     /** -- typedefs -- **/
