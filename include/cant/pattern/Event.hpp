@@ -12,7 +12,7 @@
 #include <cant/common/traits.hpp>
 
 #include <cant/common/macro.hpp>
-CANTINA_PATTERNS_NAMESPACE_BEGIN
+CANTINA_PATTERN_NAMESPACE_BEGIN
 
 template <typename Arg_T, typename... Args>
 class EventListener;
@@ -28,18 +28,19 @@ class EventListener;
 * see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
  */
 template <typename Arg_T, typename... Args>
-class Event : public std::enable_shared_from_this<Event<Arg_T, Args...>>
+class Event
 {
    public:
     /** -- typedef -- **/
-    typedef EventListener<Arg_T, Args...> Listener;
+    typedef typename EventListener<Arg_T, Args...>::ListenerToken ListenerToken;
 
     /** -- methods -- **/
     Event();
+    ~Event();
     bool
-      addListener(ShPtr<Listener> & listener);
+      addListener(ShPtr<ListenerToken> & listenerToken);
     bool
-      removeListener(ShPtr<Listener> const & listener);
+      removeListener(const ShPtr<ListenerToken> & listenerToken);
     /**
      * @brief Calls actions for every listener.
      * @param action: callback to be called on notification.
@@ -47,11 +48,28 @@ class Event : public std::enable_shared_from_this<Event<Arg_T, Args...>>
      */
     CANT_INLINE
     void
-      notify(Arg_T arg, Args... args);
+      invoke(Arg_T, Args...);
 
    private:
+    /** -- structs -- **/
+    class EventToken : public std::enable_shared_from_this<EventToken>
+    {
+    public:
+        /** -- methods -- **/
+        CANT_EXPLICIT EventToken(Event * event);
+        CANT_INLINE bool removeListener(ShPtr<ListenerToken> &listenerToken);
+    private:
+        /** -- methods -- **/
+        Event * const m_event;
+    };
+
     /** -- fields -- **/
-    Stream<ShPtr<Listener>> m_listeners;
+    ShPtr<EventToken> m_token;
+    Stream<ShPtr<ListenerToken>> m_listenerTokens;
+
+    /** -- friends -- **/
+    // only for definition of EventToken.
+    friend class EventListener<Arg_T, Args...>;
 };
 
 /**
@@ -61,36 +79,67 @@ class Event : public std::enable_shared_from_this<Event<Arg_T, Args...>>
  * @tparam Args
  */
 template <typename Arg_T, typename... Args>
-class EventListener : public std::enable_shared_from_this<EventListener<Arg_T, Args...>>
+class EventListener
 {
    public:
     /** -- typedefs -- **/
-    typedef Event<Arg_T, Args...> E;
+    typedef typename Event<Arg_T, Args...>::EventToken EventToken;
 
     /** -- methods -- **/
     EventListener();
     virtual ~EventListener();
 
    private:
+    /** -- structs -- **/
+    class ListenerToken : public std::enable_shared_from_this<ListenerToken>
+    {
+       public:
+        /** -- methods -- **/
+        CANT_EXPLICIT ListenerToken(EventListener * listener);
+        CANT_INLINE void update(Arg_T, Args...);
+       private:
+        /** -- fields -- **/
+        EventListener * const m_listener;
+    };
+
     /** -- methods -- **/
+
     void
       unsubscribeFromAllEvents();
 
     void
-      addEvent(ShPtr<E> event);
+      addEvent(ShPtr<EventToken> & eventToken);
     void
-      removeEvent(ShPtr<E> const & event);
+      removeEvent(ShPtr<EventToken> const & eventToken);
 
     virtual void
-      invoke(Arg_T, Args...)
+      update(Arg_T, Args...)
       = 0;
 
     /** -- fields -- **/
+    ShPtr<ListenerToken> m_token;
+    Stream<ShPtr<EventToken>> m_eventTokens;
 
-    Stream<ShPtr<E>> m_events;
-
+    /** -- friends -- **/
     friend class Event<Arg_T, Args...>;
 };
+
+/**
+ * An interface for classes needing to subscribe to Events
+ * called by a specific class.
+ * @tparam EventHolder_T A class aggregating Events.
+ */
+template <class EventHolder_T>
+class EventSubscriber
+{
+   public:
+    /** -- methods -- **/
+    virtual ~EventSubscriber() = default;
+
+    virtual void subscribe(EventHolder_T&) = 0;
+    virtual void unsubscribe(EventHolder_T&) = 0;
+};
+
 
 template <class C, typename Arg_T, typename... Args>
 class SelfEventListener : public EventListener<Arg_T, Args...>
@@ -107,7 +156,7 @@ class SelfEventListener : public EventListener<Arg_T, Args...>
    private:
     /** -- methods -- **/
     void
-      invoke(Arg_T, Args...) override;
+      update(Arg_T, Args...) override;
 
     /** -- fields -- **/
     // dangerous,
@@ -128,15 +177,15 @@ class StaticEventListener : public EventListener<Arg_T, Args...>
    private:
     /** -- methods -- **/
     void
-      invoke(Arg_T, Args...) override;
+      update(Arg_T, Args...) override;
 
     /** -- fields -- **/
     UPtr<Action> m_action;
 };
 
-CANTINA_PATTERNS_NAMESPACE_END
+CANTINA_PATTERN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/patterns/Event.inl>
+#include <cant/pattern/Event.inl>
 
 #endif  // CANTINA_PATTERN_EVENT_HPP

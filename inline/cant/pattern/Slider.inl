@@ -7,7 +7,7 @@
 #include <cant/maths/approx.hpp>
 
 #include <cant/common/macro.hpp>
-CANTINA_PATTERNS_NAMESPACE_BEGIN
+CANTINA_PATTERN_NAMESPACE_BEGIN
 
 template <typename Value_T, typename Scalar_T>
 Slider<Value_T, Scalar_T>::Slider(SliderFunc func)
@@ -59,7 +59,7 @@ void
     }
 }
 
-CANTINA_PATTERNS_NAMESPACE_END
+CANTINA_PATTERN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
 #endif  // CANTINA_PATTERNS_SLIDER_INL

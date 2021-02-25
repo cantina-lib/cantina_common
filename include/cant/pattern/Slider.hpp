@@ -9,7 +9,7 @@
 #include <cant/time/common/types.hpp>
 
 #include <cant/common/macro.hpp>
-CANTINA_PATTERNS_NAMESPACE_BEGIN
+CANTINA_PATTERN_NAMESPACE_BEGIN
 
 template <typename Value_T, typename Scalar_T>
 class Slider
@@ -60,9 +60,9 @@ class Slider
     Scalar_T m_adv;
 };
 
-CANTINA_PATTERNS_NAMESPACE_END
+CANTINA_PATTERN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/patterns/Slider.inl>
+#include <cant/pattern/Slider.inl>
 
 #endif  // CANTINA_PATTERNS_SLIDER_HPP

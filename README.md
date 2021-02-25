@@ -29,6 +29,10 @@ This is a header-only library, it can be used by including this directory in CMa
 
 - [x] Implement C#-style properties. (template, overload = etc.)
 - [x] Implement Slider. (and SliderProperty as a convenience?)
+- [ ] Change Base Clock to template, resolve it with System clock (double),
+add possibility of MIDI tick type (int).
+- [ ] Move internal Event handling to private structs so that we don't have to force 
+Event and EventListeners them to be created with std::shared_ptr.
 
 
 ###### ~ tut-tut-tut-tut-tulut-tut ~

@@ -26,7 +26,7 @@
 #define CANTINA_REKA_NAMESPACE reka
 #define CANTINA_MATHS_NAMESPACE maths
 #define CANTINA_PHYSICS_NAMESPACE physics
-#define CANTINA_PATTERNS_NAMESPACE patterns
+#define CANTINA_PATTERN_NAMESPACE pattern
 #define CANTINA_TIME_NAMESPACE time
 
 #define CANTINA_CANT_NAMESPACE_BEGIN                                                                                   \
@@ -49,10 +49,10 @@
     namespace CANTINA_CANT_NAMESPACE::CANTINA_PHYSICS_NAMESPACE                                                        \
     {
 #define CANTINA_PHYSICS_NAMESPACE_END }
-#define CANTINA_PATTERNS_NAMESPACE_BEGIN                                                                               \
-    namespace CANTINA_CANT_NAMESPACE::CANTINA_PATTERNS_NAMESPACE                                                       \
+#define CANTINA_PATTERN_NAMESPACE_BEGIN                                                                                \
+    namespace CANTINA_CANT_NAMESPACE::CANTINA_PATTERN_NAMESPACE                                                        \
     {
-#define CANTINA_PATTERNS_NAMESPACE_END }
+#define CANTINA_PATTERN_NAMESPACE_END }
 #define CANTINA_TIME_NAMESPACE_BEGIN                                                                                   \
     namespace CANTINA_CANT_NAMESPACE::CANTINA_TIME_NAMESPACE                                                           \
     {

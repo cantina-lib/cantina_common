@@ -1,13 +1,13 @@
 
-#ifndef CANTINA_PATTERNS_PROPERTY_HPP
-#define CANTINA_PATTERNS_PROPERTY_HPP
+#ifndef CANTINA_PATTERN_PROPERTY_HPP
+#define CANTINA_PATTERN_PROPERTY_HPP
 
 #pragma once
 
 #include <cant/common/memory.hpp>
 
 #include <cant/common/macro.hpp>
-CANTINA_PATTERNS_NAMESPACE_BEGIN
+CANTINA_PATTERN_NAMESPACE_BEGIN
 
 /**
  * Emulating C#-style property.
@@ -45,9 +45,9 @@ class Property
     T m_value;
 };
 
-CANTINA_PATTERNS_NAMESPACE_END
+CANTINA_PATTERN_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/patterns/Property.inl>
+#include <cant/pattern/Property.inl>
 
 #endif  // CANTINA_PATTERNS_PROPERTY_HPP
