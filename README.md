@@ -25,6 +25,8 @@ This is a header-only library, it can be used by including this directory in CMa
 
 ### To do
 
+- [ ] Implement missing Slider::SetSlidingSpeed method and use speed in Slider.
+
 #### Features 
 
 - [x] Implement C#-style properties. (template, overload = etc.)
