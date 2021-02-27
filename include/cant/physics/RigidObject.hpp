@@ -16,41 +16,18 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class RigidObject : public KineticObject<Len_T, Mass_T, Time_T, dim>, public Collidable<Len_T, Mass_T, dim>
+class RigidObject : public KineticObject<Len_T, Mass_T, Time_T, dim>, public Collidable<Len_T, dim>
 {
    public:
     /** -- typedef -- **/
-    typedef typename Positionable<Len_T, dim>::Position        Position;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity     Velocity;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Acceleration Acceleration;
-
-    typedef typename KineticObject<Len_T, Mass_T, Time_T, dim>::State State;
-
     typedef PhysicalShape<Len_T, dim>            Shape;
-    typedef PhysicalCollider<Len_T, Mass_T, dim> Collider;
+    typedef PhysicalCollider<Len_T, dim> Collider;
 
     /** -- methods -- **/
-    CANT_EXPLICIT
-    RigidObject(UPtr<State> state, UPtr<Shape> shape);
+    CANT_EXPLICIT RigidObject(UPtr<Shape> shape);
+    RigidObject(Mass_T mass, UPtr<Shape> shape);
 
     // and now I have to redefine all this stuff to satisfy the Collidable interface, nyeh!
-    // Positionable through Collidable
-    void
-      setPosition(Position position) override;
-    Position const &
-      getPosition() const override;
-
-    // Kinetic through Collidable
-    void
-      setMass(Mass_T mass) override;
-    CANT_NODISCARD Mass_T
-                   getInverseMass() const override;
-    CANT_NODISCARD Velocity const &
-                   getVelocity() const override;
-    void
-                   setVelocity(Velocity velocity) override;
-    CANT_NODISCARD Acceleration const &
-                   getAcceleration() const override;
 
     // Collidable
     WPtr<Collider>
@@ -62,8 +39,6 @@ class RigidObject : public KineticObject<Len_T, Mass_T, Time_T, dim>, public Col
     }
 
    private:
-    /** -- methods -- **/
-
     /** -- fields -- **/
     ShPtr<Collider> m_collider;
 

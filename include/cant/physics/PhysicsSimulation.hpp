@@ -10,10 +10,13 @@
 #include <cant/physics/CollisionDetector.hpp>
 #include <cant/physics/CollisionSolver.hpp>
 
+#include <cant/physics/KineticUpdater.hpp>
+
 #include <cant/physics/CollisionObject.hpp>
+#include <cant/physics/KineticObject.hpp>
 #include <cant/physics/RigidObject.hpp>
 
-#include <cant/physics/PhysicalForceField.hpp>
+#include <cant/physics/PhysicalForce.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
@@ -31,10 +34,12 @@ class PhysicsSimulation
     typedef CollisionDetector<Len_T, Mass_T, dim> Detector;
     typedef CollisionSolver<Len_T, Mass_T, dim>   Solver;
 
-    typedef PhysicalForceField<Len_T, Mass_T, Time_T, dim> ForceField;
+    typedef PhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
 
-    typedef RigidObject<Len_T, Mass_T, Time_T, dim> DynamicObject;
-    typedef CollisionObject<Len_T, Mass_T, dim>     StaticObject;
+    typedef RigidObject<Len_T, Mass_T, Time_T, dim> Rigid;
+    typedef KineticObject<Len_T, Mass_T, Time_T, dim> Object;
+
+    typedef KineticUpdater<Len_T, Mass_T, Time_T, dim> Updater;
 
     /** -- methods -- **/
     PhysicsSimulation();
@@ -43,31 +48,24 @@ class PhysicsSimulation
       stepDelta(Time_T dt);
 
     void
-      addForceField(UPtr<ForceField> forceField);
+      addForce(UPtr<Force> force);
 
     void
-      addRigidObject(ShPtr<DynamicObject> & rigidObject, typename Detector::LayerKey layer);
+      addRigidObject(ShPtr<Rigid> & rigidObject, typename Detector::LayerKey layer);
     void
-      addKinematicObject(ShPtr<DynamicObject> & kinematicObject, typename Detector::LayerKey layer);
-    void
-      addStaticObject(ShPtr<StaticObject> & staticObject, typename Detector::LayerKey layer);
+      addKinematicObject(ShPtr<Object> & kinematicObject);
 
    private:
-    /** -- methods -- **/
-    void
-      stepObjectsDelta(Time_T dt);
-    void
-      stepForceFieldsDelta(Time_T dt);
-
     /** -- fields -- **/
+    UPtr<Updater> m_updater;
+
     Detector m_collisionDetector;
     Solver   m_collisionSolver;
 
-    Stream<ShPtr<DynamicObject>> m_rigidObjects;
-    Stream<ShPtr<DynamicObject>> m_kinematicObjects;
-    Stream<ShPtr<StaticObject>>  m_staticObjects;
 
-    Stream<ShPtr<ForceField>> m_forceFields;
+    Stream<ShPtr<Object>> m_objects;
+
+    Stream<ShPtr<Force>> m_forces;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

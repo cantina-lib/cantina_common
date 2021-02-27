@@ -26,7 +26,7 @@ class PhysicalCollision
     typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity     Velocity;
     typedef typename Kinetic<Len_T, Mass_T, dim>::Acceleration Acceleration;
 
-    typedef PhysicalCollider<Len_T, Mass_T, dim>   Collider;
+    typedef PhysicalCollider<Len_T, dim>   Collider;
     typedef Pair<ShPtr<Collider>, ShPtr<Collider>> CollisionPair;
 
     /** -- structs -- **/

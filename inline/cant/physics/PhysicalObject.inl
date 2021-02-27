@@ -7,34 +7,36 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <class State, typename Len_T, size_u dim>
-CANT_INLINE void
-  PhysicalObjectTrait<State, Len_T, dim>::setPosition(typename PhysicalState<Len_T, dim>::Position position)
-{
-    m_state->setPosition(std::move(position));
-}
-
-template <class State, typename Len_T, size_u dim>
-CANT_INLINE void
-  PhysicalObjectTrait<State, Len_T, dim>::translate(typename PhysicalState<Len_T, dim>::Vector const & vec)
-{
-    m_state->translate(vec);
-}
-
-template <class State, typename Len_T, size_u dim>
-CANT_INLINE typename PhysicalState<Len_T, dim>::Position const &
-  PhysicalObjectTrait<State, Len_T, dim>::getPosition() const
-{
-    return m_state->getPosition();
-}
-
-template <class State, typename Dim_T, size_u dim>
-CANT_INLINE
-  PhysicalObjectTrait<State, Dim_T, dim>::PhysicalObjectTrait(UPtr<State> state)
-    : m_state(std::move(state))
+template <typename Len_T, size_u dim>
+PhysicalObject<Len_T, dim>::PhysicalObject(Position position) : m_position(std::move(position))
 {}
 
-CANTINA_PHYSICS_NAMESPACE_END
+template <typename Len_T, size_u dim>
+PhysicalObject<Len_T, dim>::PhysicalObject() : m_position()
+{}
 
+template <typename Len_T, size_u dim>
+CANT_INLINE void
+  PhysicalObject<Len_T, dim>::setPosition(Position pos)
+{
+    m_position = std::move(pos);
+}
+
+template <typename Len_T, size_u dim>
+CANT_INLINE typename PhysicalObject<Len_T, dim>::Position const &
+  PhysicalObject<Len_T, dim>::getPosition() const
+{
+    return m_position;
+}
+
+template <typename Len_T, size_u dim>
+void
+  PhysicalObject<Len_T, dim>::translate(PhysicalObject::Vector const & vec)
+{
+    m_position += vec;
+}
+
+CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
+
 #endif  // CANTINA_PHYSICS_PHYSICALOBJECT_INL

@@ -24,7 +24,7 @@ class CollisionDetector
    public:
     /** -- typedefs -- **/
     typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef PhysicalCollider<Len_T, Mass_T, dim>        Collider;
+    typedef PhysicalCollider<Len_T, dim>        Collider;
     typedef PhysicalCollision<Len_T, Mass_T, dim>       Collision;
 
     typedef type_i LayerKey;

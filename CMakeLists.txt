@@ -111,9 +111,6 @@ set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_INLINE_DIR ${PROJECT_SOURCE_DIR}/inline)
 
-set(THIRDPARTY_DIR ${PROJECT_SOURCE_DIR}/third-party)
-
-
 set(CANTINA_COMMON_INCLUDE_DIRS
         ${CANTINA_COMMON_INCLUDE_DIR}
         ${CANTINA_COMMON_INLINE_DIR}
@@ -172,18 +169,16 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollider.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForce.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalAppliedForce.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForceField.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomForceField.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/IsotropicPullField.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/StaticPhysicalLink.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/HookSpringLink.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalState.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticState.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/RigidObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticUpdater.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/LeapfrogUpdater.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionDetector.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionSolver.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicsSimulation.hpp

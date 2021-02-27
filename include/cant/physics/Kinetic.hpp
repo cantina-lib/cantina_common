@@ -29,6 +29,12 @@ class Kinetic
     CANT_NODISCARD virtual Mass_T
       getInverseMass() const = 0;
 
+    /*
+     * IMPORTANT
+     * Only collision processes should
+     * set the velocity and acceleration by hand
+     * it should otherwise be updated with the acceleration.
+     */
     virtual void
       setVelocity(Velocity velocity)
       = 0;

@@ -15,24 +15,22 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <typename Len_T, size_u dim>
 class Collidable;
 
-template <typename Len_T, typename Mass_T, size_u dim>
-class PhysicalCollider : public Kinetic<Len_T, Mass_T, dim>
+template <typename Len_T, size_u dim>
+class PhysicalCollider : public Positionable<Len_T, dim>
 {
    public:
     /** -- typedef -- **/
     typedef typename Positionable<Len_T, dim>::Position        Position;
     typedef typename Positionable<Len_T, dim>::Vector          Vector;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity     Velocity;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Acceleration Acceleration;
 
     typedef PhysicalShape<Len_T, dim>    Shape;
     typedef maths::Rectangle<Len_T, dim> AABB;
 
     /** -- methods -- **/
-    PhysicalCollider(Collidable<Len_T, Mass_T, dim> * owner, UPtr<Shape> shape);
+    PhysicalCollider(Collidable<Len_T, dim> * owner, UPtr<Shape> shape);
 
     CANT_NODISCARD bool
       intersectsAABB(ShPtr<PhysicalCollider> const & other) const;
@@ -54,36 +52,23 @@ class PhysicalCollider : public Kinetic<Len_T, Mass_T, dim>
     void
       translate(Vector const & vec);
 
-    // implemented from Kinetic
-    void
-      setMass(Mass_T mass) override;
-    CANT_NODISCARD Mass_T
-      getInverseMass() const override;
-    void
-                   setVelocity(Velocity velocity) override;
-    CANT_NODISCARD Velocity const &
-                   getVelocity() const override;
-    CANT_NODISCARD Acceleration const &
-                   getAcceleration() const override;
-
    private:
     /** -- methods -- **/
 
     /** -- fields -- **/
-    Collidable<Len_T, Mass_T, dim> * const m_owner;
+    Collidable<Len_T, dim> * const m_owner;
     // Could be shared!
     UPtr<Shape> m_shape;
 };
 
-template <typename Len_T, typename Mass_T, size_u dim>
-class Collidable : public Positionable<Len_T, dim>, public Kinetic<Len_T, Mass_T, dim>
+template <typename Len_T, size_u dim>
+class Collidable : public Positionable<Len_T, dim>
 {
    public:
     /** -- typedefs -- **/
     typedef typename Positionable<Len_T, dim>::Position    Position;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity Velocity;
 
-    typedef PhysicalCollider<Len_T, Mass_T, dim> Collider;
+    typedef PhysicalCollider<Len_T, dim> Collider;
 
     /** -- methods -- **/
     CANT_NODISCARD virtual WPtr<Collider>
