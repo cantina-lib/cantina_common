@@ -7,6 +7,8 @@
 #include <algorithm>
 
 #include <cant/common/macro.hpp>
+#include <cant/physics/UniformForceField.hpp>
+
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template<size_u dim, typename T>
@@ -20,6 +22,13 @@ template<size_u dim, typename T>
 UniformForceField<dim, T>::UniformForceField(Vector vec)
   : m_vec(std::move(vec))
 {
+}
+
+template <size_u dim, typename T>
+void
+UniformForceField<dim, T>::setVector(Vector vec)
+{
+    m_vec = std::move(vec);
 }
 
 template <size_u dim, typename T>
