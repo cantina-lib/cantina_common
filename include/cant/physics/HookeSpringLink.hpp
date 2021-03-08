@@ -13,7 +13,7 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class HookSpringLink : public StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, 2>
+class HookeSpringLink : public StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, 2>
 {
    public:
     /** -- typedef -- **/
@@ -22,7 +22,7 @@ class HookSpringLink : public StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, 2>
     typedef typename Link::DeltaForce DeltaForce;
 
     /** -- methods -- **/
-    HookSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2);
+    HookeSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2);
 
    private:
     /** -- methods -- **/

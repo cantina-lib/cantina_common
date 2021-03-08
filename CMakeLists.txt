@@ -170,7 +170,7 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForce.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/StaticPhysicalLink.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/HookSpringLink.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/HookeSpringLink.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp

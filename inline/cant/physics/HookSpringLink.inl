@@ -10,7 +10,7 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-HookSpringLink<Len_T, Mass_T, Time_T, dim>::HookSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2)
+HookeSpringLink<Len_T, Mass_T, Time_T, dim>::HookeSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2)
     : Link({ o1, o2 }), m_k(k), m_l0(l0)
 {
 
@@ -18,7 +18,7 @@ HookSpringLink<Len_T, Mass_T, Time_T, dim>::HookSpringLink(Mass_T k, Len_T l0, S
 
 template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
 void
-HookSpringLink<Len_T, Mass_T, Time_T, dim>::getDeltaForceInternal(const Stream <ShPtr<Object>> &objects,
+  HookeSpringLink<Len_T, Mass_T, Time_T, dim>::getDeltaForceInternal(const Stream <ShPtr<Object>> &objects,
                                                                   Stream <DeltaForce> &deltaForces
 ) const
 {
