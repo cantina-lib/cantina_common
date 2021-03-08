@@ -9,14 +9,14 @@
 #include <cant/common/macro.hpp>
 CANTINA_MATHS_NAMESPACE_BEGIN
 
-template <typename Dim_T, size_u dim>
-Rectangle<Dim_T, dim>::Rectangle(Rectangle::Point centre, Rectangle::Point halfDims)
+template <size_u dim, typename T>
+Rectangle<dim, T>::Rectangle(Rectangle::Point centre, Rectangle::Point halfDims)
     : m_centre(std::move(centre)), m_halfDims(std::move(halfDims))
 {}
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 bool
-  Rectangle<Dim_T, dim>::intersects(Rectangle const & other) const
+  Rectangle<dim, T>::intersects(Rectangle const & other) const
 {
     for (size_u i = 0; i < dim; ++i)
     {

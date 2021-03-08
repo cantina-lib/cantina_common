@@ -6,16 +6,16 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
-PhysicalCollision<Len_T, Mass_T, dim>::PhysicalCollision(CollisionPair pair) : m_pair(std::move(pair)), m_phase(eEnter)
+template <size_u dim, typename T>
+PhysicalCollision<dim, T>::PhysicalCollision(CollisionPair pair) : m_pair(std::move(pair)), m_phase(eEnter)
 {
     sortColliders();
     computeContact();
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicalCollision<Len_T, Mass_T, dim>::computeCollision()
+  PhysicalCollision<dim, T>::computeCollision()
 {
     switch (getPhase())
     {
@@ -25,32 +25,32 @@ CANT_INLINE void
     }
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
-CANT_INLINE ShPtr<typename PhysicalCollision<Len_T, Mass_T, dim>::Collider> &
-            PhysicalCollision<Len_T, Mass_T, dim>::getColliderMax()
+template <size_u dim, typename T>
+CANT_INLINE ShPtr<typename PhysicalCollision<dim, T>::Collider> &
+            PhysicalCollision<dim, T>::getColliderMax()
 {
     return m_pair.first;
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
-CANT_INLINE ShPtr<typename PhysicalCollision<Len_T, Mass_T, dim>::Collider> &
-            PhysicalCollision<Len_T, Mass_T, dim>::getColliderMin()
+template <size_u dim, typename T>
+CANT_INLINE ShPtr<typename PhysicalCollision<dim, T>::Collider> &
+            PhysicalCollision<dim, T>::getColliderMin()
 {
     return m_pair.second;
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicalCollision<Len_T, Mass_T, dim>::computeContact()
+  PhysicalCollision<dim, T>::computeContact()
 {
     // rap, rbp
     m_contact.rap = getColliderMin()->getVectorToClosestRim(getColliderMax()->getCentre());
 
     // n
-    if (maths::approx<Len_T>::equal(static_cast<Len_T>(0), m_contact.rap.getNorm()))
+    if (maths::approx<T>::equal(static_cast<T>(0), m_contact.rap.getNorm()))
     {
         m_contact.n = Vector();
-        m_contact.n.template set<0>(static_cast<Len_T>(1));
+        m_contact.n.template set<0>(static_cast<T>(1));
     }
     else
     {
@@ -69,16 +69,16 @@ CANT_INLINE void
     m_contact.e = c_restitution;
 
     // impulse j
-    Velocity const vab = m_contact.vap - m_contact.vbp;
-    Len_T const    nom = -(static_cast<Len_T>(1) + m_contact.e) * vab.dot(m_contact.n);
-    Len_T const    den = getColliderMax()->getInverseMass() + getColliderMin()->getInverseMass();
+    Vector const vab = m_contact.vap - m_contact.vbp;
+    T const    nom = -(static_cast<T>(1) + m_contact.e) * vab.dot(m_contact.n);
+    T const    den = getColliderMax()->getInverseMass() + getColliderMin()->getInverseMass();
 
     m_contact.impulse = nom / den;
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicalCollision<Len_T, Mass_T, dim>::sortColliders()
+  PhysicalCollision<dim, T>::sortColliders()
 {
     bool const firstIsStatic  = m_pair.first->isStatic();
     bool const secondIsStatic = m_pair.second->isStatic();
@@ -88,8 +88,8 @@ void
     bool shouldSwap;
     if (!(firstIsStatic || secondIsStatic))
     {
-        Len_T const velNorm1 = m_pair.first->getVelocity().getNorm();
-        Len_T const velNorm2 = m_pair.second->getVelocity().getNorm();
+        T const velNorm1 = m_pair.first->getVelocity().getNorm();
+        T const velNorm2 = m_pair.second->getVelocity().getNorm();
 
         shouldSwap = velNorm2 >= velNorm1;
     }
@@ -103,9 +103,9 @@ void
     }
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicalCollision<Len_T, Mass_T, dim>::setCollidersVelocities()
+  PhysicalCollision<dim, T>::setCollidersVelocities()
 {
     getColliderMin()->setVelocity(getColliderMin()->getVelocity()
                                   - m_contact.n * (m_contact.impulse * getColliderMin()->getInverseMass()));
@@ -113,31 +113,31 @@ void
                                   + m_contact.n * (m_contact.impulse * getColliderMax()->getInverseMass()));
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicalCollision<Len_T, Mass_T, dim>::setCollidersSupport()
+  PhysicalCollision<dim, T>::setCollidersSupport()
 {
-    CANT_MAYBEUNUSED Acceleration apna = m_contact.n.dot(getColliderMax()->getAcceleration());
-    CANT_MAYBEUNUSED Acceleration apnb = -m_contact.n.dot(getColliderMin()->getAcceleration());
+    CANT_MAYBEUNUSED Vector apna = m_contact.n.dot(getColliderMax()->getAcceleration());
+    CANT_MAYBEUNUSED Vector apnb = -m_contact.n.dot(getColliderMin()->getAcceleration());
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicalCollision<Len_T, Mass_T, dim>::setPhase(PhysicalCollision::ContactPhase phase)
+  PhysicalCollision<dim, T>::setPhase(PhysicalCollision::ContactPhase phase)
 {
     m_phase = phase;
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
-CANT_INLINE typename PhysicalCollision<Len_T, Mass_T, dim>::ContactPhase
-  PhysicalCollision<Len_T, Mass_T, dim>::getPhase() const
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollision<dim, T>::ContactPhase
+  PhysicalCollision<dim, T>::getPhase() const
 {
     return m_phase;
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalCollision<Len_T, Mass_T, dim>::haveSameColliders(PhysicalCollision const & other) const
+  PhysicalCollision<dim, T>::haveSameColliders(PhysicalCollision const & other) const
 {
     return other.m_pair.first == this->m_pair.first && other.m_pair.second == this->m_pair.second;
 }

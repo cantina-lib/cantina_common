@@ -9,30 +9,28 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-HookeSpringLink<Len_T, Mass_T, Time_T, dim>::HookeSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2)
+template<size_u dim, typename T>
+HookeSpringLink<dim, T>::HookeSpringLink(T k, T l0, ShPtr<Object> & o1, ShPtr<Object> & o2)
     : Link({ o1, o2 }), m_k(k), m_l0(l0)
 {
 
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-  HookeSpringLink<Len_T, Mass_T, Time_T, dim>::getDeltaForceInternal(const Stream <ShPtr<Object>> &objects,
-                                                                  Stream <DeltaForce> &deltaForces
-) const
+  HookeSpringLink<dim, T>::getDeltaForceInternal(const Stream<ShPtr<Object>> & objects, Stream<Vector> & deltaForces) const
 {
     CANTINA_ASSERT(objects.size() == 2, "nnnn");
     CANTINA_ASSERT(deltaForces.size() == 2, "fdsl");
 
-    auto deltaP = (objects.at(0)->getPosition() - objects.at(1)->getPosition());
-    Len_T l = deltaP.getNorm();
-    if (maths::approx<Len_T>::equal(l, static_cast<Len_T>(0.)))
+    Vector deltaP = (objects.at(0)->getPosition() - objects.at(1)->getPosition());
+    T l = deltaP.getNorm();
+    if (maths::approx<T>::equal(l, static_cast<T>(0.)))
     {
         return;
     }
-    Len_T deltaL =  l - m_l0;
-    DeltaForce f = (- m_k * deltaL) * deltaP.getNormalised();
+    T deltaL =  l - m_l0;
+    Vector f = (- m_k * deltaL) * deltaP.getNormalised();
     deltaForces.at(0) = f;
     deltaForces.at(1) = - f;
 }

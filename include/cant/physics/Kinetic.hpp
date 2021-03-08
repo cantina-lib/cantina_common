@@ -11,22 +11,20 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 class Kinetic
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef Position                                    Velocity;
-    typedef Position                                    Acceleration;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef typename Positionable<dim, T>::Vector Vector;
 
     /** -- methods -- **/
     virtual ~Kinetic() = default;
 
     virtual void
-      setMass(Mass_T mass)
-      = 0;
-    CANT_NODISCARD virtual Mass_T
+      setMass(T mass) = 0;
+    CANT_NODISCARD virtual T
       getInverseMass() const = 0;
 
     /*
@@ -36,12 +34,12 @@ class Kinetic
      * it should otherwise be updated with the acceleration.
      */
     virtual void
-      setVelocity(Velocity velocity)
+      setVelocity(Vector velocity)
       = 0;
-    CANT_NODISCARD virtual Velocity const &
+    CANT_NODISCARD virtual Vector const &
       getVelocity() const = 0;
 
-    CANT_NODISCARD virtual Acceleration
+    CANT_NODISCARD virtual Vector
       getAcceleration() const = 0;
 };
 

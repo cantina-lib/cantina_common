@@ -7,23 +7,23 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalForce<Len_T, Mass_T, Time_T, dim>::hasExpired() const
+  PhysicalForce<dim, T>::hasExpired() const
 {
     return m_hasEnded;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicalForce<Len_T, Mass_T, Time_T, dim>::signalExpired() const
+  PhysicalForce<dim, T>::signalExpired() const
 {
     m_hasEnded = true;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE
-  PhysicalForce<Len_T, Mass_T, Time_T, dim>::PhysicalForce()
+  PhysicalForce<dim, T>::PhysicalForce()
     : m_hasEnded(false)
 {}
 

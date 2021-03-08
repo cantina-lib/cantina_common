@@ -15,17 +15,17 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class RigidObject : public KineticObject<Len_T, Mass_T, Time_T, dim>, public Collidable<Len_T, dim>
+template <size_u dim, typename T>
+class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef PhysicalShape<Len_T, dim>            Shape;
-    typedef PhysicalCollider<Len_T, dim> Collider;
+    typedef PhysicalShape<dim, T>    Shape;
+    typedef PhysicalCollider<dim, T> Collider;
 
     /** -- methods -- **/
     CANT_EXPLICIT RigidObject(UPtr<Shape> shape);
-    RigidObject(Mass_T mass, UPtr<Shape> shape);
+    RigidObject(T mass, UPtr<Shape> shape);
 
     // and now I have to redefine all this stuff to satisfy the Collidable interface, nyeh!
 

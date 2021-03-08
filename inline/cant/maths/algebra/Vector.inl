@@ -12,209 +12,207 @@
 #include <cant/common/CantinaException.hpp>
 
 #include <cant/common/macro.hpp>
-#include <cant/maths/algebra/Vector.hpp>
-
 CANTINA_MATHS_NAMESPACE_BEGIN
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 CANT_CONSTEXPR
-  Vector<Dim_T, dim>::Vector()
+  Vector<dim, T>::Vector()
     : m_fields()
 {}
 
-template <typename Dim_T, size_u dim>
-template <typename T, typename... Ts>
+template <size_u dim, typename T>
+template <typename U, typename... Us>
 CANT_CONSTEXPR
-  Vector<Dim_T, dim>::Vector(T t, Ts... ts)
-    : m_fields({t, ts...})
+  Vector<dim, T>::Vector(U u, Us... us)
+    : m_fields({u, us...})
 {
-    static_assert(std::is_same_v<T, Dim_T>);
-    static_assert(sizeof...(Ts) == dim - 1, "Wrong number of arguments there, mate.");
+    static_assert(std::is_convertible_v<U, T>);
+    static_assert(sizeof...(Us) == dim - 1, "Wrong number of arguments there, mate.");
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Dim_T
-  Vector<Dim_T, dim>::getDistance(Vector const & other) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR T
+  Vector<dim, T>::getDistance(Vector const & other) const
 {
     return (other - *this).getNorm();
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Dim_T
-  Vector<Dim_T, dim>::getNorm() const
+template <size_u dim, typename T>
+CANT_CONSTEXPR T
+  Vector<dim, T>::getNorm() const
 {
     return std::sqrt(this->dot(*this));
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Dim_T
-  Vector<Dim_T, dim>::dot(Vector const & other) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR T
+  Vector<dim, T>::dot(Vector const & other) const
 {
     return std::inner_product(this->m_fields.begin(),
                               this->m_fields.end(),
                               other.m_fields.begin(),
-                              static_cast<Dim_T>(0.),
-                              std::plus<Dim_T>(),
-                              std::multiplies<Dim_T>());
+                              static_cast<T>(0.),
+                              std::plus<T>(),
+                              std::multiplies<T>());
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-  Vector<Dim_T, dim>::operator-(Vector const & other) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::operator-(Vector const & other) const
 {
     Vector vec{};
     std::transform(this->m_fields.begin(),
                    this->m_fields.end(),
                    other.m_fields.begin(),
                    vec.m_fields.begin(),
-                   [](Dim_T x1, Dim_T x2) -> Dim_T { return x1 - x2; });
+                   [](T x1, T x2) -> T { return x1 - x2; });
     return vec;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-  Vector<Dim_T, dim>::operator+(Vector const & other) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::operator+(Vector const & other) const
 {
     Vector vec{};
     std::transform(this->m_fields.begin(),
                    this->m_fields.end(),
                    other.m_fields.begin(),
                    vec.m_fields.begin(),
-                   [](Dim_T x1, Dim_T x2) -> Dim_T { return x1 + x2; });
+                   [](T x1, T x2) -> T { return x1 + x2; });
     return vec;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-  Vector<Dim_T, dim>::operator-() const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::operator-() const
 {
     Vector negated{};
     std::transform(
-      this->m_fields.begin(), this->m_fields.end(), negated.m_fields.begin(), [](Dim_T x) -> Dim_T { return -x; });
+      this->m_fields.begin(), this->m_fields.end(), negated.m_fields.begin(), [](T x) -> T { return -x; });
     return negated;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-  Vector<Dim_T, dim>::operator*(Dim_T scalar) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::operator*(T scalar) const
 {
     Vector vec{};
     std::transform(
-      this->m_fields.begin(), this->m_fields.end(), vec.m_fields.begin(), [scalar](Dim_T x) { return x * scalar; });
+      this->m_fields.begin(), this->m_fields.end(), vec.m_fields.begin(), [scalar](T x) { return x * scalar; });
     return vec;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-  Vector<Dim_T, dim>::operator/(Dim_T scalar) const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::operator/(T scalar) const
 {
-    if (approx<Dim_T>::equal(scalar, static_cast<Dim_T>(0.)))
+    if (approx<T>::equal(scalar, static_cast<T>(0.)))
     {
         throw CANTINA_EXCEPTION("division by zero.");
     }
     return this->operator*(1 / scalar);
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-               Vector<Dim_T, dim>::getNormalised() const
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+               Vector<dim, T>::getNormalised() const
 {
-    Dim_T norm = getNorm();
-    CANTINA_ASSERT(!approx<Dim_T>::equal(norm, static_cast<Dim_T>(0.)), "Noooo");
-    if (approx<Dim_T>::equal(norm, static_cast<Dim_T>(0.)))
+    T norm = getNorm();
+    CANTINA_ASSERT(!approx<T>::equal(norm, static_cast<T>(0.)), "Noooo");
+    if (approx<T>::equal(norm, static_cast<T>(0.)))
     {
         throw CANTINA_EXCEPTION("Trying to normalise a null vector!");
     }
     return operator/(norm);
 }
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 template <size_u i>
-CANT_CONSTEXPR Dim_T
-  Vector<Dim_T, dim>::get() const
+CANT_CONSTEXPR T
+  Vector<dim, T>::get() const
 {
     static_assert(i < dim);
     return m_fields.at(i);
 }
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 template <size_u i>
 CANT_CONSTEXPR void
-  Vector<Dim_T, dim>::set(Dim_T val)
+  Vector<dim, T>::set(T val)
 {
     static_assert(i < dim);
     m_fields.at(i) = val;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR const Array<Dim_T, dim> &
-Vector<Dim_T, dim>::getArray() const
+template <size_u dim, typename T>
+CANT_CONSTEXPR const Array<T, dim> &
+Vector<dim, T>::getArray() const
 {
     return m_fields;
 }
 
-    template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Dim_T
-  Vector<Dim_T, dim>::get(size_u i) const
+    template <size_u dim, typename T>
+CANT_CONSTEXPR T
+  Vector<dim, T>::get(size_u i) const
 {
     // static_assert(i < dim);
     return m_fields.at(i);
 }
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 CANT_CONSTEXPR void
-  Vector<Dim_T, dim>::set(size_u i, Dim_T val)
+  Vector<dim, T>::set(size_u i, T val)
 {
     // static_assert(i < dim);
     m_fields.at(i) = val;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim> &
-  Vector<Dim_T, dim>::operator+=(Vector const & other)
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+  Vector<dim, T>::operator+=(Vector const & other)
 {
     std::transform(this->m_fields.begin(),
                    this->m_fields.end(),
                    other.m_fields.begin(),
                    this->m_fields.begin(),
-                   [](Dim_T x1, Dim_T x2) -> Dim_T { return x1 + x2; });
+                   [](T x1, T x2) -> T { return x1 + x2; });
     return *this;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim> &
-  Vector<Dim_T, dim>::operator-=(Vector const & other)
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+  Vector<dim, T>::operator-=(Vector const & other)
 {
     std::transform(this->m_fields.begin(),
                    this->m_fields.end(),
                    other.m_fields.begin(),
                    this->m_fields.begin(),
-                   [](Dim_T x1, Dim_T x2) -> Dim_T { return x1 - x2; });
+                   [](T x1, T x2) -> T { return x1 - x2; });
     return *this;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim> &
-  Vector<Dim_T, dim>::operator*=(Dim_T scalar)
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+  Vector<dim, T>::operator*=(T scalar)
 {
-    std::transform(m_fields.begin(), m_fields.end(), m_fields.begin(), [scalar](Dim_T x) { return x * scalar; });
+    std::transform(m_fields.begin(), m_fields.end(), m_fields.begin(), [scalar](T x) { return x * scalar; });
     return *this;
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim> &
-  Vector<Dim_T, dim>::operator/=(Dim_T scalar)
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+  Vector<dim, T>::operator/=(T scalar)
 {
-    if (approx<Dim_T>::equal(scalar, static_cast<Dim_T>(0.)))
+    if (approx<T>::equal(scalar, static_cast<T>(0.)))
     {
         throw CANTINA_EXCEPTION("division by zero.");
     }
-    return this->operator*=(static_cast<Dim_T>(1) / scalar);
+    return this->operator*=(static_cast<T>(1) / scalar);
 }
 
-template <typename Dim_T, size_u dim>
-CANT_CONSTEXPR Vector<Dim_T, dim>
-               Vector<Dim_T, dim>::fill(Dim_T t)
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+               Vector<dim, T>::fill(T t)
 {
     Vector v{};
     std::fill(v.m_fields.begin(), v.m_fields.end(), t);

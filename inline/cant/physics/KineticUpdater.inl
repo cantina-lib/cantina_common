@@ -7,8 +7,8 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-void KineticUpdater<Len_T, Mass_T, Time_T, dim>::stepDelta(ShPtr<Object> &object, Time_T dt ) const
+template<size_u dim, typename T>
+void KineticUpdater<dim, T>::stepDelta(ShPtr<Object> &object, T dt ) const
 {
     stepDeltaInternal(object, dt);
     // Clear all

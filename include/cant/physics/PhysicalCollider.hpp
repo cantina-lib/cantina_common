@@ -15,22 +15,22 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 class Collidable;
 
-template <typename Len_T, size_u dim>
-class PhysicalCollider : public Positionable<Len_T, dim>
+template <size_u dim, typename T>
+class PhysicalCollider : public Positionable<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef typename Positionable<Len_T, dim>::Position        Position;
-    typedef typename Positionable<Len_T, dim>::Vector          Vector;
+    typedef typename Positionable<dim, T>::Position        Position;
+    typedef typename Positionable<dim, T>::Vector          Vector;
 
-    typedef PhysicalShape<Len_T, dim>    Shape;
-    typedef maths::Rectangle<Len_T, dim> AABB;
+    typedef PhysicalShape<dim, T>    Shape;
+    typedef maths::Rectangle<dim, T> AABB;
 
     /** -- methods -- **/
-    PhysicalCollider(Collidable<Len_T, dim> * owner, UPtr<Shape> shape);
+    PhysicalCollider(Collidable<dim, T> * owner, UPtr<Shape> shape);
 
     CANT_NODISCARD bool
       intersectsAABB(ShPtr<PhysicalCollider> const & other) const;
@@ -56,19 +56,19 @@ class PhysicalCollider : public Positionable<Len_T, dim>
     /** -- methods -- **/
 
     /** -- fields -- **/
-    Collidable<Len_T, dim> * const m_owner;
+    Collidable<dim, T> * const m_owner;
     // Could be shared!
     UPtr<Shape> m_shape;
 };
 
-template <typename Len_T, size_u dim>
-class Collidable : public Positionable<Len_T, dim>
+template <size_u dim, typename T>
+class Collidable : public Positionable<dim, T>
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position    Position;
+    typedef typename Positionable<dim, T>::Position    Position;
 
-    typedef PhysicalCollider<Len_T, dim> Collider;
+    typedef PhysicalCollider<dim, T> Collider;
 
     /** -- methods -- **/
     CANT_NODISCARD virtual WPtr<Collider>

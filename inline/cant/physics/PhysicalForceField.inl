@@ -9,34 +9,34 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-PhysicalForceField<Len_T, Mass_T, Time_T, dim>::PhysicalForceField(
+template<size_u dim, typename T>
+PhysicalForceField<dim, T>::PhysicalForceField(
         ObjectStream const & objects)
         : m_objects()
 {
     setObjects(objects);
 }
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-PhysicalForceField<Len_T, Mass_T, Time_T, dim>::PhysicalForceField()
+template<size_u dim, typename T>
+PhysicalForceField<dim, T>::PhysicalForceField()
 {
     setObjects(std::make_shared<Stream<ShPtr<Object>>>());
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-PhysicalForceField<Len_T, Mass_T, Time_T, dim>::setObjects(ObjectStream const & objects)
+PhysicalForceField<dim, T>::setObjects(ObjectStream const & objects)
 {
     // m_objects should never be nullptr
     CANTINA_ASSERT(objects.get() != nullptr, "Stream of objects is not allocated!");
     m_objects = objects;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-PhysicalForceField<Len_T, Mass_T, Time_T, dim>::apply() const
+PhysicalForceField<dim, T>::apply() const
 {
-    Stream<DeltaForce> deltaForces;
+    Stream<Vector> deltaForces;
     deltaForces.reserve(m_objects->size());
     // Compute and apply delta force to object.
     for (size_u i = 0; i < m_objects->size(); ++i)

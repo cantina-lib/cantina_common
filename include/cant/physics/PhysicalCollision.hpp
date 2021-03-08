@@ -15,18 +15,15 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 class PhysicalCollision
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef typename Positionable<Len_T, dim>::Vector   Vector;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef typename Positionable<dim, T>::Vector   Vector;
 
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity     Velocity;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Acceleration Acceleration;
-
-    typedef PhysicalCollider<Len_T, dim>   Collider;
+    typedef PhysicalCollider<dim, T>   Collider;
     typedef Pair<ShPtr<Collider>, ShPtr<Collider>> CollisionPair;
 
     /** -- structs -- **/
@@ -50,13 +47,13 @@ class PhysicalCollision
         // no angular velocity.
 
         // velocities of impact points of min and max colliders
-        Velocity vbp;
-        Velocity vap;
+        Vector vbp;
+        Vector vap;
 
-        Len_T e;
+        T e;
 
         // impulse
-        Len_T impulse;
+        T impulse;
     };
 
     /** -- methods -- **/
@@ -99,7 +96,7 @@ class PhysicalCollision
     Contact m_contact;
 
     // constants
-    static CANT_CONSTEXPR Len_T c_restitution = static_cast<Len_T>(0.);  // dimensionless.
+    static CANT_CONSTEXPR T c_restitution = static_cast<T>(0.);  // dimensionless.
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

@@ -7,9 +7,9 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>::apply() const
+WeakRefPhysicalForce<dim, T>::apply() const
 {
     const size_u numberObjects = getNumberObjects();
     WPtr<Object> const * objectRefs = getObjects();
@@ -31,7 +31,7 @@ WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>::apply() const
     // Actually, no.
     // CANTINA_ASSERT(objects.size() == numberObjects, "Objects should not be invalid at this point.");
 
-    Stream<DeltaForce> deltaForces(objects.size());
+    Stream<Vector> deltaForces(objects.size());
 
     // this method will fill all delta forces of the objects
     getDeltaForce(objects, deltaForces);
@@ -43,15 +43,15 @@ WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>::apply() const
     }
 }
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-void WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>::cleanUp()
+template<size_u dim, typename T>
+void WeakRefPhysicalForce<dim, T>::cleanUp()
 {
 
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE
-  WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>::WeakRefPhysicalForce()
+  WeakRefPhysicalForce<dim, T>::WeakRefPhysicalForce()
     : Force()
 {}
 

@@ -7,14 +7,14 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
-CollisionObject<Len_T, dim>::CollisionObject(UPtr<Shape> shape)
-    : PhysicalObject<Len_T, dim>(), m_collider(std::make_shared<Collider>(this, std::move(shape)))
+template <size_u dim, typename T>
+CollisionObject<dim, T>::CollisionObject(UPtr<Shape> shape)
+    : PhysicalObject<dim, T>(), m_collider(std::make_shared<Collider>(this, std::move(shape)))
 {}
 
-template <typename Len_T, size_u dim>
-WPtr<typename CollisionObject<Len_T, dim>::Collider>
-  CollisionObject<Len_T, dim>::getCollider() const
+template <size_u dim, typename T>
+WPtr<typename CollisionObject<dim, T>::Collider>
+  CollisionObject<dim, T>::getCollider() const
 {
     return m_collider;
 }

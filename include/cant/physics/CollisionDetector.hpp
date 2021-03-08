@@ -18,14 +18,14 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
  * before checking if they are intersecting.
  * It requires that motion is not too large (dt small, for one), else they might not even intersect.
  */
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 class CollisionDetector
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef PhysicalCollider<Len_T, dim>        Collider;
-    typedef PhysicalCollision<Len_T, Mass_T, dim>       Collision;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef PhysicalCollider<dim, T>        Collider;
+    typedef PhysicalCollision<dim, T>       Collision;
 
     typedef type_i LayerKey;
 

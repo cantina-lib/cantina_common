@@ -7,19 +7,18 @@
 #include <cant/common/memory.hpp>
 #include <cant/common/types.hpp>
 
+#include <cant/physics/KineticObject.hpp>
+
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class KineticObject;
-
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 class PhysicalForce
 {
    public:
     /** -- typedef -- **/
-    typedef KineticObject<Len_T, Mass_T, Time_T, dim> Object;
-    typedef typename Object::Acceleration             DeltaForce;  // kg.m.s-2, or N
+    typedef KineticObject<dim, T> Object;
+    typedef typename Object::Vector Vector;
 
     /** -- methods -- **/
     PhysicalForce();

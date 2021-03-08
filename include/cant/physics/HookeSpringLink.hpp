@@ -12,28 +12,25 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class HookeSpringLink : public StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, 2>
+template <size_u dim, typename T>
+class HookeSpringLink : public StaticPhysicalLink<dim, T, 2>
 {
    public:
     /** -- typedef -- **/
-    typedef StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, 2> Link;
+    typedef StaticPhysicalLink<dim, T, 2> Link;
     typedef typename Link::Object Object;
-    typedef typename Link::DeltaForce DeltaForce;
+    typedef typename Link::Vector Vector;
 
     /** -- methods -- **/
-    HookeSpringLink(Mass_T k, Len_T l0, ShPtr<Object> & o1, ShPtr<Object> & o2);
+    HookeSpringLink(T k, T l0, ShPtr<Object> & o1, ShPtr<Object> & o2);
 
    private:
     /** -- methods -- **/
-    void getDeltaForceInternal(Stream<ShPtr<Object>> const & objects, Stream<DeltaForce> & deltaForces) const override;
+    void getDeltaForceInternal(Stream<ShPtr<Object>> const & objects, Stream<Vector> & deltaForces) const override;
 
     /** -- fields -- **/
-    // I picked the types at random...
-    // not so sure using different types for mass, time and length
-    // is a good idea any more.
-    Mass_T m_k;
-    Len_T m_l0;
+    T m_k; // stiffness factor
+    T m_l0; // rest length
 };
 
 

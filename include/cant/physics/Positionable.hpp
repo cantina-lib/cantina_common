@@ -11,13 +11,13 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 class Positionable
 {
    public:
     /** -- typedefs -- **/
-    typedef maths::Vector<Len_T, dim> Position;
-    typedef maths::Vector<Len_T, dim> Vector;
+    typedef maths::Vector<dim, T> Position;
+    typedef maths::Vector<dim, T> Vector;
 
     /** -- methods -- **/
     virtual ~Positionable() = default;

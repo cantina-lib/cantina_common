@@ -12,25 +12,25 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim, size_u numberObjects>
-class StaticPhysicalLink : public WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim>
+template <size_u dim, typename T, size_u numberObjects>
+class StaticPhysicalLink : public WeakRefPhysicalForce<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef WeakRefPhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
+    typedef WeakRefPhysicalForce<dim, T> Force;
     typedef typename Force::Object     Object;
-    typedef typename Force::DeltaForce DeltaForce;
+    typedef typename Force::Vector     Vector;
     typedef Array<WPtr<Object>, numberObjects> ObjectRefArray;
     typedef Array<ShPtr<Object>, numberObjects> ObjectArray;
 
     /** -- methods -- **/
     CANT_EXPLICIT StaticPhysicalLink(ObjectArray objects);
 
-    void getDeltaForce(Stream<ShPtr<Object>> const & objects, Stream<DeltaForce> & deltaForces) const final;
+    void getDeltaForce(Stream<ShPtr<Object>> const & objects, Stream<Vector> & deltaForces) const final;
 
    private:
     /** -- methods -- **/
-    virtual void getDeltaForceInternal(Stream<ShPtr<Object>> const & objects, Stream<DeltaForce> & deltaForces) const = 0;
+    virtual void getDeltaForceInternal(Stream<ShPtr<Object>> const & objects, Stream<Vector> & deltaForces) const = 0;
 
     // Private inheritance from WeakRefPhysicalForce
     CANT_NODISCARD size_u getNumberObjects() const final;

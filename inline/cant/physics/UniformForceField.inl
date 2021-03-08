@@ -9,22 +9,22 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-UniformForceField<Len_T, Mass_T, Time_T, dim>::UniformForceField(
-        ObjectStream & objects, DeltaForce vec)
+template<size_u dim, typename T>
+UniformForceField<dim, T>::UniformForceField(
+        ObjectStream & objects, Vector vec)
         : ForceField(objects), m_vec(std::move(vec))
 {
 }
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-UniformForceField<Len_T, Mass_T, Time_T, dim>::UniformForceField(DeltaForce vec)
+template<size_u dim, typename T>
+UniformForceField<dim, T>::UniformForceField(Vector vec)
   : m_vec(std::move(vec))
 {
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-typename UniformForceField<Len_T, Mass_T, Time_T, dim>::DeltaForce
-UniformForceField<Len_T, Mass_T, Time_T, dim>::getDeltaForce(ShPtr<Object> const & object) const
+template <size_u dim, typename T>
+typename UniformForceField<dim, T>::Vector
+UniformForceField<dim, T>::getDeltaForce(CANT_MAYBEUNUSED const ShPtr<Object> & object) const
 {
     return m_vec;
 }

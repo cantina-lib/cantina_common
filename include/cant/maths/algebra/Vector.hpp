@@ -10,53 +10,53 @@
 #include <cant/common/macro.hpp>
 CANTINA_MATHS_NAMESPACE_BEGIN
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 class Vector
 {
     /** -- constraints -- **/
-    static_assert(std::is_arithmetic_v<Dim_T>);
+    static_assert(std::is_arithmetic_v<T>);
 
    public:
     /** -- methods -- **/
     CANT_CONSTEXPR
     Vector();
-    template <typename T, typename... Ts>
-    // NO EXPLICIT TO CONVERT SCALAR TO VEC IF dim = 1
+    template <typename U, typename... Us>
+    // NO 'EXPLICIT' IN ORDER TO ALLOW CONVERTION FROM SCALAR TO VEC IF dim = 1
     CANT_CONSTEXPR
-      Vector(T t, Ts... ts);
+      Vector(U t, Us... ts);
 
     CANT_NODISCARD
     CANT_CONSTEXPR static Vector
-      fill(Dim_T t);
+      fill(T t);
 
     CANT_NODISCARD
-    CANT_CONSTEXPR Dim_T
+    CANT_CONSTEXPR T
       getDistance(Vector const & other) const;
     CANT_NODISCARD
-    CANT_CONSTEXPR Dim_T
+    CANT_CONSTEXPR T
       getNorm() const;
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
       getNormalised() const;
     CANT_NODISCARD
-    CANT_CONSTEXPR Dim_T
+    CANT_CONSTEXPR T
       dot(Vector const & other) const;
 
     CANT_NODISCARD
-    CANT_CONSTEXPR Array<Dim_T, dim> const &
+    CANT_CONSTEXPR Array<T, dim> const &
       getArray() const;
 
     CANT_NODISCARD
-    CANT_CONSTEXPR Dim_T
+    CANT_CONSTEXPR T
       get(size_u i) const;
     CANT_CONSTEXPR void
-      set(size_u i, Dim_T val);
+      set(size_u i, T val);
     template <size_u i>
-    CANT_NODISCARD CANT_CONSTEXPR Dim_T
+    CANT_NODISCARD CANT_CONSTEXPR T
       get() const;
     template <size_u i>
     CANT_CONSTEXPR void
-      set(Dim_T val);
+      set(T val);
 
     CANT_CONSTEXPR Vector
       operator-() const;
@@ -73,15 +73,15 @@ class Vector
 
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
-      operator*(Dim_T scalar) const;
+      operator*(T scalar) const;
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
-      operator/(Dim_T scalar) const;
+      operator/(T scalar) const;
 
     CANT_CONSTEXPR Vector &
-                   operator*=(Dim_T scalar);
+                   operator*=(T scalar);
     CANT_CONSTEXPR Vector &
-                   operator/=(Dim_T scalar);
+                   operator/=(T scalar);
 
     // you shall not perform internal product in a vector space!
     /*
@@ -91,16 +91,16 @@ class Vector
 
    private:
     /** -- fields -- **/
-    Array<Dim_T, dim> m_fields;
+    Array<T, dim> m_fields;
 
     /** -- friends -- **/
-    friend CANT_CONSTEXPR Vector<Dim_T, dim>
-                          operator*(Dim_T scalar, Vector<Dim_T, dim> const & vec)
+    friend CANT_CONSTEXPR Vector<dim, T>
+                          operator*(T scalar, Vector<dim, T> const & vec)
     {
         return vec.operator*(scalar);
     }
-    friend CANT_CONSTEXPR Vector<Dim_T, dim>
-                          operator/(Dim_T scalar, Vector<Dim_T, dim> const & vec)
+    friend CANT_CONSTEXPR Vector<dim, T>
+                          operator/(T scalar, Vector<dim, T> const & vec)
     {
         return vec.operator/(scalar);
     }

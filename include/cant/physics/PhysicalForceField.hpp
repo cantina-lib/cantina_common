@@ -15,19 +15,17 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 /**
  * Applies a force individually to all objects in the simulation.
  * Should hold a reference to the stream of objects used by the simulation.
- * @tparam Len_T
- * @tparam Mass_T
- * @tparam Time_T
  * @tparam dim
+ * @tparam T
  */
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class PhysicalForceField : public PhysicalForce<Len_T, Mass_T, Time_T, dim>
+template <size_u dim, typename T>
+class PhysicalForceField : public PhysicalForce<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef PhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
+    typedef PhysicalForce<dim, T> Force;
     typedef typename Force::Object     Object;
-    typedef typename Force::DeltaForce DeltaForce;
+    typedef typename Force::Vector Vector;
     typedef ShPtr<Stream<ShPtr<Object>>> ObjectStream;
 
     /** -- methods -- **/
@@ -40,7 +38,7 @@ class PhysicalForceField : public PhysicalForce<Len_T, Mass_T, Time_T, dim>
 
    private:
     /** -- methods -- **/
-    CANT_NODISCARD virtual DeltaForce getDeltaForce(ShPtr<Object> const & object) const = 0;
+    CANT_NODISCARD virtual Vector getDeltaForce(ShPtr<Object> const & object) const = 0;
 
     /** -- fields -- **/
     ObjectStream m_objects;

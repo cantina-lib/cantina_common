@@ -9,18 +9,18 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
-CANT_INLINE typename PhysicalCollider<Len_T, dim>::Vector
-  PhysicalCollider<Len_T, dim>::getVectorToClosestRim(Position const & pos) const
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollider<dim, T>::Vector
+  PhysicalCollider<dim, T>::getVectorToClosestRim(Position const & pos) const
 {
     Vector vec  = getVectorToCentre(pos);
-    Len_T  dist = vec.getNorm();
-    if (maths::approx<Len_T>::equal(static_cast<Len_T>(0), dist))
+    T  dist = vec.getNorm();
+    if (maths::approx<T>::equal(static_cast<T>(0), dist))
     {
         // if the position is basically at the centre of the shape
         // return whatever direction, but not null!
         vec = Position();
-        vec.template set<0>(static_cast<Len_T>(1));
+        vec.template set<0>(static_cast<T>(1));
     }
     else
     {
@@ -30,56 +30,56 @@ CANT_INLINE typename PhysicalCollider<Len_T, dim>::Vector
     return (-m_shape->getRadius()) * vec;
 }
 
-template <typename Len_T, size_u dim>
-CANT_INLINE typename PhysicalCollider<Len_T, dim>::Vector
-  PhysicalCollider<Len_T, dim>::getVectorToCentre(Position const & pos) const
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollider<dim, T>::Vector
+  PhysicalCollider<dim, T>::getVectorToCentre(Position const & pos) const
 {
     // ditto.
     return m_shape->getVectorToCentreObject(pos - m_owner->getPosition());
 }
 
-template <typename Len_T, size_u dim>
-CANT_INLINE typename PhysicalCollider<Len_T, dim>::Position
-  PhysicalCollider<Len_T, dim>::getCentre() const
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollider<dim, T>::Position
+  PhysicalCollider<dim, T>::getCentre() const
 {
     return m_shape->getCentreObject() + m_owner->getPosition();
 }
 
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicalCollider<Len_T, dim>::translate(Vector const & vec)
+  PhysicalCollider<dim, T>::translate(Vector const & vec)
 {
     m_owner->setPosition(m_owner->getPosition() + vec);
 }
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalCollider<Len_T, dim>::intersectsAABB(ShPtr<PhysicalCollider> const & other) const
+  PhysicalCollider<dim, T>::intersectsAABB(ShPtr<PhysicalCollider> const & other) const
 {
     const AABB aabb1 = AABB(this->getCentre(),
-                            this->m_shape->getRadius() * maths::Vector<Len_T, dim>::fill(static_cast<Len_T>(1)));
+                            this->m_shape->getRadius() * maths::Vector<dim, T>::fill(static_cast<T>(1)));
     const AABB aabb2 = AABB(other->getCentre(),
-                            other->m_shape->getRadius() * maths::Vector<Len_T, dim>::fill(static_cast<Len_T>(1)));
+                            other->m_shape->getRadius() * maths::Vector<dim, T>::fill(static_cast<T>(1)));
     return aabb1.intersects(aabb2);
 }
 
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalCollider<Len_T, dim>::intersects(ShPtr<PhysicalCollider> const & other) const
+  PhysicalCollider<dim, T>::intersects(ShPtr<PhysicalCollider> const & other) const
 {
     Position const & c1 = this->getCentre();
     Position const & c2 = other->getCentre();
     return m_shape->intersectsObject(other->m_shape, c1, c2);
 }
 
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalCollider<Len_T, dim>::isStatic() const
+  PhysicalCollider<dim, T>::isStatic() const
 {
     return m_owner->isStatic();
 }
 
-template <typename Len_T, size_u dim>
-PhysicalCollider<Len_T, dim>::PhysicalCollider(Collidable<Len_T, dim> * owner, UPtr<Shape> shape)
+template <size_u dim, typename T>
+PhysicalCollider<dim, T>::PhysicalCollider(Collidable<dim, T> * owner, UPtr<Shape> shape)
     : m_owner(owner), m_shape(std::move(shape))
 {}
 

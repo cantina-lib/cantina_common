@@ -7,9 +7,9 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  CollisionSolver<Len_T, Mass_T, dim>::solveCollisions(Stream<Collision> & collisions) const
+  CollisionSolver<dim, T>::solveCollisions(Stream<Collision> & collisions) const
 {
     for (auto & collision : collisions)
     {
@@ -19,9 +19,9 @@ void
     }
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  CollisionSolver<Len_T, Mass_T, dim>::separateColliders(Collision & collision) const
+  CollisionSolver<dim, T>::separateColliders(Collision & collision) const
 {
     auto & colMax = collision.getColliderMax();
     auto & colMin = collision.getColliderMin();

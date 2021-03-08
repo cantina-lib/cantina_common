@@ -15,21 +15,21 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 // CONVEX!!
 // For now ignoring scale and rotation
 // So only ball-shape, basically.
-template <typename Len_T, size_u dim>
+template <size_u dim, typename T>
 class PhysicalShape
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef typename Positionable<Len_T, dim>::Vector   Vector;
-    typedef maths::Rectangle<Len_T, dim>                AABB;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef typename Positionable<dim, T>::Vector   Vector;
+    typedef maths::Rectangle<dim, T>                AABB;
 
     /** -- methods -- **/
     virtual ~PhysicalShape();
     CANT_EXPLICIT
-    PhysicalShape(Position centreObject, Len_T radius);
+    PhysicalShape(Position centreObject, T radius);
 
-    CANT_NODISCARD Len_T
+    CANT_NODISCARD T
       getRadius() const;
 
     // centres in world coordinates
@@ -51,7 +51,7 @@ class PhysicalShape
     /** -- fields -- **/
     Position m_centreObject;
 
-    Len_T m_radius;
+    T m_radius;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

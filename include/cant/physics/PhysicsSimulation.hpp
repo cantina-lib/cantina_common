@@ -22,40 +22,39 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 class PhysicsSimulation
 {
     /** -- constraints -- **/
-    static_assert(std::is_arithmetic_v<Len_T>);
-    static_assert(std::is_floating_point_v<Mass_T>);
-    static_assert(std::is_floating_point_v<Time_T>);
+    static_assert(std::is_arithmetic_v<T>);
+    // static_assert(std::is_floating_point_v<T>); ?
 
    public:
     /** -- typedefs -- **/
-    typedef CollisionDetector<Len_T, Mass_T, dim> Detector;
-    typedef CollisionSolver<Len_T, Mass_T, dim>   Solver;
+    typedef CollisionDetector<dim, T> Detector;
+    typedef CollisionSolver<dim, T>   Solver;
 
-    typedef PhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
-    typedef PhysicalForceField<Len_T, Mass_T, Time_T, dim> ForceField;
+    typedef PhysicalForce<dim, T> Force;
+    typedef PhysicalForceField<dim, T> ForceField;
 
-    typedef RigidObject<Len_T, Mass_T, Time_T, dim> Rigid;
-    typedef KineticObject<Len_T, Mass_T, Time_T, dim> Object;
+    typedef RigidObject<dim, T> Rigid;
+    typedef KineticObject<dim, T> Object;
 
-    typedef KineticUpdater<Len_T, Mass_T, Time_T, dim> Updater;
+    typedef KineticUpdater<dim, T> Updater;
 
     /** -- methods -- **/
     PhysicsSimulation();
 
     void
-      stepDelta(Time_T dt);
+      stepDelta(T dt);
 
     void
-      addForce(UPtr<Force> force);
+      addForce(ShPtr<Force> force);
     /**
      * Same as addForce for ForceFields, but also links the objects of the simulation to it.
      * @param forceField
      */
-    void addForceField(UPtr<ForceField> forceField);
+    void addForceField(ShPtr<ForceField> forceField);
 
     void
       addRigidObject(ShPtr<Rigid> & rigidObject, typename Detector::LayerKey layer);

@@ -12,14 +12,14 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class WeakRefPhysicalForce : public PhysicalForce<Len_T, Mass_T, Time_T, dim>
+template <size_u dim, typename T>
+class WeakRefPhysicalForce : public PhysicalForce<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef PhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
+    typedef PhysicalForce<dim, T> Force;
     typedef typename Force::Object Object;
-    typedef typename Object::Acceleration             DeltaForce;  // kg.m.s-2, or N
+    typedef typename Force::Vector Vector;
 
     /** -- methods -- **/
     WeakRefPhysicalForce();
@@ -59,7 +59,7 @@ class WeakRefPhysicalForce : public PhysicalForce<Len_T, Mass_T, Time_T, dim>
      * @param objects
      * @param deltaForces
      */
-    virtual void getDeltaForce(Stream<ShPtr<Object>> const & objects, Stream<DeltaForce> & deltaForces) const = 0;
+    virtual void getDeltaForce(Stream<ShPtr<Object>> const & objects, Stream<Vector> & deltaForces) const = 0;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

@@ -12,61 +12,57 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class KineticObject : public PhysicalObject<Len_T, dim>, public Kinetic<Len_T, Mass_T, dim>
+template <size_u dim, typename T>
+class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
 {
     /** -- contraints -- **/
-    static_assert(std::is_arithmetic_v<Len_T>);
-    static_assert(std::is_floating_point_v<Mass_T>);
-    static_assert(std::is_floating_point_v<Time_T>);
+    static_assert(std::is_arithmetic_v<T>);
+    // static_assert(std::is_floating_point_v<T>); ?
 
    public:
     /** -- typedefs -- **/
 
-    typedef typename Positionable<Len_T, dim>::Position    Position;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity Velocity;      // m.s-1
-    typedef Velocity                                       Acceleration;  // m.s-2
-
-    typedef Position DeltaForce;  // kg.m.s-2, or N
+    typedef typename Positionable<dim, T>::Position    Position;
+    typedef typename Positionable<dim, T>::Vector      Vector;
 
     // Where we will store the accumulated force
     struct KineticBuffer
     {
-        DeltaForce deltaForce;
+        Vector deltaForce;
     };
 
     /** -- methods -- **/
-    KineticObject(Mass_T mass, Position position, Velocity velocity);
-    KineticObject(Mass_T mass, Position position);
-    CANT_EXPLICIT KineticObject(Mass_T mass);
+    KineticObject(T mass, Position position, Vector velocity);
+    KineticObject(T mass, Position position);
+    CANT_EXPLICIT KineticObject(T mass);
 
     void
-    updateVelocity(Time_T dt);
+    updateVelocity(T dt);
     void
-    updatePosition(Time_T dt);
+    updatePosition(T dt);
     void
     clearForceBuffer();
 
     void
-      addDeltaForce(DeltaForce const & dF);
+      addDeltaForce(Vector const & dF);
 
     // implemented from Kinetic
     void
-      setMass(Mass_T mass) override;
-    CANT_NODISCARD Mass_T
+      setMass(T mass) override;
+    CANT_NODISCARD T
       getInverseMass() const override;
     void
-                   setVelocity(Velocity velocity) override;
-    CANT_NODISCARD Velocity const &
+                   setVelocity(Vector velocity) override;
+    CANT_NODISCARD Vector const &
                    getVelocity() const override;
-    CANT_NODISCARD Acceleration
+    CANT_NODISCARD Vector
                    getAcceleration() const override;
 
    private:
     /** -- fields -- **/
-    Mass_T m_inverseMass;
+    T m_inverseMass;
 
-    Velocity      m_velocity;
+    Vector      m_velocity;
     KineticBuffer m_forceBuffer;
 };
 

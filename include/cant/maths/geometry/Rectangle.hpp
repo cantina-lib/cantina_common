@@ -14,12 +14,12 @@ CANTINA_MATHS_NAMESPACE_BEGIN
 // see:
 // https://studiofreya.com/3d-math-and-physics/simple-aabb-vs-aabb-collision-detection/
 
-template <typename Dim_T, size_u dim>
+template <size_u dim, typename T>
 class Rectangle
 {
    public:
     /** -- typedefs  -- **/
-    typedef Vector<Dim_T, dim> Point;
+    typedef Vector<dim, T> Point;
 
     /** -- methods -- **/
     Rectangle(Point centre, Point halfDims);

@@ -9,29 +9,29 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
-CollisionDetector<Len_T, Mass_T, dim>::CollisionDetector() : m_colliders(), m_collisions(), m_broadCollisions()
+template <size_u dim, typename T>
+CollisionDetector<dim, T>::CollisionDetector() : m_colliders(), m_collisions(), m_broadCollisions()
 {}
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  CollisionDetector<Len_T, Mass_T, dim>::detectCollisions()
+  CollisionDetector<dim, T>::detectCollisions()
 {
     detectBroadPhase();
     detectNarrowPhase();
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  CollisionDetector<Len_T, Mass_T, dim>::addCollider(WPtr<Collider> collider, LayerKey layer)
+  CollisionDetector<dim, T>::addCollider(WPtr<Collider> collider, LayerKey layer)
 {
     m_colliders.try_emplace(layer, Stream<WPtr<Collider>>());
     m_colliders.find(layer)->second.emplace_back(collider);
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  CollisionDetector<Len_T, Mass_T, dim>::detectBroadPhase()
+  CollisionDetector<dim, T>::detectBroadPhase()
 {
     m_broadCollisions.clear();
     for (auto & [layer, colliders] : m_colliders)
@@ -71,9 +71,9 @@ void
     }
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 void
-  CollisionDetector<Len_T, Mass_T, dim>::detectNarrowPhase()
+  CollisionDetector<dim, T>::detectNarrowPhase()
 {
     std::swap(m_collisions, m_previousCollisions);
     m_collisions.clear();
@@ -117,9 +117,9 @@ void
     //
 }
 
-template <typename Len_T, typename Mass_T, size_u dim>
-CANT_INLINE Stream<typename CollisionDetector<Len_T, Mass_T, dim>::CollisionDetector::Collision> &
-            CollisionDetector<Len_T, Mass_T, dim>::getCollisions()
+template <size_u dim, typename T>
+CANT_INLINE Stream<typename CollisionDetector<dim, T>::CollisionDetector::Collision> &
+            CollisionDetector<dim, T>::getCollisions()
 {
     return m_collisions;
 }

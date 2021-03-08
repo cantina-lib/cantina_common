@@ -7,8 +7,8 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-void LeapfrogUpdater<Len_T, Mass_T, Time_T, dim>::stepDeltaInternal(ShPtr<Object> &object, Time_T dt) const
+template<size_u dim, typename T>
+void LeapfrogUpdater<dim, T>::stepDeltaInternal(ShPtr<Object> &object, T dt) const
 {
     // first update velocity from acceleration
     object->updateVelocity(dt);

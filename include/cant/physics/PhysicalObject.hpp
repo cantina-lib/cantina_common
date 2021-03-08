@@ -11,16 +11,16 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
-class PhysicalObject : public Positionable<Len_T, dim>
+template <size_u dim, typename T>
+class PhysicalObject : public Positionable<dim, T>
 {
     /** -- contraints -- **/
-    static_assert(std::is_arithmetic_v<Len_T>);
+    static_assert(std::is_arithmetic_v<T>);
 
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef typename Positionable<Len_T, dim>::Vector   Vector;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef typename Positionable<dim, T>::Vector   Vector;
 
     /** -- methods -- **/
     CANT_EXPLICIT

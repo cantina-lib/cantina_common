@@ -9,8 +9,8 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim, size_u numberObjects>
-StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::StaticPhysicalLink(
+template<size_u dim, typename T, size_u numberObjects>
+StaticPhysicalLink<dim, T, numberObjects>::StaticPhysicalLink(
         StaticPhysicalLink::ObjectArray objects)
         : m_objectRefs()
 {
@@ -20,9 +20,9 @@ StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::StaticPhysicalLin
     }
 }
 
-template<typename Len_T, typename Mass_T, typename Time_T, size_u dim, size_u numberObjects>
-void StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::getDeltaForce(
-        Stream<ShPtr<Object>> const & objects, Stream<DeltaForce> & deltaForces) const
+template<size_u dim, typename T, size_u numberObjects>
+void StaticPhysicalLink<dim, T, numberObjects>::getDeltaForce(
+        Stream<ShPtr<Object>> const & objects, Stream<Vector> & deltaForces) const
 {
     CANTINA_ASSERT(objects.size() == deltaForces.size(), "noooo");
 
@@ -35,23 +35,23 @@ void StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::getDeltaForc
     getDeltaForceInternal(objects, deltaForces);
 }
 
-template <typename Len_T, typename  Mass_T, typename Time_T, size_u dim, size_u numberObjects>
+template <size_u dim, typename T, size_u numberObjects>
 size_u
-StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::getNumberObjects() const
+StaticPhysicalLink<dim, T, numberObjects>::getNumberObjects() const
 {
     return numberObjects;
 }
 
-template <typename Len_T, typename  Mass_T, typename Time_T, size_u dim, size_u numberObjects>
-WPtr<typename StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::Object> const *
-StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::getObjects() const
+template <size_u dim, typename T, size_u numberObjects>
+WPtr<typename StaticPhysicalLink<dim, T, numberObjects>::Object> const *
+StaticPhysicalLink<dim, T, numberObjects>::getObjects() const
 {
     return m_objectRefs.data();
 }
 
-template <typename Len_T, typename  Mass_T, typename Time_T, size_u dim, size_u numberObjects>
+template <size_u dim, typename T, size_u numberObjects>
 void
-StaticPhysicalLink<Len_T, Mass_T, Time_T, dim, numberObjects>::cleanUp()
+StaticPhysicalLink<dim, T, numberObjects>::cleanUp()
 {
     // can't really do any clean-up here.
     // Static links should not be allow to function if any of their objects is lost.

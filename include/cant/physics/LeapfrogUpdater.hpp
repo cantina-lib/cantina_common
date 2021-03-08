@@ -13,21 +13,18 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 /**
  * A kinetic updater that first computes velocity before position from acceleration.
- * @tparam Len_T
- * @tparam Mass_T
- * @tparam Time_T
  * @tparam dim
+ * @tparam T
  */
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-class LeapfrogUpdater : public KineticUpdater<Len_T, Mass_T, Time_T, dim>
+template <size_u dim, typename T>
+class LeapfrogUpdater : public KineticUpdater<dim, T>
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position Position;
-    typedef Position                                    Velocity;
-    typedef Position                                    Acceleration;
+    typedef typename Positionable<dim, T>::Position Position;
+    typedef typename Positionable<dim, T>::Vector Vector;
 
-    typedef KineticObject<Len_T, Mass_T, Time_T, dim> Object;
+    typedef KineticObject<dim, T> Object;
 
     /** -- methods -- **/
 private:
@@ -37,7 +34,7 @@ private:
      * @param object
      * @param dt
      */
-    void stepDeltaInternal(ShPtr<Object> & object, Time_T dt) const override;
+    void stepDeltaInternal(ShPtr<Object> & object, T dt) const override;
 };
 
 

@@ -7,33 +7,33 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-KineticObject<Len_T, Mass_T, Time_T, dim>::KineticObject(Mass_T mass, Position position, Velocity velocity)
-        : PhysicalObject<Len_T, dim>(std::move(position)), m_inverseMass(), m_velocity(), m_forceBuffer()
+template <size_u dim, typename T>
+KineticObject<dim, T>::KineticObject(T mass, Position position, Vector velocity)
+        : PhysicalObject<dim, T>(std::move(position)), m_inverseMass(), m_velocity(), m_forceBuffer()
 {
     setMass(mass);
     setVelocity(std::move(velocity));
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-KineticObject<Len_T, Mass_T, Time_T, dim>::KineticObject(Mass_T mass, Position position)
-    : KineticObject(mass, std::move(position), Velocity())
+template <size_u dim, typename T>
+KineticObject<dim, T>::KineticObject(T mass, Position position)
+    : KineticObject(mass, std::move(position), Vector())
 { }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-KineticObject<Len_T, Mass_T, Time_T, dim>::KineticObject(Mass_T mass) : KineticObject(mass, Position())
+template <size_u dim, typename T>
+KineticObject<dim, T>::KineticObject(T mass) : KineticObject(mass, Position())
 {}
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::addDeltaForce(DeltaForce const & dF)
+  KineticObject<dim, T>::addDeltaForce(const Vector & dF)
 {
     m_forceBuffer.deltaForce += dF;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::updateVelocity(Time_T dt)
+  KineticObject<dim, T>::updateVelocity(T dt)
 {
     //         v(t + dt) = v(t) + dv(t)
     // with:     dv(t) = a(t) * dt
@@ -41,57 +41,57 @@ CANT_INLINE void
     m_velocity += getAcceleration() * dt;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::updatePosition(Time_T dt)
+  KineticObject<dim, T>::updatePosition(T dt)
 {
     // (p(t + dt) - p(t)) / dt = v(t)
     // so: p(t + dt) = p(t) + v(t) * dt
     this->translate(m_velocity * dt);
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::clearForceBuffer()
+  KineticObject<dim, T>::clearForceBuffer()
 {
-    m_forceBuffer.deltaForce = DeltaForce();
+    m_forceBuffer.deltaForce = Vector();
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::setMass(Mass_T mass)
+  KineticObject<dim, T>::setMass(T mass)
 {
-    CANTINA_ASSERT(!maths::approx<Mass_T>::equal(static_cast<Mass_T>(0), mass), "Noooo");
-    m_inverseMass = static_cast<Mass_T>(1) / mass;
+    CANTINA_ASSERT(!maths::approx<T>::equal(static_cast<T>(0.0), mass), "Noooo");
+    m_inverseMass = static_cast<T>(1) / mass;
     // Now, let's pretend this did not happen and that the
     // constant mass hypothesis still stands, so that we can use:
     // dP = d(mass * velocity) = mass * dvelocity
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-CANT_INLINE typename KineticObject<Len_T, Mass_T, Time_T, dim>::Velocity const &
-  KineticObject<Len_T, Mass_T, Time_T, dim>::getVelocity() const
+template <size_u dim, typename T>
+CANT_INLINE typename KineticObject<dim, T>::Vector const &
+  KineticObject<dim, T>::getVelocity() const
 {
     return m_velocity;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<Len_T, Mass_T, Time_T, dim>::setVelocity(KineticObject::Velocity velocity)
+KineticObject<dim, T>::setVelocity(Vector velocity)
 {
     m_velocity = std::move(velocity);
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-Mass_T
-  KineticObject<Len_T, Mass_T, Time_T, dim>::getInverseMass() const
+template <size_u dim, typename T>
+T
+  KineticObject<dim, T>::getInverseMass() const
 {
     return m_inverseMass;
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-CANT_INLINE typename KineticObject<Len_T, Mass_T, Time_T, dim>::Acceleration
-  KineticObject<Len_T, Mass_T, Time_T, dim>::getAcceleration() const
+template <size_u dim, typename T>
+CANT_INLINE typename KineticObject<dim, T>::Vector
+  KineticObject<dim, T>::getAcceleration() const
 {
     // Hypothesis:
     // 1) intertial frame of reference (okay)
@@ -99,7 +99,7 @@ CANT_INLINE typename KineticObject<Len_T, Mass_T, Time_T, dim>::Acceleration
     //         a(t)      = F(t) / mass
     //         da        = dF   / mass
     //         a(t + dt) = a(t)  + dF / mass
-    DeltaForce dF = m_forceBuffer.deltaForce;
+    Vector dF = m_forceBuffer.deltaForce;
     auto acceleration = dF * getInverseMass();
     return acceleration;
 }

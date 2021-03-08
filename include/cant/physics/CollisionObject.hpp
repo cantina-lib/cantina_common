@@ -14,15 +14,15 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, size_u dim>
-class CollisionObject : public PhysicalObject<Len_T, dim>, public Collidable<Len_T, dim>
+template <size_u dim, typename T>
+class CollisionObject : public PhysicalObject<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef typename Positionable<Len_T, dim>::Position        Position;
+    typedef typename Positionable<dim, T>::Position        Position;
 
-    typedef PhysicalCollider<Len_T, dim> Collider;
-    typedef PhysicalShape<Len_T, dim>            Shape;
+    typedef PhysicalCollider<dim, T> Collider;
+    typedef PhysicalShape<dim, T>    Shape;
 
     /** -- methods -- **/
     CANT_EXPLICIT

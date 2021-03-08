@@ -12,16 +12,16 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, size_u dim>
+template <size_u dim, typename T>
 class CollisionSolver
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<Len_T, dim>::Position    Position;
-    typedef typename Kinetic<Len_T, Mass_T, dim>::Velocity Velocity;
+    typedef typename Positionable<dim, T>::Position    Position;
+    typedef typename Kinetic<dim, T>::Vector Vector;
 
-    typedef PhysicalCollider<Len_T, dim>  Collider;
-    typedef PhysicalCollision<Len_T, Mass_T, dim> Collision;
+    typedef PhysicalCollider<dim, T>  Collider;
+    typedef PhysicalCollision<dim, T> Collision;
 
     /** -- methods -- **/
     void

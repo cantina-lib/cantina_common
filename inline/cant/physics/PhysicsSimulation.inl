@@ -13,18 +13,18 @@
 
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
-PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::PhysicsSimulation()
-    : m_updater(std::make_unique<LeapfrogUpdater<Len_T, Mass_T, Time_T, dim>>()),
+template <size_u dim, typename T>
+PhysicsSimulation<dim, T>::PhysicsSimulation()
+    : m_updater(std::make_unique<LeapfrogUpdater<dim, T>>()),
     m_collisionDetector(),
     m_collisionSolver(),
     m_objects(std::make_shared<Stream<ShPtr<Object>>>()),
     m_forces()
 {}
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 CANT_INLINE void
-  PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::stepDelta(Time_T dt)
+  PhysicsSimulation<dim, T>::stepDelta(T dt)
 {
     for (auto it = m_forces.begin(); it != m_forces.end(); ++it)
     {
@@ -50,24 +50,24 @@ CANT_INLINE void
     }
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::addForce(UPtr<Force> forceField)
+  PhysicsSimulation<dim, T>::addForce(ShPtr<Force> forceField)
 {
     m_forces.push_back(std::move(forceField));
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::addForceField(UPtr<PhysicsSimulation::ForceField> forceField)
+PhysicsSimulation<dim, T>::addForceField(ShPtr<PhysicsSimulation::ForceField> forceField)
 {
     forceField->setObjects(m_objects);
     addForce(std::move(forceField));
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::addRigidObject(ShPtr<PhysicsSimulation::Rigid> & rigidObject,
+  PhysicsSimulation<dim, T>::addRigidObject(ShPtr<PhysicsSimulation::Rigid> & rigidObject,
                                                                 typename Detector::LayerKey               layer)
 {
     m_objects->push_back(static_cast<ShPtr<Object>>(rigidObject));
@@ -76,9 +76,9 @@ void
     m_collisionDetector.addCollider(rigidObject->getCollider(), layer);
 }
 
-template <typename Len_T, typename Mass_T, typename Time_T, size_u dim>
+template <size_u dim, typename T>
 void
-  PhysicsSimulation<Len_T, Mass_T, Time_T, dim>::addKinematicObject(
+  PhysicsSimulation<dim, T>::addKinematicObject(
     ShPtr<PhysicsSimulation::Object> & kinematicObject)
 {
     m_objects->push_back(static_cast<ShPtr<Object>>(kinematicObject));
