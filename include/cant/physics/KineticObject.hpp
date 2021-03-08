@@ -41,8 +41,6 @@ class KineticObject : public PhysicalObject<Len_T, dim>, public Kinetic<Len_T, M
     CANT_EXPLICIT KineticObject(Mass_T mass);
 
     void
-    setAccelerationFromForceBuffer();
-    void
     updateVelocity(Time_T dt);
     void
     updatePosition(Time_T dt);
@@ -61,7 +59,7 @@ class KineticObject : public PhysicalObject<Len_T, dim>, public Kinetic<Len_T, M
                    setVelocity(Velocity velocity) override;
     CANT_NODISCARD Velocity const &
                    getVelocity() const override;
-    CANT_NODISCARD Acceleration const &
+    CANT_NODISCARD Acceleration
                    getAcceleration() const override;
 
    private:
@@ -69,8 +67,7 @@ class KineticObject : public PhysicalObject<Len_T, dim>, public Kinetic<Len_T, M
     Mass_T m_inverseMass;
 
     Velocity      m_velocity;
-    Acceleration  m_acceleration;
-    KineticBuffer m_buffer;
+    KineticBuffer m_forceBuffer;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

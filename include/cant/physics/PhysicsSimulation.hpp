@@ -17,6 +17,7 @@
 #include <cant/physics/RigidObject.hpp>
 
 #include <cant/physics/PhysicalForce.hpp>
+#include <cant/physics/PhysicalForceField.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
@@ -35,6 +36,7 @@ class PhysicsSimulation
     typedef CollisionSolver<Len_T, Mass_T, dim>   Solver;
 
     typedef PhysicalForce<Len_T, Mass_T, Time_T, dim> Force;
+    typedef PhysicalForceField<Len_T, Mass_T, Time_T, dim> ForceField;
 
     typedef RigidObject<Len_T, Mass_T, Time_T, dim> Rigid;
     typedef KineticObject<Len_T, Mass_T, Time_T, dim> Object;
@@ -49,6 +51,11 @@ class PhysicsSimulation
 
     void
       addForce(UPtr<Force> force);
+    /**
+     * Same as addForce for ForceFields, but also links the objects of the simulation to it.
+     * @param forceField
+     */
+    void addForceField(UPtr<ForceField> forceField);
 
     void
       addRigidObject(ShPtr<Rigid> & rigidObject, typename Detector::LayerKey layer);
@@ -62,8 +69,7 @@ class PhysicsSimulation
     Detector m_collisionDetector;
     Solver   m_collisionSolver;
 
-
-    Stream<ShPtr<Object>> m_objects;
+    ShPtr<Stream<ShPtr<Object>>> m_objects;
 
     Stream<ShPtr<Force>> m_forces;
 };

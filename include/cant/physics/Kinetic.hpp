@@ -41,7 +41,7 @@ class Kinetic
     CANT_NODISCARD virtual Velocity const &
       getVelocity() const = 0;
 
-    CANT_NODISCARD virtual Acceleration const &
+    CANT_NODISCARD virtual Acceleration
       getAcceleration() const = 0;
 };
 

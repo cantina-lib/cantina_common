@@ -12,6 +12,8 @@
 #include <cant/common/CantinaException.hpp>
 
 #include <cant/common/macro.hpp>
+#include <cant/maths/algebra/Vector.hpp>
+
 CANTINA_MATHS_NAMESPACE_BEGIN
 
 template <typename Dim_T, size_u dim>
@@ -145,6 +147,13 @@ CANT_CONSTEXPR void
 }
 
 template <typename Dim_T, size_u dim>
+CANT_CONSTEXPR const Array<Dim_T, dim> &
+Vector<Dim_T, dim>::getArray() const
+{
+    return m_fields;
+}
+
+    template <typename Dim_T, size_u dim>
 CANT_CONSTEXPR Dim_T
   Vector<Dim_T, dim>::get(size_u i) const
 {
@@ -211,7 +220,6 @@ CANT_CONSTEXPR Vector<Dim_T, dim>
     std::fill(v.m_fields.begin(), v.m_fields.end(), t);
     return v;
 }
-
 CANTINA_MATHS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 

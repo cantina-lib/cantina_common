@@ -169,7 +169,10 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollider.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForce.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/WeakRefPhysicalForce.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/StaticPhysicalLink.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForceField.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/UniformForceField.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/HookeSpringLink.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp

@@ -43,6 +43,10 @@ class Vector
       dot(Vector const & other) const;
 
     CANT_NODISCARD
+    CANT_CONSTEXPR Array<Dim_T, dim> const &
+      getArray() const;
+
+    CANT_NODISCARD
     CANT_CONSTEXPR Dim_T
       get(size_u i) const;
     CANT_CONSTEXPR void
