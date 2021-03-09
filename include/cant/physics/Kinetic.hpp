@@ -6,6 +6,7 @@
 
 #include <cant/common/types.hpp>
 
+#include <cant/physics/Flags.hpp>
 #include <cant/physics/Positionable.hpp>
 
 #include <cant/common/macro.hpp>

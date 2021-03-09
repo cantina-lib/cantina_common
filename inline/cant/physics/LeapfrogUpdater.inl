@@ -11,9 +11,9 @@ template<size_u dim, typename T>
 void LeapfrogUpdater<dim, T>::stepDeltaInternal(ShPtr<Object> &object, T dt) const
 {
     // first update velocity from acceleration
-    object->updateVelocity(dt);
+    this->template updateVelocity(object, dt);
     // then update the position.
-    object->updatePosition(dt);
+    this->template updatePosition(object, dt);
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

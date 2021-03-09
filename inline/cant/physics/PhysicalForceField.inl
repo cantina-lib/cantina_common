@@ -6,6 +6,8 @@
 
 #include <algorithm>
 
+#include <cant/physics/Flags.hpp>
+
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
@@ -42,12 +44,18 @@ PhysicalForceField<dim, T>::apply() const
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto const & obj = m_objects->at(i);
-        deltaForces.push_back(getDeltaForce(obj));
+        if (!obj->hasFlags(FObjectBehaviour::fNoFieldObject | FObjectBehaviour::fStaticObject))
+        {
+            deltaForces.push_back(getDeltaForce(obj));
+        }
     }
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto & obj = m_objects->at(i);
-        obj->addDeltaForce(deltaForces.at(i));
+        if (!obj->hasFlags(FObjectBehaviour::fNoFieldObject | FObjectBehaviour::fStaticObject))
+        {
+            obj->addDeltaForce(deltaForces.at(i));
+        }
     }
 }
 

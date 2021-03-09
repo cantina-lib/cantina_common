@@ -27,6 +27,7 @@ class LeapfrogUpdater : public KineticUpdater<dim, T>
     typedef KineticObject<dim, T> Object;
 
     /** -- methods -- **/
+
 private:
     /** -- methods -- **/
     /**

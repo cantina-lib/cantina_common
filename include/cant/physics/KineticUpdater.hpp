@@ -30,6 +30,13 @@ class KineticUpdater
      * @param dt
      */
     void stepDelta(ShPtr<Object> & object, T dt) const;
+
+   protected:
+    /** -- methods -- **/
+    // utility functions, defined here in order to call
+    // the corresponding private methods of KineticObject from sub-class.
+    void updateVelocity(ShPtr<Object> & object, T dt) const;
+    void updatePosition(ShPtr<Object> & object, T dt) const;
 private:
     /** -- methods -- **/
     /**

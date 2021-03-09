@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_PHYSICS_KINETICSTATE_HPP
-#define CANTINA_PHYSICS_KINETICSTATE_HPP
+#ifndef CANTINA_PHYSICS_KINETICOBJECT_HPP
+#define CANTINA_PHYSICS_KINETICOBJECT_HPP
 
 #pragma once
 
@@ -12,6 +12,8 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
+template <size_u dim, typename T> class KineticUpdater;
+
 template <size_u dim, typename T>
 class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
 {
@@ -21,7 +23,6 @@ class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
 
    public:
     /** -- typedefs -- **/
-
     typedef typename Positionable<dim, T>::Position    Position;
     typedef typename Positionable<dim, T>::Vector      Vector;
 
@@ -36,16 +37,6 @@ class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
     KineticObject(T mass, Position position);
     CANT_EXPLICIT KineticObject(T mass);
 
-    void
-    updateVelocity(T dt);
-    void
-    updatePosition(T dt);
-    void
-    clearForceBuffer();
-
-    void
-      addDeltaForce(Vector const & dF);
-
     // implemented from Kinetic
     void
       setMass(T mass) override;
@@ -58,12 +49,30 @@ class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
     CANT_NODISCARD Vector
                    getAcceleration() const override;
 
+    void
+    addDeltaForce(Vector const & dF);
+
    private:
+    /** -- methods -- **/
+    // these should only be called by the KineticUpdater.
+    void
+    updateVelocity(T dt);
+    void
+    updatePosition(T dt);
+    void
+    clearForceBuffer();
+
+
+
     /** -- fields -- **/
     T m_inverseMass;
 
     Vector      m_velocity;
     KineticBuffer m_forceBuffer;
+
+    /** -- friend classes -- **/
+    // in order to call update functions:
+    friend class KineticUpdater<dim, T>;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END
@@ -71,4 +80,4 @@ CANTINA_PHYSICS_NAMESPACE_END
 
 #include <cant/physics/KineticObject.inl>
 
-#endif  // CANTINA_PHYSICS_KINETICSTATE_HPP
+#endif  // CANTINA_PHYSICS_KINETICOBJECT_HPP

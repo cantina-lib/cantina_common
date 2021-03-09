@@ -166,6 +166,7 @@ set(CANTINA_COMMON_FILES
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Positionable.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Kinetic.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Flags.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollider.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalForce.hpp

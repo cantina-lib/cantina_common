@@ -9,7 +9,8 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
 KineticObject<dim, T>::KineticObject(T mass, Position position, Vector velocity)
-        : PhysicalObject<dim, T>(std::move(position)), m_inverseMass(), m_velocity(), m_forceBuffer()
+        : PhysicalObject<dim, T>(std::move(position)),
+          m_inverseMass(), m_velocity(), m_forceBuffer()
 {
     setMass(mass);
     setVelocity(std::move(velocity));
@@ -61,8 +62,13 @@ template <size_u dim, typename T>
 void
   KineticObject<dim, T>::setMass(T mass)
 {
-    CANTINA_ASSERT(!maths::approx<T>::equal(static_cast<T>(0.0), mass), "Noooo");
-    m_inverseMass = static_cast<T>(1) / mass;
+    // if the mass is null, the object will be static.
+    bool const isStatic = mass == static_cast<T>(0.0);
+    if (isStatic)
+    {
+        this->template raiseFlags(FObjectBehaviour::fStaticObject, true);
+    }
+    m_inverseMass = isStatic ? static_cast<T>(0) : static_cast<T>(1.0) / mass;
     // Now, let's pretend this did not happen and that the
     // constant mass hypothesis still stands, so that we can use:
     // dP = d(mass * velocity) = mass * dvelocity
