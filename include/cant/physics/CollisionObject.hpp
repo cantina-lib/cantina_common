@@ -9,13 +9,13 @@
 #include <cant/physics/PhysicalCollider.hpp>
 #include <cant/physics/PhysicalShape.hpp>
 
-#include <cant/physics/PhysicalObject.hpp>
+#include <cant/physics/StaticObject.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-class CollisionObject : public PhysicalObject<dim, T>, public Collidable<dim, T>
+class CollisionObject : public StaticObject<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/

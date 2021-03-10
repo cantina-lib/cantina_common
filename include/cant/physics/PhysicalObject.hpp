@@ -7,34 +7,22 @@
 #include <cant/common/types.hpp>
 
 #include <cant/physics/Flags.hpp>
-#include <cant/physics/Positionable.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-class PhysicalObject : public Positionable<dim, T>
+class PhysicalObject
 {
     /** -- contraints -- **/
     static_assert(std::is_arithmetic_v<T>);
 
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<dim, T>::Position Position;
-    typedef typename Positionable<dim, T>::Vector   Vector;
 
     /** -- methods -- **/
-    CANT_EXPLICIT PhysicalObject(Position position = Position());
-
-    void
-      translate(Vector const & vec);
-    // manually sets position respectively.
-    // does not compute again velocity or acceleration.
-    void
-      setPosition(Position pos) override;
-    Position const &
-      getPosition() const override;
-
+    PhysicalObject();
+    virtual ~PhysicalObject();
 
     // todo: BIG
     // add an event callback in order to automatically move the object to different lists
@@ -50,8 +38,6 @@ class PhysicalObject : public Positionable<dim, T>
 
    private:
     /** -- fields -- **/
-    Position m_position;
-
     ObjectBehaviourFlags m_flags;
 
     // todo

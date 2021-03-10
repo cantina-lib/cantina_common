@@ -30,7 +30,7 @@ class PhysicalCollider : public Positionable<dim, T>
     typedef maths::Rectangle<dim, T> AABB;
 
     /** -- methods -- **/
-    PhysicalCollider(Collidable<dim, T> * owner, UPtr<Shape> shape);
+    PhysicalCollider(Collidable<dim, T> * owner, ShPtr<Shape> shape);
 
     CANT_NODISCARD bool
       intersectsAABB(ShPtr<PhysicalCollider> const & other) const;
@@ -49,8 +49,9 @@ class PhysicalCollider : public Positionable<dim, T>
     CANT_NODISCARD bool
       isStatic() const;
 
-    void
-      translate(Vector const & vec);
+    CANT_INLINE void translate(Vector const & vec);
+    CANT_INLINE void setPosition(Position position) final;
+    CANT_NODISCARD CANT_INLINE Position const & getPosition() const final;
 
    private:
     /** -- methods -- **/
@@ -58,7 +59,7 @@ class PhysicalCollider : public Positionable<dim, T>
     /** -- fields -- **/
     Collidable<dim, T> * const m_owner;
     // Could be shared!
-    UPtr<Shape> m_shape;
+    ShPtr<Shape> m_shape;
 };
 
 template <size_u dim, typename T>

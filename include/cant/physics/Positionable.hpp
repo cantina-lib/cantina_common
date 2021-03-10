@@ -22,14 +22,9 @@ class Positionable
     /** -- methods -- **/
     virtual ~Positionable() = default;
 
-    virtual void
-      setPosition(Position position)
-      = 0;
+    virtual void setPosition(Position position) = 0;
+    CANT_NODISCARD virtual Position const & getPosition() const = 0;
 
-    virtual Position const &
-      getPosition() const = 0;
-
-    /** -- fields -- **/
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

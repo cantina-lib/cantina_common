@@ -178,9 +178,11 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/StaticObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticObject.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Rigidbody.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/DynamicObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/RigidObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticUpdater.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/LeapfrogUpdater.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionDetector.hpp

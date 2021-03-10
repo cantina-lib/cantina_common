@@ -7,6 +7,8 @@
 #include <cant/maths/approx.hpp>
 
 #include <cant/common/macro.hpp>
+#include <cant/physics/PhysicalCollider.hpp>
+
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
@@ -79,9 +81,21 @@ CANT_INLINE bool
 }
 
 template <size_u dim, typename T>
-PhysicalCollider<dim, T>::PhysicalCollider(Collidable<dim, T> * owner, UPtr<Shape> shape)
+PhysicalCollider<dim, T>::PhysicalCollider(Collidable<dim, T> * owner, ShPtr<Shape> shape)
     : m_owner(owner), m_shape(std::move(shape))
 {}
+template <size_u dim, typename T>
+CANT_INLINE void
+  PhysicalCollider<dim, T>::setPosition(Position position)
+{
+    m_owner->setPosition(std::move(position));
+}
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollider<dim, T>::Position const &
+  PhysicalCollider<dim, T>::getPosition() const
+{
+    return m_owner->getPosition();
+}
 
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>

@@ -14,10 +14,10 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 template <size_u dim, typename T>
 PhysicsSimulation<dim, T>::PhysicsSimulation()
     : m_updater(std::make_unique<LeapfrogUpdater<dim, T>>()),
-    m_collisionDetector(),
-    m_collisionSolver(),
+      m_collisionDetector(),
+      m_collisionSolver(),
       m_kineticObjects(std::make_shared<Stream<ShPtr<Kinetic>>>()),
-    m_forces()
+      m_forces()
 {}
 
 template <size_u dim, typename T>
@@ -39,10 +39,11 @@ CANT_INLINE void
     // Before setting the positions from velocity, check for collisions,
     // and adjust velocity if necessary!
     /*
+     * todo!
     m_collisionDetector.detectCollisions();
     m_collisionSolver.solveCollisions(m_collisionDetector.getCollisions());
     */
-    for (ShPtr<Kinetic> & object : *m_kineticObjects)
+    for (auto & object : *m_kineticObjects)
     {
         m_updater->stepDelta(object, dt);
     }
@@ -67,18 +68,18 @@ template <size_u dim, typename T>
 void
   PhysicsSimulation<dim, T>::addRigidObject(ShPtr<Rigid>  rigidObject, typename Detector::LayerKey layer)
 {
-    m_kineticObjects->push_back(std::move(static_cast<ShPtr<Kinetic>>(rigidObject)));
-
-    // add to collision detection
+    // add collider to collision detection routine.
     m_collisionDetector.addCollider(rigidObject->getCollider(), layer);
+    // add object to kinetic objects.
+    m_kineticObjects->push_back(std::move(rigidObject));
 }
 
 template <size_u dim, typename T>
 void
-  PhysicsSimulation<dim, T>::addKinematicObject(
-    ShPtr<Kinetic> kinematicObject)
+  PhysicsSimulation<dim, T>::addDynamicObject(
+    ShPtr<Dynamic> dynamicObject)
 {
-    m_kineticObjects->push_back(std::move(static_cast<ShPtr<Kinetic>>(kinematicObject)));
+    m_kineticObjects->push_back(std::move(dynamicObject));
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

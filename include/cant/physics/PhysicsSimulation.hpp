@@ -12,9 +12,10 @@
 
 #include <cant/physics/KineticUpdater.hpp>
 
+#include <cant/physics/Movable.hpp>
 #include <cant/physics/CollisionObject.hpp>
-#include <cant/physics/KineticObject.hpp>
-#include <cant/physics/Rigidbody.hpp>
+#include <cant/physics/DynamicObject.hpp>
+#include <cant/physics/RigidObject.hpp>
 
 #include <cant/physics/PhysicalForce.hpp>
 #include <cant/physics/PhysicalForceField.hpp>
@@ -37,7 +38,8 @@ class PhysicsSimulation
     typedef PhysicalForce<dim, T> Force;
     typedef PhysicalForceField<dim, T> ForceField;
 
-    typedef Rigidbody<dim, T> Rigid;
+    typedef DynamicObject<dim, T> Dynamic;
+    typedef RigidObject<dim, T> Rigid;
     typedef KineticObject<dim, T> Kinetic;
 
     typedef KineticUpdater<dim, T> Updater;
@@ -57,9 +59,9 @@ class PhysicsSimulation
     void addForceField(ShPtr<ForceField> forceField);
 
     void
-      addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer);
+      addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer = Detector::c_defaultLayer);
     void
-      addKinematicObject(ShPtr<Kinetic> kinematicObject);
+      addDynamicObject(ShPtr<Dynamic> dynamicObject);
 
    private:
     /** -- fields -- **/

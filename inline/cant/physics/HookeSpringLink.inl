@@ -10,8 +10,8 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template<size_u dim, typename T>
-HookeSpringLink<dim, T>::HookeSpringLink(T k, T l0, ShPtr<Object> & o1, ShPtr<Object> & o2)
-    : Link({ o1, o2 }), m_k(k), m_l0(l0)
+HookeSpringLink<dim, T>::HookeSpringLink(T k, T l0, ShPtr<Object> o1, ShPtr<Object> o2)
+    : Link({ std::move(o1), std::move(o2) }), m_k(k), m_l0(l0)
 {
 
 }

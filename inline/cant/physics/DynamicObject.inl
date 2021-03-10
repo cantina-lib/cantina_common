@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_PHYSICS_KINETICOBJECT_INL
-#define CANTINA_PHYSICS_KINETICOBJECT_INL
+#ifndef CANTINA_PHYSICS_DYNAMICOBJECT_INL
+#define CANTINA_PHYSICS_DYNAMICOBJECT_INL
 
 #pragma once
 
@@ -8,33 +8,32 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-KineticObject<dim, T>::KineticObject(T mass, Position position, Vector velocity)
-        : PhysicalObject<dim, T>(std::move(position)),
-          m_inverseMass(), m_velocity(), m_forceBuffer(), m_accelerationCache()
+DynamicObject<dim, T>::DynamicObject(T mass, Position position, Vector velocity)
+        : m_inverseMass(), m_position(std::move(position)), m_velocity(), m_forceBuffer(), m_accelerationCache()
 {
     setMass(mass);
     setVelocity(std::move(velocity));
 }
 
 template <size_u dim, typename T>
-KineticObject<dim, T>::KineticObject(T mass, Position position)
-    : KineticObject(mass, std::move(position), Vector())
+DynamicObject<dim, T>::DynamicObject(T mass, Position position)
+    : DynamicObject(mass, std::move(position), Vector())
 { }
 
 template <size_u dim, typename T>
-KineticObject<dim, T>::KineticObject(T mass) : KineticObject(mass, Position())
+DynamicObject<dim, T>::DynamicObject(T mass) : DynamicObject(mass, Position())
 {}
 
 template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<dim, T>::addDeltaForce(const Vector & dF)
+  DynamicObject<dim, T>::addDeltaForce(const Vector & dF)
 {
     m_forceBuffer.deltaForce += dF;
 }
 
 template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<dim, T>::updateVelocity(T dt)
+  DynamicObject<dim, T>::updateVelocity(T dt)
 {
     // Hypothesis:
     // 1) intertial frame of reference (okay)
@@ -52,7 +51,7 @@ CANT_INLINE void
 
 template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<dim, T>::updatePosition(T dt)
+  DynamicObject<dim, T>::updatePosition(T dt)
 {
     // (p(t + dt) - p(t)) / dt = v(t)
     // so: p(t + dt) = p(t) + v(t) * dt
@@ -61,53 +60,71 @@ CANT_INLINE void
 
 template <size_u dim, typename T>
 CANT_INLINE void
-  KineticObject<dim, T>::clearForceBuffer()
+  DynamicObject<dim, T>::clearForceBuffer()
 {
     m_forceBuffer.deltaForce = Vector();
 }
 
 template <size_u dim, typename T>
 void
-  KineticObject<dim, T>::setMass(T mass)
+  DynamicObject<dim, T>::setMass(T mass)
 {
     // if the mass is null, the object will be static.
     bool const isStatic = mass == static_cast<T>(0.0);
     this->template raiseFlags(FObjectBehaviour::fStaticObject, isStatic);
     m_inverseMass = isStatic ? static_cast<T>(0) : static_cast<T>(1.0) / mass;
-    // Now, let's pretend this did not happen and that the
-    // constant mass hypothesis still stands, so that we can use:
-    // dP = d(mass * velocity) = mass * dvelocity
 }
 
 template <size_u dim, typename T>
-CANT_INLINE typename KineticObject<dim, T>::Vector const &
-  KineticObject<dim, T>::getVelocity() const
+CANT_INLINE typename DynamicObject<dim, T>::Vector const &
+  DynamicObject<dim, T>::getVelocity() const
 {
     return m_velocity;
 }
 
 template <size_u dim, typename T>
 CANT_INLINE void
-KineticObject<dim, T>::setVelocity(Vector velocity)
+DynamicObject<dim, T>::setVelocity(Vector velocity)
 {
     m_velocity = std::move(velocity);
 }
 
 template <size_u dim, typename T>
 T
-  KineticObject<dim, T>::getInverseMass() const
+  DynamicObject<dim, T>::getInverseMass() const
 {
     return m_inverseMass;
 }
 
 template <size_u dim, typename T>
-CANT_INLINE typename KineticObject<dim, T>::Vector
-  KineticObject<dim, T>::getAcceleration() const
+CANT_INLINE typename DynamicObject<dim, T>::Vector
+  DynamicObject<dim, T>::getAcceleration() const
 {
     return m_accelerationCache;
+}
+
+template <size_u dim, typename T>
+CANT_INLINE void
+DynamicObject<dim, T>::setPosition(Position pos)
+{
+    m_position = std::move(pos);
+}
+
+template <size_u dim, typename T>
+CANT_INLINE typename DynamicObject<dim, T>::Position const &
+DynamicObject<dim, T>::getPosition() const
+{
+    return m_position;
+}
+
+template <size_u dim, typename T>
+CANT_INLINE void
+DynamicObject<dim, T>::translate(Vector const & vec)
+{
+    m_position += vec;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#endif  // CANTINA_PHYSICS_KINETICOBJECT_INL
+#endif  // CANTINA_PHYSICS_DYNAMICOBJECT_INL

@@ -22,7 +22,7 @@ class HookeSpringLink : public StaticPhysicalLink<dim, T, 2>
     typedef typename Link::Vector Vector;
 
     /** -- methods -- **/
-    HookeSpringLink(T k, T l0, ShPtr<Object> & o1, ShPtr<Object> & o2);
+    HookeSpringLink(T k, T l0, ShPtr<Object> o1, ShPtr<Object> o2);
 
     CANT_INLINE void setStiffness(T k);
     CANT_INLINE void setRestLength(T l0);

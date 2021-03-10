@@ -6,17 +6,15 @@
 
 #include <cant/common/types.hpp>
 
-#include <cant/physics/Flags.hpp>
 #include <cant/physics/Positionable.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
-/**
- * shouldn't inherit from Positionable, to avoid ambiguous references in KineticObject.
- */
+template <size_u dim, typename T> class KineticUpdater;
+
 template <size_u dim, typename T>
-class Movable
+class Movable : public Positionable<dim, T>
 {
    public:
     /** -- typedefs -- **/
@@ -45,6 +43,13 @@ class Movable
 
     CANT_NODISCARD virtual Vector
       getAcceleration() const = 0;
+
+    virtual void addDeltaForce(Vector const & dF) = 0;
+
+    // these should only be called by the KineticUpdater.
+    virtual void updateVelocity(T dt) = 0;
+    virtual void updatePosition(T dt) = 0;
+    virtual void clearForceBuffer() = 0;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

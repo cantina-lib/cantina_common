@@ -28,6 +28,7 @@ class CollisionDetector
     typedef PhysicalCollision<dim, T>       Collision;
 
     typedef type_i LayerKey;
+    CANT_CONSTEXPR static LayerKey c_defaultLayer = -1;
 
     /** -- methods -- **/
     CollisionDetector();

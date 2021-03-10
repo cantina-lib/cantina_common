@@ -6,6 +6,7 @@
 
 #include <cant/common/types.hpp>
 
+#include <cant/physics/KineticObject.hpp>
 
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
@@ -15,10 +16,9 @@ class KineticUpdater
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<dim, T>::Position Position;
-    typedef typename Positionable<dim, T>::Vector Vector;
-
     typedef KineticObject<dim, T> Object;
+    typedef typename Object::Position Position;
+    typedef typename Object::Vector Vector;
 
     /** -- methods -- **/
     virtual ~KineticUpdater() = default;
