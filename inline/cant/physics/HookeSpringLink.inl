@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_PHYSICS_HOOKSPRINGLINK_INL
-#define CANTINA_PHYSICS_HOOKSPRINGLINK_INL
+#ifndef CANTINA_PHYSICS_HOOKESPRINGLINK_INL
+#define CANTINA_PHYSICS_HOOKESPRINGLINK_INL
 
 #pragma once
 
@@ -33,6 +33,19 @@ void
     Vector f = (- m_k * deltaL) * deltaP.getNormalised();
     deltaForces.at(0) = f;
     deltaForces.at(1) = - f;
+}
+
+template <size_u dim, typename T>
+void
+  HookeSpringLink<dim, T>::setStiffness(T k)
+{
+    m_k = k;
+}
+template <size_u dim, typename T>
+void
+  HookeSpringLink<dim, T>::setRestLength(T l0)
+{
+    m_l0 = l0;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

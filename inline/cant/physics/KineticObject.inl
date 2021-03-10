@@ -72,10 +72,7 @@ void
 {
     // if the mass is null, the object will be static.
     bool const isStatic = mass == static_cast<T>(0.0);
-    if (isStatic)
-    {
-        this->template raiseFlags(FObjectBehaviour::fStaticObject, true);
-    }
+    this->template raiseFlags(FObjectBehaviour::fStaticObject, isStatic);
     m_inverseMass = isStatic ? static_cast<T>(0) : static_cast<T>(1.0) / mass;
     // Now, let's pretend this did not happen and that the
     // constant mass hypothesis still stands, so that we can use:
