@@ -16,7 +16,7 @@ PhysicsSimulation<dim, T>::PhysicsSimulation()
     : m_updater(std::make_unique<LeapfrogUpdater<dim, T>>()),
     m_collisionDetector(),
     m_collisionSolver(),
-    m_objects(std::make_shared<Stream<ShPtr<Object>>>()),
+      m_kineticObjects(std::make_shared<Stream<ShPtr<Kinetic>>>()),
     m_forces()
 {}
 
@@ -42,7 +42,7 @@ CANT_INLINE void
     m_collisionDetector.detectCollisions();
     m_collisionSolver.solveCollisions(m_collisionDetector.getCollisions());
     */
-    for (ShPtr<Object> & object : *m_objects)
+    for (ShPtr<Kinetic> & object : *m_kineticObjects)
     {
         m_updater->stepDelta(object, dt);
     }
@@ -59,7 +59,7 @@ template <size_u dim, typename T>
 void
 PhysicsSimulation<dim, T>::addForceField(ShPtr<ForceField> forceField)
 {
-    forceField->setObjects(m_objects);
+    forceField->setObjects(m_kineticObjects);
     addForce(std::move(forceField));
 }
 
@@ -67,7 +67,7 @@ template <size_u dim, typename T>
 void
   PhysicsSimulation<dim, T>::addRigidObject(ShPtr<Rigid>  rigidObject, typename Detector::LayerKey layer)
 {
-    m_objects->push_back(std::move(static_cast<ShPtr<Object>>(rigidObject)));
+    m_kineticObjects->push_back(std::move(static_cast<ShPtr<Kinetic>>(rigidObject)));
 
     // add to collision detection
     m_collisionDetector.addCollider(rigidObject->getCollider(), layer);
@@ -76,9 +76,9 @@ void
 template <size_u dim, typename T>
 void
   PhysicsSimulation<dim, T>::addKinematicObject(
-    ShPtr<Object> kinematicObject)
+    ShPtr<Kinetic> kinematicObject)
 {
-    m_objects->push_back(std::move(static_cast<ShPtr<Object>>(kinematicObject)));
+    m_kineticObjects->push_back(std::move(static_cast<ShPtr<Kinetic>>(kinematicObject)));
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

@@ -165,7 +165,7 @@ set(CANTINA_COMMON_FILES
         # Physics
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Positionable.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Kinetic.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Movable.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Flags.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollider.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalCollision.hpp
@@ -180,7 +180,7 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticObject.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/RigidObject.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/Rigidbody.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticUpdater.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/LeapfrogUpdater.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionDetector.hpp

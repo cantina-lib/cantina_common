@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_PHYSICS_KINETIC_HPP
-#define CANTINA_PHYSICS_KINETIC_HPP
+#ifndef CANTINA_PHYSICS_MOVABLE_HPP
+#define CANTINA_PHYSICS_MOVABLE_HPP
 
 #pragma once
 
@@ -12,8 +12,11 @@
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
+/**
+ * shouldn't inherit from Positionable, to avoid ambiguous references in KineticObject.
+ */
 template <size_u dim, typename T>
-class Kinetic
+class Movable
 {
    public:
     /** -- typedefs -- **/
@@ -21,11 +24,11 @@ class Kinetic
     typedef typename Positionable<dim, T>::Vector Vector;
 
     /** -- methods -- **/
-    virtual ~Kinetic() = default;
+    virtual ~Movable() = default;
 
-    virtual void
+    CANT_INLINE virtual void
       setMass(T mass) = 0;
-    CANT_NODISCARD virtual T
+    CANT_NODISCARD CANT_INLINE virtual T
       getInverseMass() const = 0;
 
     /*
@@ -34,10 +37,10 @@ class Kinetic
      * set the velocity and acceleration by hand
      * it should otherwise be updated with the acceleration.
      */
-    virtual void
+    CANT_INLINE virtual void
       setVelocity(Vector velocity)
       = 0;
-    CANT_NODISCARD virtual Vector const &
+    CANT_NODISCARD CANT_INLINE virtual Vector const &
       getVelocity() const = 0;
 
     CANT_NODISCARD virtual Vector
@@ -47,4 +50,4 @@ class Kinetic
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#endif  // CANTINA_PHYSICS_KINETIC_HPP
+#endif  // CANTINA_PHYSICS_MOVABLE_HPP

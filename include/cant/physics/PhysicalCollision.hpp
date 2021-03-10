@@ -7,7 +7,7 @@
 #include <cant/common/memory.hpp>
 #include <cant/common/types.hpp>
 
-#include <cant/physics/Kinetic.hpp>
+#include <cant/physics/Movable.hpp>
 #include <cant/physics/Positionable.hpp>
 
 #include <cant/physics/PhysicalCollider.hpp>

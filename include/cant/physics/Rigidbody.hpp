@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_PHYSICS_RIGIDOBJECT_HPP
-#define CANTINA_PHYSICS_RIGIDOBJECT_HPP
+#ifndef CANTINA_PHYSICS_RIGIDBODY_HPP
+#define CANTINA_PHYSICS_RIGIDBODY_HPP
 
 #pragma once
 
@@ -16,18 +16,17 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
+class Rigidbody : public Movable<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/
     typedef PhysicalShape<dim, T>    Shape;
     typedef PhysicalCollider<dim, T> Collider;
+    typedef KineticObject<dim, T> Object;
+    typedef typename Object::Vector Vector;
 
     /** -- methods -- **/
-    CANT_EXPLICIT RigidObject(UPtr<Shape> shape);
-    RigidObject(T mass, UPtr<Shape> shape);
-
-    // and now I have to redefine all this stuff to satisfy the Collidable interface, nyeh!
+    Rigidbody(UPtr<Object> object, UPtr<Shape> shape);
 
     // Collidable
     WPtr<Collider>
@@ -38,8 +37,18 @@ class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
         return false;
     }
 
+    // Kinetic
+    void setMass(T mass) override;
+    CANT_NODISCARD T getInverseMass() const override;
+
+    void setVelocity(Vector velocity) override;
+    CANT_NODISCARD Vector const & getVelocity() const override;
+
+    CANT_NODISCARD Vector getAcceleration() const override;
+
    private:
     /** -- fields -- **/
+    UPtr<Object> m_object;
     ShPtr<Collider> m_collider;
 
     Stream<WPtr<Collider>> m_inContactColliders;
@@ -48,6 +57,6 @@ class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/physics/RigidObject.inl>
+#include <cant/physics/Rigidbody.inl>
 
-#endif  // CANTINA_PHYSICS_RIGIDOBJECT_HPP
+#endif  // CANTINA_PHYSICS_RIGIDBODY_HPP

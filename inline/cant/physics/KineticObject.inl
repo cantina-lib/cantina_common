@@ -10,7 +10,7 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 template <size_u dim, typename T>
 KineticObject<dim, T>::KineticObject(T mass, Position position, Vector velocity)
         : PhysicalObject<dim, T>(std::move(position)),
-          m_inverseMass(), m_velocity(), m_forceBuffer()
+          m_inverseMass(), m_velocity(), m_forceBuffer(), m_accelerationCache()
 {
     setMass(mass);
     setVelocity(std::move(velocity));
@@ -36,10 +36,18 @@ template <size_u dim, typename T>
 CANT_INLINE void
   KineticObject<dim, T>::updateVelocity(T dt)
 {
+    // Hypothesis:
+    // 1) intertial frame of reference (okay)
+    // 2) constant mass
+    //         a(t)      = F(t) / mass
+    //         da        = dF   / mass
+    //         a(t + dt) = a(t)  + dF / mass
+    Vector dF = m_forceBuffer.deltaForce;
+    m_accelerationCache = dF * getInverseMass();
     //         v(t + dt) = v(t) + dv(t)
     // with:     dv(t) = a(t) * dt
     // hence:  v(t + dt) = v(t) + a(t) * dt
-    m_velocity += getAcceleration() * dt;
+    m_velocity += m_accelerationCache * dt;
 }
 
 template <size_u dim, typename T>
@@ -99,15 +107,7 @@ template <size_u dim, typename T>
 CANT_INLINE typename KineticObject<dim, T>::Vector
   KineticObject<dim, T>::getAcceleration() const
 {
-    // Hypothesis:
-    // 1) intertial frame of reference (okay)
-    // 2) constant mass
-    //         a(t)      = F(t) / mass
-    //         da        = dF   / mass
-    //         a(t + dt) = a(t)  + dF / mass
-    Vector dF = m_forceBuffer.deltaForce;
-    auto acceleration = dF * getInverseMass();
-    return acceleration;
+    return m_accelerationCache;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

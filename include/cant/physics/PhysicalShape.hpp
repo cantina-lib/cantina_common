@@ -13,7 +13,7 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 // CONVEX!!
-// For now ignoring scale and rotation
+// For now rotation
 // So only ball-shape, basically.
 template <size_u dim, typename T>
 class PhysicalShape

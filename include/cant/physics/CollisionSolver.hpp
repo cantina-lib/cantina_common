@@ -18,7 +18,7 @@ class CollisionSolver
    public:
     /** -- typedefs -- **/
     typedef typename Positionable<dim, T>::Position    Position;
-    typedef typename Kinetic<dim, T>::Vector Vector;
+    typedef typename Movable<dim, T>::Vector Vector;
 
     typedef PhysicalCollider<dim, T>  Collider;
     typedef PhysicalCollision<dim, T> Collision;

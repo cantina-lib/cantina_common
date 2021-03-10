@@ -14,7 +14,7 @@
 
 #include <cant/physics/CollisionObject.hpp>
 #include <cant/physics/KineticObject.hpp>
-#include <cant/physics/RigidObject.hpp>
+#include <cant/physics/Rigidbody.hpp>
 
 #include <cant/physics/PhysicalForce.hpp>
 #include <cant/physics/PhysicalForceField.hpp>
@@ -37,8 +37,8 @@ class PhysicsSimulation
     typedef PhysicalForce<dim, T> Force;
     typedef PhysicalForceField<dim, T> ForceField;
 
-    typedef RigidObject<dim, T> Rigid;
-    typedef KineticObject<dim, T> Object;
+    typedef Rigidbody<dim, T> Rigid;
+    typedef KineticObject<dim, T> Kinetic;
 
     typedef KineticUpdater<dim, T> Updater;
 
@@ -59,7 +59,7 @@ class PhysicsSimulation
     void
       addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer);
     void
-      addKinematicObject(ShPtr<Object> kinematicObject);
+      addKinematicObject(ShPtr<Kinetic> kinematicObject);
 
    private:
     /** -- fields -- **/
@@ -68,7 +68,7 @@ class PhysicsSimulation
     Detector m_collisionDetector;
     Solver   m_collisionSolver;
 
-    ShPtr<Stream<ShPtr<Object>>> m_objects;
+    ShPtr<Stream<ShPtr<Kinetic>>> m_kineticObjects;
 
     Stream<ShPtr<Force>> m_forces;
 };

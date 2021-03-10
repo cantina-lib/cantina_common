@@ -6,7 +6,7 @@
 
 #include <cant/common/types.hpp>
 
-#include <cant/physics/Kinetic.hpp>
+#include <cant/physics/Movable.hpp>
 #include <cant/physics/PhysicalObject.hpp>
 
 #include <cant/common/macro.hpp>
@@ -15,7 +15,7 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 template <size_u dim, typename T> class KineticUpdater;
 
 template <size_u dim, typename T>
-class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
+class KineticObject : public PhysicalObject<dim, T>, public Movable<dim, T>
 {
     /** -- contraints -- **/
     static_assert(std::is_arithmetic_v<T>);
@@ -69,6 +69,9 @@ class KineticObject : public PhysicalObject<dim, T>, public Kinetic<dim, T>
 
     Vector      m_velocity;
     KineticBuffer m_forceBuffer;
+    // last value of acceleration, computed from last force buffer.
+    // should not be used inside this class, but can exposed to the public.
+    Vector m_accelerationCache;
 
     /** -- friend classes -- **/
     // in order to call update functions:
