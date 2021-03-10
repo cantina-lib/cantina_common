@@ -9,8 +9,6 @@
 #include <cant/physics/LeapfrogUpdater.hpp>
 
 #include <cant/common/macro.hpp>
-#include <cant/physics/PhysicsSimulation.hpp>
-
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
@@ -59,7 +57,7 @@ void
 
 template <size_u dim, typename T>
 void
-PhysicsSimulation<dim, T>::addForceField(ShPtr<PhysicsSimulation::ForceField> forceField)
+PhysicsSimulation<dim, T>::addForceField(ShPtr<ForceField> forceField)
 {
     forceField->setObjects(m_objects);
     addForce(std::move(forceField));
@@ -67,10 +65,9 @@ PhysicsSimulation<dim, T>::addForceField(ShPtr<PhysicsSimulation::ForceField> fo
 
 template <size_u dim, typename T>
 void
-  PhysicsSimulation<dim, T>::addRigidObject(ShPtr<PhysicsSimulation::Rigid> & rigidObject,
-                                                                typename Detector::LayerKey               layer)
+  PhysicsSimulation<dim, T>::addRigidObject(ShPtr<Rigid>  rigidObject, typename Detector::LayerKey layer)
 {
-    m_objects->push_back(static_cast<ShPtr<Object>>(rigidObject));
+    m_objects->push_back(std::move(static_cast<ShPtr<Object>>(rigidObject)));
 
     // add to collision detection
     m_collisionDetector.addCollider(rigidObject->getCollider(), layer);
@@ -79,9 +76,9 @@ void
 template <size_u dim, typename T>
 void
   PhysicsSimulation<dim, T>::addKinematicObject(
-    ShPtr<PhysicsSimulation::Object> & kinematicObject)
+    ShPtr<Object> kinematicObject)
 {
-    m_objects->push_back(static_cast<ShPtr<Object>>(kinematicObject));
+    m_objects->push_back(std::move(static_cast<ShPtr<Object>>(kinematicObject)));
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

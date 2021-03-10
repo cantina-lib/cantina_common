@@ -41,6 +41,7 @@ PhysicalForceField<dim, T>::apply() const
     Stream<Vector> deltaForces;
     deltaForces.reserve(m_objects->size());
     // Compute and apply delta force to object.
+    // todo: better object handling.
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto const & obj = m_objects->at(i);
@@ -49,12 +50,15 @@ PhysicalForceField<dim, T>::apply() const
             deltaForces.push_back(getDeltaForce(obj));
         }
     }
+    // use a second counter to filter non-field objects and match deltaForces.
+    size_u j = 0;
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto & obj = m_objects->at(i);
         if (!obj->hasFlags(FObjectBehaviour::fNoFieldObject | FObjectBehaviour::fStaticObject))
         {
-            obj->addDeltaForce(deltaForces.at(i));
+            obj->addDeltaForce(deltaForces.at(j));
+            ++j;
         }
     }
 }

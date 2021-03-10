@@ -57,9 +57,9 @@ class PhysicsSimulation
     void addForceField(ShPtr<ForceField> forceField);
 
     void
-      addRigidObject(ShPtr<Rigid> & rigidObject, typename Detector::LayerKey layer);
+      addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer);
     void
-      addKinematicObject(ShPtr<Object> & kinematicObject);
+      addKinematicObject(ShPtr<Object> kinematicObject);
 
    private:
     /** -- fields -- **/
