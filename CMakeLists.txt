@@ -148,7 +148,8 @@ set(CANTINA_COMMON_FILES
         # Maths
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/maths.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/utils.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/approx.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/algo.hpp
         ### Algebra
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/algebra/algebra.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/maths/algebra/Vector.hpp

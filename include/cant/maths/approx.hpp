@@ -2,8 +2,8 @@
 // Created by binabik on 13/09/2020.
 //
 
-#ifndef CANTINA_MATHS_UTILS_HPP
-#define CANTINA_MATHS_UTILS_HPP
+#ifndef CANTINA_MATHS_APPROX_HPP
+#define CANTINA_MATHS_APPROX_HPP
 
 #pragma once
 
@@ -14,7 +14,7 @@
 #include <cant/common/macro.hpp>
 CANTINA_MATHS_NAMESPACE_BEGIN
 
-CANT_CONSTEXPR int c_defaultUlp = 2;
+CANT_CONSTEXPR type_i c_defaultUlp = 2;
 
 // approx in lower case to pretend it's a namespace
 // although the template arguments kind of give it away.
@@ -53,4 +53,4 @@ CANTINA_MATHS_NAMESPACE_END
 
 #include <cant/maths/approx.inl>
 
-#endif  // CANTINA_MATHS_UTILS_HPP
+#endif  // CANTINA_MATHS_APPROX_HPP

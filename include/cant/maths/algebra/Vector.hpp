@@ -10,6 +10,8 @@
 #include <cant/common/macro.hpp>
 CANTINA_MATHS_NAMESPACE_BEGIN
 
+CANT_CONSTEXPR type_i c_defaultNormOrder = 2;
+
 template <size_u dim, typename T>
 class Vector
 {
@@ -29,15 +31,21 @@ class Vector
     CANT_CONSTEXPR static Vector
       fill(T t);
 
+    template <type_i order = c_defaultNormOrder>
     CANT_NODISCARD
     CANT_CONSTEXPR T
       getDistance(Vector const & other) const;
+
+    template <type_i order = c_defaultNormOrder>
     CANT_NODISCARD
     CANT_CONSTEXPR T
       getNorm() const;
+
+    template <type_i order = c_defaultNormOrder>
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
       getNormalised() const;
+
     CANT_NODISCARD
     CANT_CONSTEXPR T
       dot(Vector const & other) const;
@@ -49,11 +57,14 @@ class Vector
     CANT_NODISCARD
     CANT_CONSTEXPR T
       get(size_u i) const;
+
     CANT_CONSTEXPR void
       set(size_u i, T val);
+
     template <size_u i>
     CANT_NODISCARD CANT_CONSTEXPR T
       get() const;
+
     template <size_u i>
     CANT_CONSTEXPR void
       set(T val);

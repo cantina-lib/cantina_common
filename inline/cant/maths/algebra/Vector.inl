@@ -8,6 +8,7 @@
 #include <numeric>
 
 #include <cant/maths/approx.hpp>
+#include <cant/maths/algo.hpp>
 
 #include <cant/common/CantinaException.hpp>
 
@@ -31,17 +32,19 @@ CANT_CONSTEXPR
 }
 
 template <size_u dim, typename T>
+template <type_i order>
 CANT_CONSTEXPR T
   Vector<dim, T>::getDistance(Vector const & other) const
 {
-    return (other - *this).getNorm();
+    return (other - *this).template getNorm<order>();
 }
 
 template <size_u dim, typename T>
+template <type_i order>
 CANT_CONSTEXPR T
   Vector<dim, T>::getNorm() const
 {
-    return std::sqrt(this->dot(*this));
+    return algo<T>::template norm<order>(m_fields.begin(), m_fields.end());
 }
 
 template <size_u dim, typename T>
@@ -114,10 +117,11 @@ CANT_CONSTEXPR Vector<dim, T>
 }
 
 template <size_u dim, typename T>
+template <type_i order>
 CANT_CONSTEXPR Vector<dim, T>
                Vector<dim, T>::getNormalised() const
 {
-    T norm = getNorm();
+    T norm = getNorm<order>();
     CANTINA_ASSERT(!approx<T>::equal(norm, static_cast<T>(0.)), "Noooo");
     if (approx<T>::equal(norm, static_cast<T>(0.)))
     {

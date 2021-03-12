@@ -1,6 +1,6 @@
 
-#ifndef CANTINA_MATHS_UTILS_INL
-#define CANTINA_MATHS_UTILS_INL
+#ifndef CANTINA_MATHS_APPROX_INL
+#define CANTINA_MATHS_APPROX_INL
 
 #pragma once
 
@@ -73,4 +73,4 @@ CANT_INLINE T
 CANTINA_MATHS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#endif  // CANTINA_MATHS_UTILS_INL
+#endif  // CANTINA_MATHS_APPROX_INL

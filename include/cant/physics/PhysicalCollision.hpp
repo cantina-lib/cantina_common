@@ -44,7 +44,7 @@ class PhysicalCollision
         // normals
         Vector n;
 
-        // no angular velocity.
+        // no angular velocity for now.
 
         // velocities of impact points of min and max colliders
         Vector vbp;
