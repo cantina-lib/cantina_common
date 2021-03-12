@@ -9,13 +9,11 @@
 #include <cant/physics/PhysicalCollider.hpp>
 #include <cant/physics/PhysicalShape.hpp>
 
-#include <cant/physics/StaticObject.hpp>
-
 #include <cant/common/macro.hpp>
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-class CollisionObject : public StaticObject<dim, T>, public Collidable<dim, T>
+class CollisionObject : public PhysicalObject<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/
@@ -27,12 +25,6 @@ class CollisionObject : public StaticObject<dim, T>, public Collidable<dim, T>
     /** -- methods -- **/
     CANT_EXPLICIT
     CollisionObject(UPtr<Shape> shape);
-    // applying work of forces on the object
-    // and so update its state.
-    // should only be called by the simulation.
-
-    // Kinetic through Collidable
-    // nothing to do here, basically.
 
     // Collidable
     WPtr<Collider>

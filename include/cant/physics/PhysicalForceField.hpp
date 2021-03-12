@@ -33,6 +33,8 @@ class PhysicalForceField : public PhysicalForce<dim, T>
     PhysicalForceField();
 
     void setObjects(ObjectStream const & objects);
+    void setEnabled(bool enabled);
+    CANT_NODISCARD bool isEnabled() const;
 
     void apply() const final;
 
@@ -42,6 +44,7 @@ class PhysicalForceField : public PhysicalForce<dim, T>
 
     /** -- fields -- **/
     ObjectStream m_objects;
+    bool m_isEnabled;
 };
 
 

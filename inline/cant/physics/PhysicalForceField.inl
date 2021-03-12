@@ -14,7 +14,7 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 template<size_u dim, typename T>
 PhysicalForceField<dim, T>::PhysicalForceField(
         ObjectStream const & objects)
-        : m_objects()
+        : m_objects(), m_isEnabled(true)
 {
     setObjects(objects);
 }
@@ -38,6 +38,10 @@ template <size_u dim, typename T>
 void
 PhysicalForceField<dim, T>::apply() const
 {
+    if (!isEnabled())
+    {
+        return;
+    }
     Stream<Vector> deltaForces;
     deltaForces.reserve(m_objects->size());
     // Compute and apply delta force to object.
@@ -61,6 +65,19 @@ PhysicalForceField<dim, T>::apply() const
             ++j;
         }
     }
+}
+template <size_u dim, typename T>
+void
+  PhysicalForceField<dim, T>::setEnabled(bool enabled)
+{
+    m_isEnabled = enabled;
+}
+
+template <size_u dim, typename T>
+bool
+  PhysicalForceField<dim, T>::isEnabled() const
+{
+    return m_isEnabled;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

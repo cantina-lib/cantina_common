@@ -9,7 +9,7 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
 CollisionObject<dim, T>::CollisionObject(UPtr<Shape> shape)
-    : StaticObject<dim, T>(), m_collider(std::make_shared<Collider>(this, std::move(shape)))
+    : m_collider(std::make_shared<Collider>(this, std::move(shape)))
 {}
 
 template <size_u dim, typename T>

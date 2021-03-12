@@ -70,6 +70,7 @@ class PhysicsSimulation
     Detector m_collisionDetector;
     Solver   m_collisionSolver;
 
+    // Kinetic objects can be set to be static (null mass),
     ShPtr<Stream<ShPtr<Kinetic>>> m_kineticObjects;
 
     Stream<ShPtr<Force>> m_forces;
