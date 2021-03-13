@@ -20,10 +20,11 @@ class PhysicalCollision
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<dim, T>::Position Position;
-    typedef typename Positionable<dim, T>::Vector   Vector;
-
     typedef PhysicalCollider<dim, T>   Collider;
+    typedef typename PhysicalCollider<dim, T>::Position Position;
+    typedef typename PhysicalCollider<dim, T>::Vector   Vector;
+    typedef typename PhysicalCollider<dim, T>::Intersection Intersection;
+
     typedef Pair<ShPtr<Collider>, ShPtr<Collider>> CollisionPair;
 
     /** -- structs -- **/
@@ -58,10 +59,7 @@ class PhysicalCollision
 
     /** -- methods -- **/
     CANT_EXPLICIT
-    PhysicalCollision(CollisionPair pair);
-
-    void
-      computeCollision();
+    PhysicalCollision(CollisionPair pair, Intersection intersection);
 
     CANT_NODISCARD ShPtr<Collider> &
                    getColliderMax();
@@ -76,12 +74,11 @@ class PhysicalCollision
     CANT_NODISCARD ContactPhase
       getPhase() const;
 
+    CANT_NODISCARD CANT_INLINE Contact const & getContact() const;
+    CANT_NODISCARD CANT_INLINE Intersection const & getIntersection() const;
+
    private:
     /** -- methods -- **/
-    void
-      setCollidersVelocities();
-    void
-      setCollidersSupport();
     void
       computeContact();
 
@@ -90,6 +87,7 @@ class PhysicalCollision
 
     /** -- fields -- **/
     CollisionPair m_pair;
+    Intersection m_intersection;
 
     ContactPhase m_phase;
 

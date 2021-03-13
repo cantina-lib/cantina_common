@@ -50,18 +50,20 @@ class PhysicsSimulation
     void
       stepDelta(T dt);
 
-    void
-      addForce(ShPtr<Force> force);
+    CANT_INLINE void addForce(ShPtr<Force> force);
     /**
      * Same as addForce for ForceFields, but also links the objects of the simulation to it.
      * @param forceField
      */
-    void addForceField(ShPtr<ForceField> forceField);
+    CANT_INLINE void addForceField(ShPtr<ForceField> forceField);
 
-    void
-      addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer = Detector::c_defaultLayer);
-    void
-      addDynamicObject(ShPtr<Dynamic> dynamicObject);
+    CANT_INLINE void addRigidObject(ShPtr<Rigid> rigidObject, typename Detector::LayerKey layer = Detector::c_defaultLayer);
+    CANT_INLINE void addDynamicObject(ShPtr<Dynamic> dynamicObject);
+
+    CANT_INLINE void
+      setCollisionsEnabled(typename Detector::LayerKey layer, bool enable);
+    CANT_INLINE void
+    setCollisionsEnabled(bool enable);
 
    private:
     /** -- fields -- **/

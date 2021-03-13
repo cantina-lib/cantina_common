@@ -21,7 +21,7 @@ PhysicsSimulation<dim, T>::PhysicsSimulation()
 {}
 
 template <size_u dim, typename T>
-CANT_INLINE void
+void
   PhysicsSimulation<dim, T>::stepDelta(T dt)
 {
     for (auto it = m_forces.begin(); it != m_forces.end(); ++it)
@@ -38,11 +38,9 @@ CANT_INLINE void
     }
     // Before setting the positions from velocity, check for collisions,
     // and adjust velocity if necessary!
-    /*
-     * todo!
     m_collisionDetector.detectCollisions();
     m_collisionSolver.solveCollisions(m_collisionDetector.getCollisions());
-    */
+
     for (auto & object : *m_kineticObjects)
     {
         m_updater->stepDelta(object, dt);
@@ -50,14 +48,14 @@ CANT_INLINE void
 }
 
 template <size_u dim, typename T>
-void
+CANT_INLINE void
   PhysicsSimulation<dim, T>::addForce(ShPtr<Force> forceField)
 {
     m_forces.push_back(std::move(forceField));
 }
 
 template <size_u dim, typename T>
-void
+CANT_INLINE void
 PhysicsSimulation<dim, T>::addForceField(ShPtr<ForceField> forceField)
 {
     forceField->setObjects(m_kineticObjects);
@@ -65,7 +63,7 @@ PhysicsSimulation<dim, T>::addForceField(ShPtr<ForceField> forceField)
 }
 
 template <size_u dim, typename T>
-void
+CANT_INLINE void
   PhysicsSimulation<dim, T>::addRigidObject(ShPtr<Rigid>  rigidObject, typename Detector::LayerKey layer)
 {
     // add collider to collision detection routine.
@@ -75,11 +73,25 @@ void
 }
 
 template <size_u dim, typename T>
-void
+CANT_INLINE void
   PhysicsSimulation<dim, T>::addDynamicObject(
     ShPtr<Dynamic> dynamicObject)
 {
     m_kineticObjects->push_back(std::move(dynamicObject));
+}
+
+template <size_u dim, typename T>
+CANT_INLINE void
+PhysicsSimulation<dim, T>::setCollisionsEnabled(typename Detector::LayerKey layer, bool enable)
+{
+    m_collisionDetector.setEnabled(layer, enable);
+}
+
+template <size_u dim, typename T>
+CANT_INLINE void
+PhysicsSimulation<dim, T>::setCollisionsEnabled(bool enable)
+{
+    m_collisionDetector.setEnabled(enable);
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

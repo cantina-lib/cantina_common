@@ -33,8 +33,7 @@ class PhysicalObject
 
    protected:
     /** -- methods -- **/
-    CANT_NODISCARD ObjectBehaviourFlags
-                   resetFlags(ObjectBehaviourFlags flags);
+    void resetFlags(ObjectBehaviourFlags flags);
 
    private:
     /** -- fields -- **/

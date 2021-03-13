@@ -22,7 +22,7 @@ ObjectBehaviourFlags
     return m_flags;
 }
 template <size_u dim, typename T>
-ObjectBehaviourFlags
+void
   PhysicalObject<dim, T>::resetFlags(ObjectBehaviourFlags flags)
 {
     m_flags = flags;

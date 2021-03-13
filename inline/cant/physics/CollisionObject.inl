@@ -8,7 +8,7 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-CollisionObject<dim, T>::CollisionObject(UPtr<Shape> shape)
+CollisionObject<dim, T>::CollisionObject(ShPtr<Shape> shape)
     : m_collider(std::make_shared<Collider>(this, std::move(shape)))
 {}
 

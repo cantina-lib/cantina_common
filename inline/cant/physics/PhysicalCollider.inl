@@ -12,39 +12,22 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-CANT_INLINE typename PhysicalCollider<dim, T>::Vector
-  PhysicalCollider<dim, T>::getVectorToClosestRim(Position const & pos) const
-{
-    Vector vec  = getVectorToCentre(pos);
-    T  dist = vec.getNorm();
-    if (maths::approx<T>::equal(static_cast<T>(0), dist))
-    {
-        // if the position is basically at the centre of the shape
-        // return whatever direction, but not null!
-        vec = Position();
-        vec.template set<0>(static_cast<T>(1));
-    }
-    else
-    {
-        // else get the direction.
-        vec = vec.getNormalised();
-    }
-    return (-m_shape->getRadius()) * vec;
-}
-
-template <size_u dim, typename T>
-CANT_INLINE typename PhysicalCollider<dim, T>::Vector
-  PhysicalCollider<dim, T>::getVectorToCentre(Position const & pos) const
-{
-    // ditto.
-    return m_shape->getVectorToCentreObject(pos - m_owner->getPosition());
-}
+PhysicalCollider<dim, T>::PhysicalCollider(Collidable<dim, T> * owner, ShPtr<Shape> shape, Position centre)
+  : m_owner(owner), m_shape(std::move(shape)), m_centre(std::move(centre))
+{}
 
 template <size_u dim, typename T>
 CANT_INLINE typename PhysicalCollider<dim, T>::Position
-  PhysicalCollider<dim, T>::getCentre() const
+  PhysicalCollider<dim, T>::getCentreWorld() const
 {
-    return m_shape->getCentreObject() + m_owner->getPosition();
+    return m_centre + m_owner->getPosition();
+}
+
+template <size_u dim, typename T>
+CANT_INLINE ShPtr<typename PhysicalCollider<dim, T>::Shape> const &
+PhysicalCollider<dim, T>::getShape() const
+{
+    return m_shape;
 }
 
 template <size_u dim, typename T>
@@ -55,22 +38,20 @@ CANT_INLINE void
 }
 template <size_u dim, typename T>
 CANT_INLINE bool
-  PhysicalCollider<dim, T>::intersectsAABB(ShPtr<PhysicalCollider> const & other) const
+  PhysicalCollider<dim, T>::isIntersectingAABB(ShPtr<PhysicalCollider> const & other) const
 {
-    const AABB aabb1 = AABB(this->getCentre(),
+    const AABB aabb1 = AABB(this->getCentreWorld(),
                             this->m_shape->getRadius() * maths::Vector<dim, T>::fill(static_cast<T>(1)));
-    const AABB aabb2 = AABB(other->getCentre(),
+    const AABB aabb2 = AABB(other->getCentreWorld(),
                             other->m_shape->getRadius() * maths::Vector<dim, T>::fill(static_cast<T>(1)));
     return aabb1.intersects(aabb2);
 }
 
 template <size_u dim, typename T>
-CANT_INLINE bool
-  PhysicalCollider<dim, T>::intersects(ShPtr<PhysicalCollider> const & other) const
+CANT_INLINE Optional<typename PhysicalCollider<dim, T>::Intersection>
+  PhysicalCollider<dim, T>::getIntersection(ShPtr<PhysicalCollider<dim, T>> const & other) const
 {
-    Position const & c1 = this->getCentre();
-    Position const & c2 = other->getCentre();
-    return m_shape->intersectsObject(other->m_shape, c1, c2);
+    return m_shape->getIntersection(other->m_shape, this->getCentreWorld(), other->getCentreWorld());
 }
 
 template <size_u dim, typename T>
@@ -80,10 +61,6 @@ CANT_INLINE bool
     return m_owner->isStatic();
 }
 
-template <size_u dim, typename T>
-PhysicalCollider<dim, T>::PhysicalCollider(Collidable<dim, T> * owner, ShPtr<Shape> shape)
-    : m_owner(owner), m_shape(std::move(shape))
-{}
 template <size_u dim, typename T>
 CANT_INLINE void
   PhysicalCollider<dim, T>::setPosition(Position position)
@@ -95,6 +72,46 @@ CANT_INLINE typename PhysicalCollider<dim, T>::Position const &
   PhysicalCollider<dim, T>::getPosition() const
 {
     return m_owner->getPosition();
+}
+template <size_u dim, typename T>
+typename PhysicalCollider<dim, T>::Vector
+  PhysicalCollider<dim, T>::getVelocity() const
+{
+    return m_owner->getVelocity();
+}
+template <size_u dim, typename T>
+void
+  PhysicalCollider<dim, T>::setVelocity(Vector velocity)
+{
+    return m_owner->setVelocity(std::move(velocity));
+}
+
+template <size_u dim, typename T>
+typename PhysicalCollider<dim, T>::Vector
+  PhysicalCollider<dim, T>::getAcceleration() const
+{
+    return m_owner->getAcceleration();
+}
+
+template <size_u dim, typename T>
+void
+  PhysicalCollider<dim, T>::setMass(T mass)
+{
+    return m_owner->setMass(mass);
+}
+
+template <size_u dim, typename T>
+T
+  PhysicalCollider<dim, T>::getInverseMass() const
+{
+    return m_owner->getInverseMass();
+}
+
+template <size_u dim, typename T>
+void
+  PhysicalCollider<dim, T>::addDeltaForce(Vector const & dF)
+{
+    m_owner->addDeltaForce(dF);
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

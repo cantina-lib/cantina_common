@@ -28,6 +28,14 @@ class KineticObject : public PhysicalObject<dim, T>, public Movable<dim, T>
     typedef typename Positionable<dim, T>::Position    Position;
     typedef typename Positionable<dim, T>::Vector      Vector;
 
+    /** -- methods -- **/
+
+
+    // these should only be called by the KineticUpdater.
+    virtual void updateVelocity(T dt) = 0;
+    virtual void updatePosition(T dt) = 0;
+    virtual void clearForceBuffer() = 0;
+
     /** -- friend classes -- **/
     // in order to call the update functions from KineticUpdaters.
     friend class KineticUpdater<dim, T>;

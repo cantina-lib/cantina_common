@@ -17,22 +17,22 @@ class CollisionSolver
 {
    public:
     /** -- typedefs -- **/
-    typedef typename Positionable<dim, T>::Position    Position;
-    typedef typename Movable<dim, T>::Vector Vector;
-
     typedef PhysicalCollider<dim, T>  Collider;
     typedef PhysicalCollision<dim, T> Collision;
+    typedef typename PhysicalCollision<dim, T>::Position Position;
+    typedef typename PhysicalCollision<dim, T>::Vector Vector;
 
     /** -- methods -- **/
     void
       solveCollisions(Stream<Collision> & collisions) const;
-
    private:
     /** -- methods -- **/
+    void separateColliders(Collision & collision) const;
     void
-      separateColliders(Collision & collision) const;
+    setCollisionVelocities(Collision & collision) const;
+    void
+    setCollisionSupport(Collision & collision) const;
 
-    /** -- fields -- **/
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

@@ -39,7 +39,7 @@ class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
     CANT_INLINE void setMass(T mass) final;
     CANT_NODISCARD CANT_INLINE T getInverseMass() const final;
     CANT_INLINE void setVelocity(Vector velocity) final;
-    CANT_NODISCARD CANT_INLINE Vector const & getVelocity() const final;
+    CANT_NODISCARD CANT_INLINE Vector getVelocity() const final;
     CANT_NODISCARD CANT_INLINE Vector getAcceleration() const final;
     CANT_INLINE void addDeltaForce(Vector const & dF) final;
 

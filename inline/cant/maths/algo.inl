@@ -44,6 +44,10 @@ algo<T>::power(T val)
     {
         return static_cast<T>(1);
     }
+    else if constexpr (order == 1)
+    {
+        return val;
+    }
     else if constexpr (order % 2 == 0)
     {
         val = power<order / 2>(val);

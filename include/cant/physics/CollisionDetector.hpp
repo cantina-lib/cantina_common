@@ -34,6 +34,10 @@ class CollisionDetector
     CollisionDetector();
 
     void
+      setEnabled(LayerKey layer, bool enable);
+    void setEnabled(bool enable);
+
+    void
       detectCollisions();
 
     Stream<Collision> &
@@ -51,6 +55,8 @@ class CollisionDetector
 
     /** -- fields -- **/
     Map<LayerKey, Stream<WPtr<Collider>>> m_colliders;
+    Map<LayerKey, bool> m_enabledLayers;
+    bool m_enabled;
 
     Stream<Collision> m_collisions;
     Stream<Collision> m_previousCollisions;

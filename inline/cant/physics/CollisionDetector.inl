@@ -10,15 +10,21 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-CollisionDetector<dim, T>::CollisionDetector() : m_colliders(), m_collisions(), m_broadCollisions()
+CollisionDetector<dim, T>::CollisionDetector()
+    : m_colliders(), m_enabledLayers(), m_enabled(true),
+      m_collisions(), m_broadCollisions()
 {}
 
 template <size_u dim, typename T>
 CANT_INLINE void
   CollisionDetector<dim, T>::detectCollisions()
 {
-    detectBroadPhase();
-    detectNarrowPhase();
+    m_broadCollisions.clear();
+    if (m_enabled)
+    {
+        detectBroadPhase();
+        detectNarrowPhase();
+    }
 }
 
 template <size_u dim, typename T>
@@ -26,6 +32,7 @@ CANT_INLINE void
   CollisionDetector<dim, T>::addCollider(WPtr<Collider> collider, LayerKey layer)
 {
     m_colliders.try_emplace(layer, Stream<WPtr<Collider>>());
+    m_enabledLayers.try_emplace(layer, true);
     m_colliders.find(layer)->second.emplace_back(collider);
 }
 
@@ -33,9 +40,12 @@ template <size_u dim, typename T>
 void
   CollisionDetector<dim, T>::detectBroadPhase()
 {
-    m_broadCollisions.clear();
     for (auto & [layer, colliders] : m_colliders)
     {
+        if (!m_enabledLayers.at(layer))
+        {
+            continue;
+        }
         Stream<ShPtr<Collider>> sharedColliders;
 
         // fill shared colliders
@@ -62,7 +72,7 @@ void
                 auto & col2 = *it2;
                 // should not check for collisions between static colliders.
                 const bool shouldCheck = !(col1->isStatic() && col2->isStatic());
-                if (shouldCheck && col1->intersectsAABB(col2))
+                if (shouldCheck && col1->isIntersectingAABB(col2))
                 {
                     m_broadCollisions.push_back(typename Collision::CollisionPair(col1, col2));
                 }
@@ -83,9 +93,10 @@ void
     {
         ShPtr<Collider> & col1 = broadPhaseCollision.first;
         ShPtr<Collider> & col2 = broadPhaseCollision.second;
-        if (col1->intersects(col2))
+        auto intersection = col1->getIntersection(col2);
+        if (intersection.has_value())
         {
-            m_collisions.emplace_back(std::move(broadPhaseCollision));
+            m_collisions.emplace_back(std::move(broadPhaseCollision), std::move(intersection.value()));
         }
     }
 
@@ -122,6 +133,19 @@ CANT_INLINE Stream<typename CollisionDetector<dim, T>::CollisionDetector::Collis
             CollisionDetector<dim, T>::getCollisions()
 {
     return m_collisions;
+}
+template <size_u dim, typename T>
+void
+  CollisionDetector<dim, T>::setEnabled(LayerKey layer, bool enable)
+{
+    m_enabledLayers.at(layer) = enable;
+}
+
+template <size_u dim, typename T>
+void
+CollisionDetector<dim, T>::setEnabled(bool enable)
+{
+    m_enabled = enable;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

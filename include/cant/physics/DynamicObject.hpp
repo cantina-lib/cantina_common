@@ -48,7 +48,7 @@ class DynamicObject : public KineticObject<dim, T>
       getInverseMass() const override;
     void
                    setVelocity(Vector velocity) override;
-    CANT_NODISCARD Vector const &
+    CANT_NODISCARD Vector
                    getVelocity() const override;
     CANT_NODISCARD Vector
                    getAcceleration() const override;

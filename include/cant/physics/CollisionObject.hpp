@@ -17,23 +17,29 @@ class CollisionObject : public PhysicalObject<dim, T>, public Collidable<dim, T>
 {
    public:
     /** -- typedef -- **/
-    typedef typename Positionable<dim, T>::Position        Position;
+    typedef typename Collidable<dim, T>::Position        Position;
+    typedef typename Collidable<dim, T>::Vector        Vector;
 
     typedef PhysicalCollider<dim, T> Collider;
     typedef PhysicalShape<dim, T>    Shape;
 
     /** -- methods -- **/
     CANT_EXPLICIT
-    CollisionObject(UPtr<Shape> shape);
+    CollisionObject(ShPtr<Shape> shape);
 
     // Collidable
     WPtr<Collider>
       getCollider() const override;
     CANT_NODISCARD bool
-      isStatic() const override
-    {
-        return true;
-    }
+      isStatic() const override { return true; }
+
+    // Movable (this implementation does not do anything).
+    void setVelocity(CANT_MAYBEUNUSED Vector velocity) override { }
+    CANT_NODISCARD CANT_INLINE Vector getVelocity() const override { return Vector(); }
+    CANT_NODISCARD CANT_INLINE Vector getAcceleration() const override { return Vector(); }
+    void addDeltaForce(CANT_MAYBEUNUSED Vector const & dF) override { }
+    CANT_INLINE void setMass(CANT_MAYBEUNUSED T mass) override { }
+    CANT_NODISCARD CANT_INLINE T getInverseMass() const override { return static_cast<T>(0.0); }
 
    private:
     /** -- methods -- **/

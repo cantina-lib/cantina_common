@@ -1,127 +1,13 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(cantina_common)
-
-
-set(CANTINA_CXX_STANDARD 20
-        CACHE INTERNAL
-        "c++ standard for Cantina"
-        )
-
-set(IS_GNU OFF)
-set(IS_MSVC OFF)
-set(IS_CLANG OFF)
-
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(IS_GNU ON)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    set(IS_MSVC ON)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(IS_CLANG ON)
-endif ()
-
-if (CMAKE_BUILD_TYPE STREQUAL 'Release')
-    set(CANTINA_OPTIMISATION ON)
-else ()
-    set(CANTINA_OPTIMISATION OFF)
-endif ()
-
-
-if (${IS_GNU} OR ${IS_CLANG})
-    if (${CANTINA_OPTIMISATION})
-        set(CANTINA_OPTIMISATION_LEVEL "-O3")
-    else ()
-        set(CANTINA_OPTIMISATION_LEVEL "")
-    endif ()
-    ## -Warray-bounds is clang-only I think?
-    set(CANTINA_MAIN_CXX_FLAGS
-            "-fPIC \
-                -Werror \
-                -Wall -pedantic \
-                -Wextra -Wshadow -Wnon-virtual-dtor  -Warray-bounds \
-                -Wold-style-cast \
-                -Wimplicit-fallthrough=5 -Wconversion \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for Cantina"
-            )
-    set(CANTINA_THIRDPARTY_CXX_FLAGS
-            " \
-                -fPIC \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for third-party libraries in Cantina"
-            )
-    ## Removed -Wextra here because of warning in cast to t_newmethod in pd.
-    set(CANTINA_TILDE_CXX_FLAGS
-            "-fPIC \
-                -Werror \
-                -Wall -pedantic \
-                -Wshadow -Wnon-virtual-dtor -Warray-bounds \
-                -Wimplicit-fallthrough=5 -Wconversion \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for Cantina"
-            )
-elseif (${IS_MSVC})
-    if (${CANTINA_OPTIMISATION})
-        set(CANTINA_OPTIMISATION_LEVEL "/O2")
-    else ()
-        set(CANTINA_OPTIMISATION_LEVEL "")
-    endif ()
-    set(CANTINA_MAIN_CXX_FLAGS
-            " \
-                /EHsc \
-                /WX \
-                /W4 /w14640 /permissive \
-                /w14242 /w14254 /w14263 /w14265 /w14287 \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for Cantina"
-            )
-    set(CANTINA_THIRDPARTY_CXX_FLAGS
-            " \
-                /EHsc \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for third-party libraries in Cantina"
-            )
-    set(CANTINA_TILDE_CXX_FLAGS
-            " \
-                /EHsc \
-                /WX \
-                /W4 /w14640 /permissive \
-                /w14242 /w14254 /w14263 /w14265 /w14287 \
-                ${CANTINA_OPTIMISATION_LEVEL} \
-                "
-            CACHE INTERNAL
-            "Compilation flags for cantina~"
-            )
-else ()
-    message(ERROR "Nope!")
-endif ()
-
-set(CMAKE_CXX_FLAGS ${CANTINA_MAIN_CXX_FLAGS})
+project(cantina_common CXX)
 
 set(CANTINA_COMMON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(CANTINA_COMMON_INLINE_DIR ${PROJECT_SOURCE_DIR}/inline)
 
-set(CANTINA_COMMON_INCLUDE_DIRS
-        ${CANTINA_COMMON_INCLUDE_DIR}
-        ${CANTINA_COMMON_INLINE_DIR}
-        CACHE INTERNAL
-        "List of include directories for cantina_common"
-        )
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/cmake")
 
-include_directories(
-        ${CANTINA_COMMON_INCLUDE_DIRS}
-)
-
+include(SetProjectFlags)
 
 set(CANTINA_COMMON_FILES
         # Cantina
@@ -178,7 +64,6 @@ set(CANTINA_COMMON_FILES
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomForceField.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/HookeSpringLink.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalShape.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CustomShape.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/PhysicalObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/CollisionObject.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/physics/KineticObject.hpp
@@ -192,20 +77,47 @@ set(CANTINA_COMMON_FILES
 
         # Patterns
         ## headers
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Event.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Property.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/patterns/Slider.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pattern/Event.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pattern/Property.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/pattern/Slider.hpp
 
         # Time
         ## headers
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/common/types.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/time.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/time_forward.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/Clock.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/CustomClock.hpp
-        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/SystemClock.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/CustomExternalClock.hpp
+        ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/SystemExternalClock.hpp
         ${CANTINA_COMMON_INCLUDE_DIR}/cant/time/InternalClock.hpp
         )
 
 # header-only library
+# However, now with c3ga it isn't.
+add_library(${PROJECT_NAME} INTERFACE)
 
+# apply Project flags and c++ standard defined in included cmake files.
+target_compile_options(
+        ${PROJECT_NAME} INTERFACE
+        ${${PROJECT_NAME}_CXX_FLAGS}
+        # ${${PROJECT_NAME}_CXX_STANDARD}
+)
+
+target_include_directories(${PROJECT_NAME}
+        INTERFACE
+        $<BUILD_INTERFACE:${CANTINA_COMMON_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${CANTINA_COMMON_INLINE_DIR}>
+        )
+
+# todo: remove c3ga...
+set(C3GA_DIR "${PROJECT_SOURCE_DIR}/third-party/garamon_c3ga")
+set(C3GA_LIBRARIES c3ga)
+set(C3GA_INCLUDE_DIRS ${C3GA_DIR}/src)
+
+add_subdirectory(${C3GA_DIR})
+
+target_link_libraries(${PROJECT_NAME}
+        INTERFACE ${C3GA_LIBRARIES}
+)
+target_include_directories(${PROJECT_NAME}
+        INTERFACE ${C3GA_INCLUDE_DIRS}
+        )

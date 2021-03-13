@@ -40,7 +40,7 @@ CANT_INLINE void
 }
 
 template <size_u dim, typename T>
-CANT_INLINE typename RigidObject<dim, T>::Vector const &
+CANT_INLINE typename RigidObject<dim, T>::Vector
   RigidObject<dim, T>::getVelocity() const
 {
  return m_object->getVelocity();

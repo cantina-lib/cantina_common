@@ -7,22 +7,12 @@
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
-PhysicalCollision<dim, T>::PhysicalCollision(CollisionPair pair) : m_pair(std::move(pair)), m_phase(eEnter)
+PhysicalCollision<dim, T>::PhysicalCollision(CollisionPair pair, Intersection intersection)
+    : m_pair(std::move(pair)), m_intersection(std::move(intersection)),
+      m_phase(eEnter)
 {
     sortColliders();
     computeContact();
-}
-
-template <size_u dim, typename T>
-CANT_INLINE void
-  PhysicalCollision<dim, T>::computeCollision()
-{
-    switch (getPhase())
-    {
-    case eEnter: setCollidersVelocities(); break;
-    case eStay: setCollidersSupport(); break;
-    case eLeave: break;
-    }
 }
 
 template <size_u dim, typename T>
@@ -43,20 +33,9 @@ template <size_u dim, typename T>
 CANT_INLINE void
   PhysicalCollision<dim, T>::computeContact()
 {
-    // rap, rbp
-    m_contact.rap = getColliderMin()->getVectorToClosestRim(getColliderMax()->getCentre());
-
-    // n
-    if (maths::approx<T>::equal(static_cast<T>(0), m_contact.rap.getNorm()))
-    {
-        m_contact.n = Vector();
-        m_contact.n.template set<0>(static_cast<T>(1));
-    }
-    else
-    {
-        // sphere, so yeah.
-        m_contact.n = -m_contact.rap.getNormalised();
-    }
+    // rap ->
+    m_contact.rap = m_intersection.centre - getColliderMax()->getCentreWorld();
+    m_contact.n = - m_intersection.direction;
 
     // no angular velocity for now.
 
@@ -76,6 +55,7 @@ CANT_INLINE void
     m_contact.impulse = nom / den;
 }
 
+
 template <size_u dim, typename T>
 void
   PhysicalCollision<dim, T>::sortColliders()
@@ -86,7 +66,7 @@ void
     CANTINA_ASSERT(!(firstIsStatic && secondIsStatic), "Not supposed to happen!");
 
     bool shouldSwap;
-    if (!(firstIsStatic || secondIsStatic))
+    if (!firstIsStatic && !secondIsStatic)
     {
         T const velNorm1 = m_pair.first->getVelocity().getNorm();
         T const velNorm2 = m_pair.second->getVelocity().getNorm();
@@ -99,26 +79,10 @@ void
     }
     if (shouldSwap)
     {
+        // also swapping direction!
+        m_intersection.direction = - m_intersection.direction;
         std::swap(m_pair.first, m_pair.second);
     }
-}
-
-template <size_u dim, typename T>
-void
-  PhysicalCollision<dim, T>::setCollidersVelocities()
-{
-    getColliderMin()->setVelocity(getColliderMin()->getVelocity()
-                                  - m_contact.n * (m_contact.impulse * getColliderMin()->getInverseMass()));
-    getColliderMax()->setVelocity(getColliderMax()->getVelocity()
-                                  + m_contact.n * (m_contact.impulse * getColliderMax()->getInverseMass()));
-}
-
-template <size_u dim, typename T>
-void
-  PhysicalCollision<dim, T>::setCollidersSupport()
-{
-    CANT_MAYBEUNUSED Vector apna = m_contact.n.dot(getColliderMax()->getAcceleration());
-    CANT_MAYBEUNUSED Vector apnb = -m_contact.n.dot(getColliderMin()->getAcceleration());
 }
 
 template <size_u dim, typename T>
@@ -140,6 +104,20 @@ CANT_INLINE bool
   PhysicalCollision<dim, T>::haveSameColliders(PhysicalCollision const & other) const
 {
     return other.m_pair.first == this->m_pair.first && other.m_pair.second == this->m_pair.second;
+}
+
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollision<dim, T>::Contact const &
+PhysicalCollision<dim, T>::getContact() const
+{
+    return m_contact;
+}
+
+template <size_u dim, typename T>
+CANT_INLINE typename PhysicalCollision<dim, T>::Intersection const &
+PhysicalCollision<dim, T>::getIntersection() const
+{
+    return m_intersection;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

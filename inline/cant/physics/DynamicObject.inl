@@ -76,7 +76,7 @@ void
 }
 
 template <size_u dim, typename T>
-CANT_INLINE typename DynamicObject<dim, T>::Vector const &
+CANT_INLINE typename DynamicObject<dim, T>::Vector
   DynamicObject<dim, T>::getVelocity() const
 {
     return m_velocity;
