@@ -36,8 +36,8 @@ void CollisionSolver<dim, T>::separateColliders(Collision & collision) const
 
     // only moving the object with the larger velocity
     // assuming it's the one which 'collided' with the other.
-    Vector const vecContactCentreToRimMax = (colMax->getCentreWorld() + intersection.direction * radiusMax) - intersection.centre;
-    Vector const vecContactCentreToRimMin = (colMin->getCentreWorld() - intersection.direction * radiusMin) - intersection.centre;
+    Vector const vecContactCentreToRimMax = (colMax->getCentreWorld() + intersection.normal * radiusMax) - intersection.centre;
+    Vector const vecContactCentreToRimMin = (colMin->getCentreWorld() - intersection.normal * radiusMin) - intersection.centre;
 
     // first translation is so that centre of colMax is out of colMin
     // second is so that centre of colMin is out of colMin

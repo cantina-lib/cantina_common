@@ -104,9 +104,13 @@ void
     for (auto const & previous : m_previousCollisions)
     {
         // look for it in the updated collisions
-        auto it = std::find_if(m_collisions.begin(), m_collisions.end(), [&previous](Collision const & collision) {
+        auto it = std::find_if(
+          m_collisions.begin(), m_collisions.end(),
+          [&previous](Collision const & collision)
+          {
             return previous.haveSameColliders(collision);
-        });
+            }
+        );
 
         // deciding whether it's still happening, and updating phase if so.
         typename Collision::ContactPhase const previousPhase = previous.getPhase();
@@ -129,7 +133,7 @@ void
 }
 
 template <size_u dim, typename T>
-CANT_INLINE Stream<typename CollisionDetector<dim, T>::CollisionDetector::Collision> &
+CANT_INLINE Stream<typename CollisionDetector<dim, T>::Collision> &
             CollisionDetector<dim, T>::getCollisions()
 {
     return m_collisions;

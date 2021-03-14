@@ -9,7 +9,9 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
 RigidObject<dim, T>::RigidObject(UPtr<Kinetic> object, ShPtr<Shape> shape)
-    : m_object(std::move(object)), m_collider(std::make_shared<Collider>(this, shape))
+    : m_object(std::move(object)),
+      m_collider(std::make_shared<Collider>(this, shape)),
+      m_inContactColliders()
 {}
 
 template <size_u dim, typename T>

@@ -35,7 +35,7 @@ CANT_INLINE void
 {
     // rap ->
     m_contact.rap = m_intersection.centre - getColliderMax()->getCentreWorld();
-    m_contact.n = - m_intersection.direction;
+    m_contact.n = - m_intersection.normal;
 
     // no angular velocity for now.
 
@@ -80,7 +80,7 @@ void
     if (shouldSwap)
     {
         // also swapping direction!
-        m_intersection.direction = - m_intersection.direction;
+        m_intersection.normal = - m_intersection.normal;
         std::swap(m_pair.first, m_pair.second);
     }
 }

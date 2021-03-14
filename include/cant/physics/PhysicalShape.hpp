@@ -28,14 +28,15 @@ class PhysicalShape
     typedef Functor<T(Position const &, Position const &)> DistanceFunctor;
 
     /** -- structs -- **/
-    // see:
-    // https://www.myphysicslab.com/engine2D/collision-en.html
+    // Describes the volume or surface of the intersection.
     struct Intersection
     {
+        // Centre of the intersection surface. (either a point or a circle)
         Vector centre;
+        // Radius of the surface (0 if point and positive if circle)
         T radius;
-
-        Vector direction;
+        // Normal of the surface from this shape.
+        Vector normal;
     };
 
 

@@ -312,9 +312,17 @@ namespace c3ga{
         friend Mvec<U> operator/(const S &value, const Mvec<U> &mv);
 
         /// \brief Overload the inverse with operator =, corresponds to this /= mv
-        /// \param mv - Mvec to be inversed to this object
+        /// \param mv - Mvec to be inverted to this object
         /// \return this /= mv
         Mvec& operator/=(const Mvec& mv);
+
+
+        /// \brief Overload the inverse with operator =, corresponds to this /= value
+        /// \param value - scalar to divide the object
+        /// \return this /= value
+        template<typename S>
+        Mvec& operator/=(const S &value);
+
 
         /// \brief the reverse of a multivector, i.e. if mv = a1^a2^...^an, then reverse(mv) = an^...^a2^a1
         /// \param mv - a multivector
@@ -1310,6 +1318,12 @@ namespace c3ga{
         return *this;
     }
 
+    template<typename T>
+    template<typename S>
+    Mvec<T> &Mvec<T>::operator/=(const S &value) {
+        *this = *this / value;
+        return *this;
+    }
 
     template<typename T>
     Mvec<T> operator~(const Mvec<T> &mv){

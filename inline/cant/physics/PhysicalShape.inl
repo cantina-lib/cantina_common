@@ -75,7 +75,8 @@ Optional<typename PhysicalShape<dim, T>::Intersection>
     }
 
     Intersection intersection;
-    intersection.direction = conformMultiVectorToVector(contactDirection);
+    // The direction of the dual surface gives us the opposite of the normal!
+    intersection.normal = - conformMultiVectorToVector(contactDirection);
     intersection.centre = conformMultiVectorToVector(contactCentre);
     intersection.radius = contactRadius;
 

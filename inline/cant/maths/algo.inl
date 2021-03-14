@@ -20,7 +20,8 @@ algo<T>::norm(InputIt first, InputIt last)
     if constexpr (order == 0)
     {
         // L-inf norm
-        return *std::max_element(first, last);
+        auto const [itMin, itMax] = *std::minmax_element(first, last);
+        return std::max(std::abs(*itMin), std::abs(*itMax));
     }
     else
     {
@@ -28,7 +29,7 @@ algo<T>::norm(InputIt first, InputIt last)
           std::accumulate(first, last,
                              static_cast<T>(0.),
                      [](T const & acc, T const & el) {
-                              return acc + power<order>(el);
+                              return acc + std::abs(power<order>(el));
                                 }
                             ), 1.0 / order);
     }
