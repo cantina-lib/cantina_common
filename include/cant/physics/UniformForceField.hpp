@@ -32,7 +32,8 @@ class UniformForceField : public PhysicalForceField<dim, T>
     UniformForceField(ObjectStream & objects, Vector vec);
     CANT_EXPLICIT UniformForceField(Vector vec);
 
-    void setVector(Vector vec);
+    CANT_INLINE void setVector(Vector vec);
+    CANT_INLINE Vector const & getVector() const;
 
    private:
     /** -- methods -- **/

@@ -23,10 +23,17 @@ UniformForceField<dim, T>::UniformForceField(Vector vec)
 }
 
 template <size_u dim, typename T>
-void
+CANT_INLINE void
 UniformForceField<dim, T>::setVector(Vector vec)
 {
     m_vec = std::move(vec);
+}
+
+template <size_u dim, typename T>
+CANT_INLINE typename UniformForceField<dim, T>::Vector const &
+UniformForceField<dim, T>::getVector() const
+{
+    return m_vec;
 }
 
 template <size_u dim, typename T>
