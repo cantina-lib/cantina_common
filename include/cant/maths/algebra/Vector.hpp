@@ -69,11 +69,37 @@ class Vector
     CANT_CONSTEXPR void
       set(T val);
 
+    template <typename BinaryOperation>
+    CANT_NODISCARD CANT_CONSTEXPR Vector
+    combine(Vector const & other, BinaryOperation op) const;
+    template <typename BinaryOperation>
+    CANT_NODISCARD CANT_CONSTEXPR Vector &
+    combineInplace(Vector const & other, BinaryOperation op);
+
+    template <typename UnaryOperation>
+    CANT_NODISCARD CANT_CONSTEXPR Vector
+      map(UnaryOperation op) const;
+
     CANT_CONSTEXPR Vector
       operator-() const;
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
       operator+(Vector const & other) const;
+    // todo: not sure I should define this...
+    /**
+     * Element-wise product.
+     * @param other
+     * @return
+     */
+    CANT_NODISCARD CANT_CONSTEXPR Vector
+    operator*(Vector const & other) const;
+    /**
+     * Element-wise division.
+     * @param other
+     * @return
+     */
+    CANT_NODISCARD CANT_CONSTEXPR Vector
+    operator/(Vector const & other) const;
     CANT_NODISCARD
     CANT_CONSTEXPR Vector
                    operator-(Vector const & other) const;
@@ -81,6 +107,10 @@ class Vector
                    operator+=(Vector const & other);
     CANT_CONSTEXPR Vector &
                    operator-=(Vector const & other);
+    CANT_CONSTEXPR Vector &
+    operator*=(Vector const & other);
+    CANT_CONSTEXPR Vector &
+    operator/=(Vector const & other);
 
     CANT_NODISCARD
     CANT_CONSTEXPR Vector

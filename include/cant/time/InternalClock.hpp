@@ -18,6 +18,7 @@ CANTINA_TIME_NAMESPACE_BEGIN
 class InternalClock : public Clock
 {
    public:
+    /** -- typedefs -- **/
     /** -- methods -- **/
     CANT_NODISCARD static UPtr<InternalClock>
       make(UPtr<ExternalClock> externalClock);

@@ -13,6 +13,8 @@
 #include <cant/common/CantinaException.hpp>
 
 #include <cant/common/macro.hpp>
+#include <cant/maths/algebra/Vector.hpp>
+
 CANTINA_MATHS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
@@ -48,6 +50,33 @@ CANT_CONSTEXPR T
 }
 
 template <size_u dim, typename T>
+template <typename BinaryOperation>
+CANT_CONSTEXPR Vector<dim, T>
+Vector<dim, T>::combine(Vector const & other, BinaryOperation op) const
+{
+    Vector vec{};
+    std::transform(this->m_fields.begin(),
+                   this->m_fields.end(),
+                   other.m_fields.begin(),
+                   vec.m_fields.begin(),
+                   op);
+    return vec;
+}
+
+template <size_u dim, typename T>
+template <typename BinaryOperation>
+CANT_CONSTEXPR Vector<dim, T> &
+Vector<dim, T>::combineInplace(Vector const & other, BinaryOperation op)
+{
+    std::transform(this->m_fields.begin(),
+                   this->m_fields.end(),
+                   other.m_fields.begin(),
+                   this->m_fields.begin(),
+                   op);
+    return *this;
+}
+
+template <size_u dim, typename T>
 CANT_CONSTEXPR T
   Vector<dim, T>::dot(Vector const & other) const
 {
@@ -63,35 +92,43 @@ template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T>
   Vector<dim, T>::operator-(Vector const & other) const
 {
-    Vector vec{};
-    std::transform(this->m_fields.begin(),
-                   this->m_fields.end(),
-                   other.m_fields.begin(),
-                   vec.m_fields.begin(),
-                   [](T x1, T x2) -> T { return x1 - x2; });
-    return vec;
+    return combine(other, std::minus<T>());
 }
 
 template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T>
   Vector<dim, T>::operator+(Vector const & other) const
 {
-    Vector vec{};
-    std::transform(this->m_fields.begin(),
-                   this->m_fields.end(),
-                   other.m_fields.begin(),
-                   vec.m_fields.begin(),
-                   [](T x1, T x2) -> T { return x1 + x2; });
-    return vec;
+    return combine(other, std::plus<T>());
 }
 
 template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+Vector<dim, T>::operator*(const Vector & other) const
+{
+    return combine(other, std::multiplies<T>());
+}
+
+
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T>
+Vector<dim, T>::operator/(const Vector & other) const
+{
+    return combine(other, std::divides<T>());
+}
+
+
+    template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T>
   Vector<dim, T>::operator-() const
 {
     Vector negated{};
     std::transform(
-      this->m_fields.begin(), this->m_fields.end(), negated.m_fields.begin(), [](T x) -> T { return -x; });
+      this->m_fields.begin(),
+      this->m_fields.end(),
+      negated.m_fields.begin(),
+      [](T x) -> T { return -x; }
+    );
     return negated;
 }
 
@@ -101,7 +138,11 @@ CANT_CONSTEXPR Vector<dim, T>
 {
     Vector vec{};
     std::transform(
-      this->m_fields.begin(), this->m_fields.end(), vec.m_fields.begin(), [scalar](T x) { return x * scalar; });
+      this->m_fields.begin(),
+      this->m_fields.end(),
+      vec.m_fields.begin(),
+      [scalar](T x) { return x * scalar; }
+    );
     return vec;
 }
 
@@ -175,31 +216,40 @@ template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T> &
   Vector<dim, T>::operator+=(Vector const & other)
 {
-    std::transform(this->m_fields.begin(),
-                   this->m_fields.end(),
-                   other.m_fields.begin(),
-                   this->m_fields.begin(),
-                   [](T x1, T x2) -> T { return x1 + x2; });
-    return *this;
+    return combineInplace(other, std::plus<T>());
 }
 
 template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T> &
   Vector<dim, T>::operator-=(Vector const & other)
 {
-    std::transform(this->m_fields.begin(),
-                   this->m_fields.end(),
-                   other.m_fields.begin(),
-                   this->m_fields.begin(),
-                   [](T x1, T x2) -> T { return x1 - x2; });
-    return *this;
+    return combineInplace(other, std::minus<T>());
+}
+
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+Vector<dim, T>::operator*=(Vector const & other)
+{
+    return combineInplace(other, std::multiplies<T>());
+}
+
+template <size_u dim, typename T>
+CANT_CONSTEXPR Vector<dim, T> &
+Vector<dim, T>::operator/=(Vector const & other)
+{
+    return combineInplace(other, std::divides<T>());
 }
 
 template <size_u dim, typename T>
 CANT_CONSTEXPR Vector<dim, T> &
   Vector<dim, T>::operator*=(T scalar)
 {
-    std::transform(m_fields.begin(), m_fields.end(), m_fields.begin(), [scalar](T x) { return x * scalar; });
+    std::transform(
+      m_fields.begin(),
+      m_fields.end(),
+      m_fields.begin(),
+      [scalar](T x) { return x * scalar; }
+      );
     return *this;
 }
 
@@ -222,6 +272,19 @@ CANT_CONSTEXPR Vector<dim, T>
     std::fill(v.m_fields.begin(), v.m_fields.end(), t);
     return v;
 }
+template <size_u dim, typename T>
+template <typename UnaryOperation>
+CANT_CONSTEXPR Vector<dim, T>
+  Vector<dim, T>::map(UnaryOperation op) const
+{
+    Vector mapped{};
+    std::transform(
+      m_fields.begin(),
+      m_fields.end(),
+      mapped.m_fields.begin(), op);
+    return mapped;
+}
+
 CANTINA_MATHS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 

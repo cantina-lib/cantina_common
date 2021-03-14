@@ -27,7 +27,6 @@ class CustomForceField : public PhysicalForceField<dim, T>
     typedef PhysicalForceField<dim, T> ForceField;
     typedef typename ForceField::Vector Vector;
     typedef typename ForceField::Object     Object;
-    typedef typename ForceField::ObjectStream ObjectStream;
     typedef Functor<Vector(ShPtr<Object> const &)> DeltaForceFunctor;
 
     /** -- methods -- **/

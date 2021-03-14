@@ -20,6 +20,8 @@ CANT_INLINE void
   CollisionDetector<dim, T>::detectCollisions()
 {
     m_broadCollisions.clear();
+    std::swap(m_collisions, m_previousCollisions);
+    m_collisions.clear();
     if (m_enabled)
     {
         detectBroadPhase();
@@ -85,8 +87,6 @@ template <size_u dim, typename T>
 void
   CollisionDetector<dim, T>::detectNarrowPhase()
 {
-    std::swap(m_collisions, m_previousCollisions);
-    m_collisions.clear();
     m_collisions.reserve(m_broadCollisions.size());
     // record all collisions
     for (auto & broadPhaseCollision : m_broadCollisions)

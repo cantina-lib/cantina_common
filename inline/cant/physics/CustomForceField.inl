@@ -7,8 +7,6 @@
 #include <algorithm>
 
 #include <cant/common/macro.hpp>
-#include <cant/physics/CustomForceField.hpp>
-
 CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template <size_u dim, typename T>
