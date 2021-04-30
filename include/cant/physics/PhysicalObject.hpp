@@ -21,24 +21,18 @@ class PhysicalObject
     /** -- typedefs -- **/
 
     /** -- methods -- **/
-    PhysicalObject();
-    virtual ~PhysicalObject();
+    virtual ~PhysicalObject() = default;
 
-    // todo: BIG
+    // todo: BId
     // add an event callback in order to automatically move the object to different lists
     // in the simulation depending on their flags??
-    CANT_NODISCARD ObjectBehaviourFlags getFlags() const;
-    CANT_NODISCARD bool hasFlags(ObjectBehaviourFlags flag) const;
-    void raiseFlags(ObjectBehaviourFlags flag, bool add);
+    CANT_NODISCARD virtual ObjectBehaviourFlags getFlags() const = 0;
+    CANT_NODISCARD virtual bool hasFlag(FObjectBehaviour flag) const = 0;
+    virtual void raiseFlags(ObjectBehaviourFlags flag, bool add) = 0;
+    virtual void resetFlags(ObjectBehaviourFlags flags) = 0;
 
    protected:
-    /** -- methods -- **/
-    void resetFlags(ObjectBehaviourFlags flags);
-
-   private:
     /** -- fields -- **/
-    ObjectBehaviourFlags m_flags;
-
     // todo
     CANT_CONSTEXPR static ObjectBehaviourFlags c_defaultObjectFlags = 0;
 };
@@ -46,6 +40,5 @@ class PhysicalObject
 CANTINA_PHYSICS_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
 
-#include <cant/physics/PhysicalObject.inl>
 
 #endif  // CANTINA_PHYSICS_PHYSICALOBJECT_HPP

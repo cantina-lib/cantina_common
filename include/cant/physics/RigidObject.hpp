@@ -43,10 +43,15 @@ class RigidObject : public KineticObject<dim, T>, public Collidable<dim, T>
     CANT_NODISCARD CANT_INLINE Vector getAcceleration() const final;
     CANT_INLINE void addDeltaForce(Vector const & dF) final;
 
-
     // Positionable
     CANT_INLINE void setPosition(Position position) override;
     CANT_NODISCARD CANT_INLINE Position const & getPosition() const override;
+
+    //Physical Object
+    CANT_NODISCARD CANT_INLINE ObjectBehaviourFlags getFlags() const override;
+    CANT_NODISCARD CANT_INLINE bool hasFlag(FObjectBehaviour flag) const override;
+    CANT_INLINE void raiseFlags(ObjectBehaviourFlags flag, bool add) override;
+    CANT_INLINE void resetFlags(ObjectBehaviourFlags flags) override;
 
    private:
     /** -- methods -- **/

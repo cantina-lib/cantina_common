@@ -49,7 +49,7 @@ PhysicalForceField<dim, T>::apply() const
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto const & obj = m_objects->at(i);
-        if (!obj->hasFlags(FObjectBehaviour::fNoFieldObject | FObjectBehaviour::fStaticObject))
+        if (!(obj->hasFlag(FObjectBehaviour::fNoFieldObject) || obj->hasFlag(FObjectBehaviour::fStaticObject)))
         {
             deltaForces.push_back(getDeltaForce(obj));
         }
@@ -59,7 +59,7 @@ PhysicalForceField<dim, T>::apply() const
     for (size_u i = 0; i < m_objects->size(); ++i)
     {
         auto & obj = m_objects->at(i);
-        if (!obj->hasFlags(FObjectBehaviour::fNoFieldObject | FObjectBehaviour::fStaticObject))
+        if (!(obj->hasFlag(FObjectBehaviour::fNoFieldObject) || obj->hasFlag(FObjectBehaviour::fStaticObject)))
         {
             obj->addDeltaForce(deltaForces.at(j));
             ++j;

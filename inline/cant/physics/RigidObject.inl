@@ -70,7 +70,7 @@ CANT_INLINE typename RigidObject<dim, T>::Position const &
 template <size_u dim, typename T>
 CANT_INLINE bool RigidObject<dim, T>::isStatic() const
 {
-    return m_object->hasFlags(FObjectBehaviour::fStaticObject);
+    return m_object->hasFlag(FObjectBehaviour::fStaticObject);
 }
 template <size_u dim, typename T>
 CANT_INLINE void
@@ -96,6 +96,30 @@ CANT_INLINE void
   RigidObject<dim, T>::clearForceBuffer()
 {
     m_object->clearForceBuffer();
+}
+template <size_u dim, typename T>
+ObjectBehaviourFlags
+  RigidObject<dim, T>::getFlags() const
+{
+    return m_object->getFlags();
+}
+template <size_u dim, typename T>
+bool
+  RigidObject<dim, T>::hasFlag(FObjectBehaviour flag) const
+{
+    return m_object->hasFlag(flag);
+}
+template <size_u dim, typename T>
+void
+  RigidObject<dim, T>::raiseFlags(ObjectBehaviourFlags flag, bool add)
+{
+    m_object->raiseFlags(flag, add);
+}
+template <size_u dim, typename T>
+void
+  RigidObject<dim, T>::resetFlags(ObjectBehaviourFlags flags)
+{
+    m_object->resetFlags(flags);
 }
 
 CANTINA_PHYSICS_NAMESPACE_END

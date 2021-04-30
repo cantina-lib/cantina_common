@@ -6,6 +6,7 @@
 
 #include <cant/common/memory.hpp>
 #include <cant/common/types.hpp>
+#include <cant/common/functor.hpp>
 
 #include <cant/physics/PhysicalForceField.hpp>
 
@@ -27,10 +28,11 @@ class UniformForceField : public PhysicalForceField<dim, T>
     typedef typename ForceField::Vector Vector;
     typedef typename ForceField::Object     Object;
     typedef typename ForceField::ObjectStream ObjectStream;
+    typedef Functor<T(ShPtr<Object> const &)> AmplitudeFunctor;
 
     /** -- methods -- **/
-    UniformForceField(ObjectStream & objects, Vector vec);
-    CANT_EXPLICIT UniformForceField(Vector vec);
+    UniformForceField(ObjectStream & objects, Vector vec, AmplitudeFunctor func);
+    CANT_EXPLICIT UniformForceField(Vector vec, AmplitudeFunctor func);
 
     CANT_INLINE void setVector(Vector vec);
     CANT_INLINE Vector const & getVector() const;
@@ -42,6 +44,7 @@ class UniformForceField : public PhysicalForceField<dim, T>
 
     /** -- fields -- **/
     Vector m_vec;
+    AmplitudeFunctor m_func;
 };
 
 CANTINA_PHYSICS_NAMESPACE_END

@@ -16,7 +16,7 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 enum FObjectBehaviour : int
 {
     fStaticObject = 1,
-    fNoFieldObject = 1 << 1,
+    fNoFieldObject = 2,
 };
 
 typedef int ObjectBehaviourFlags;

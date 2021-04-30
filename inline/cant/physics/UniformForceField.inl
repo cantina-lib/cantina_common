@@ -11,14 +11,14 @@ CANTINA_PHYSICS_NAMESPACE_BEGIN
 
 template<size_u dim, typename T>
 UniformForceField<dim, T>::UniformForceField(
-        ObjectStream & objects, Vector vec)
-        : ForceField(objects), m_vec(std::move(vec))
+        ObjectStream & objects, Vector vec, AmplitudeFunctor func)
+        : ForceField(objects), m_vec(std::move(vec)), m_func(std::move(func))
 {
 }
 
 template<size_u dim, typename T>
-UniformForceField<dim, T>::UniformForceField(Vector vec)
-  : m_vec(std::move(vec))
+UniformForceField<dim, T>::UniformForceField(Vector vec, AmplitudeFunctor func)
+  : m_vec(std::move(vec)), m_func(std::move(func))
 {
 }
 
@@ -40,7 +40,7 @@ template <size_u dim, typename T>
 typename UniformForceField<dim, T>::Vector
 UniformForceField<dim, T>::getDeltaForce(CANT_MAYBEUNUSED const ShPtr<Object> & object) const
 {
-    return m_vec;
+    return m_func(object) * m_vec;
 }
 
 CANTINA_PHYSICS_NAMESPACE_END
