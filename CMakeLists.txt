@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.12)
 
 project(cantina_common CXX)
 
@@ -8,6 +8,15 @@ set(CANTINA_COMMON_INLINE_DIR ${PROJECT_SOURCE_DIR}/inline)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/cmake")
 
 include(SetProjectFlags)
+
+set(CANTINA_CXX_FLAGS ${${PROJECT_NAME}_CXX_FLAGS}
+        CACHE INTERNAL
+        "Cantina project-wide c++ flags"
+        )
+set(CANTINA_CXX_STANDARD cxx_std_17
+        CACHE INTERNAL
+        "Cantina project-wide c++ standard"
+        )
 
 set(CANTINA_COMMON_FILES
         # Cantina
@@ -92,15 +101,15 @@ set(CANTINA_COMMON_FILES
         )
 
 # header-only library
-# However, now with c3ga it isn't.
 add_library(${PROJECT_NAME} INTERFACE)
 
 # apply Project flags and c++ standard defined in included cmake files.
 target_compile_options(
         ${PROJECT_NAME} INTERFACE
-        ${${PROJECT_NAME}_CXX_FLAGS}
-        # ${${PROJECT_NAME}_CXX_STANDARD}
+        ${CANTINA_CXX_FLAGS}
 )
+
+target_compile_features(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_STANDARD})
 
 target_include_directories(${PROJECT_NAME}
         INTERFACE
@@ -108,16 +117,5 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${CANTINA_COMMON_INLINE_DIR}>
         )
 
-# todo: remove c3ga...
-set(C3GA_DIR "${PROJECT_SOURCE_DIR}/third-party/garamon_c3ga")
-set(C3GA_LIBRARIES c3ga)
-set(C3GA_INCLUDE_DIRS ${C3GA_DIR}/src)
+set(CANTINA_COMMON_LIBRARIES ${PROJECT_NAME} PARENT_SCOPE)
 
-add_subdirectory(${C3GA_DIR})
-
-target_link_libraries(${PROJECT_NAME}
-        INTERFACE ${C3GA_LIBRARIES}
-)
-target_include_directories(${PROJECT_NAME}
-        INTERFACE ${C3GA_INCLUDE_DIRS}
-        )
