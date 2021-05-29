@@ -104,12 +104,11 @@ set(CANTINA_COMMON_FILES
 add_library(${PROJECT_NAME} INTERFACE)
 
 # apply Project flags and c++ standard defined in included cmake files.
-target_compile_options(
-        ${PROJECT_NAME} INTERFACE
-        ${CANTINA_CXX_FLAGS}
-)
+# fixme: I don't know why, but the flags are ported over to cantina_pd
+# the flags are ported over to cantina_pd. Not adding any options seems to work, somehow.
+target_compile_options(${PROJECT_NAME} ${CANTINA_CXX_FLAGS})
 
-target_compile_features(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_STANDARD})
+target_compile_features(${PROJECT_NAME} PRIVATE INTERFACE ${CANTINA_CXX_STANDARD})
 
 target_include_directories(${PROJECT_NAME}
         INTERFACE

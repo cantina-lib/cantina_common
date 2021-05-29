@@ -16,21 +16,71 @@ CANTINA_PATTERN_NAMESPACE_BEGIN
 
 template <typename Arg_T, typename... Args>
 class EventListener;
+template <typename Arg_T, typename... Args>
+class Event;
+
+namespace
+{
+    template <typename Arg_T, typename... Args>
+    class ListenerToken;
+
+    /*
+     * Note:
+     * (C++17) public inheritance from std::enable_shared_from_this is compulsory.
+     * see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+     * Otherwise you'll get a null weak_ptr when trying to construct a shared_ptr.
+     */
+    template <typename Arg_T, typename... Args>
+    class EventToken : public std::enable_shared_from_this<EventToken<Arg_T, Args...>>
+    {
+       public:
+        /** -- methods -- **/
+        CANT_EXPLICIT
+          EventToken(Event<Arg_T, Args...> * event);
+
+        CANT_INLINE bool
+          removeListener(ShPtr<ListenerToken<Arg_T, Args...>> & listenerToken);
+
+       private:
+        /** -- methods -- **/
+        Event<Arg_T, Args...> * const m_event;
+    };
+
+    template <typename Arg_T, typename... Args>
+    class ListenerToken : public std::enable_shared_from_this<ListenerToken<Arg_T, Args...>>
+    {
+       public:
+        /** -- methods -- **/
+        CANT_EXPLICIT
+          ListenerToken(EventListener<Arg_T, Args...> * listener);
+
+        CANT_INLINE void
+          update(Arg_T, Args...);
+
+        CANT_INLINE void
+          addEvent(ShPtr<EventToken<Arg_T, Args...>> & eventToken);
+        CANT_INLINE void
+          removeEvent(ShPtr<EventToken<Arg_T, Args...>> const & eventToken);
+
+       private:
+        /** -- fields -- **/
+        EventListener<Arg_T, Args...> * const m_listener;
+    };
+}  // namespace
 
 template <typename Arg_T, typename... Args>
 class Event
 {
    public:
-    /** -- typedef -- **/
-    typedef typename EventListener<Arg_T, Args...>::ListenerToken ListenerToken;
-
     /** -- methods -- **/
     Event();
     ~Event();
+
     bool
-      addListener(ShPtr<ListenerToken> & listenerToken);
+      addListener(ShPtr<EventListener<Arg_T, Args...>> & listener);
     bool
-      removeListener(const ShPtr<ListenerToken> & listenerToken);
+      removeListener(ShPtr<EventListener<Arg_T, Args...>> const & listener);
+
     /**
      * @brief Calls actions for every listener.
      * @param action: callback to be called on notification.
@@ -41,30 +91,18 @@ class Event
       invoke(Arg_T, Args...);
 
    private:
-    /** -- structs -- **/
-    /*
-     * Note:
-     * (C++17) public inheritance from std::enable_shared_from_this is compulsory.
-     * see: https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
-     * Otherwise you'll get a null weak_ptr when trying to construct a shared_ptr.
-     */
-    class EventToken : public std::enable_shared_from_this<EventToken>
-    {
-    public:
-        /** -- methods -- **/
-        CANT_EXPLICIT EventToken(Event * event);
-        CANT_INLINE bool removeListener(ShPtr<ListenerToken> &listenerToken);
-    private:
-        /** -- methods -- **/
-        Event * const m_event;
-    };
+    /** -- methods -- **/
+    bool
+      addListener(ShPtr<ListenerToken<Arg_T, Args...>> & listenerToken);
+    bool
+      removeListener(ShPtr<ListenerToken<Arg_T, Args...>> const & listenerToken);
 
     /** -- fields -- **/
-    ShPtr<EventToken> m_token;
-    Stream<ShPtr<ListenerToken>> m_listenerTokens;
+    ShPtr<EventToken<Arg_T, Args...>>            m_token;
+    Stream<ShPtr<ListenerToken<Arg_T, Args...>>> m_listenerTokens;
 
     /** -- friends -- **/
-    // only for definition of EventToken.
+    friend class EventToken<Arg_T, Args...>;
     friend class EventListener<Arg_T, Args...>;
 };
 
@@ -78,45 +116,30 @@ template <typename Arg_T, typename... Args>
 class EventListener
 {
    public:
-    /** -- typedefs -- **/
-    typedef typename Event<Arg_T, Args...>::EventToken EventToken;
-
     /** -- methods -- **/
     EventListener();
     virtual ~EventListener();
 
    private:
-    /** -- structs -- **/
-    class ListenerToken : public std::enable_shared_from_this<ListenerToken>
-    {
-       public:
-        /** -- methods -- **/
-        CANT_EXPLICIT ListenerToken(EventListener * listener);
-        CANT_INLINE void update(Arg_T, Args...);
-       private:
-        /** -- fields -- **/
-        EventListener * const m_listener;
-    };
-
     /** -- methods -- **/
-
     void
       unsubscribeFromAllEvents();
 
     void
-      addEvent(ShPtr<EventToken> & eventToken);
+      addEvent(ShPtr<EventToken<Arg_T, Args...>> & eventToken);
     void
-      removeEvent(ShPtr<EventToken> const & eventToken);
+      removeEvent(ShPtr<EventToken<Arg_T, Args...>> const & eventToken);
 
     virtual void
       update(Arg_T, Args...)
       = 0;
 
     /** -- fields -- **/
-    ShPtr<ListenerToken> m_token;
-    Stream<ShPtr<EventToken>> m_eventTokens;
+    ShPtr<ListenerToken<Arg_T, Args...>>      m_token;
+    Stream<ShPtr<EventToken<Arg_T, Args...>>> m_eventTokens;
 
     /** -- friends -- **/
+    friend class ListenerToken<Arg_T, Args...>;
     friend class Event<Arg_T, Args...>;
 };
 
