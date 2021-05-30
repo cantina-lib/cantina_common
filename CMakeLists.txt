@@ -9,6 +9,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/modules/cmake"
 
 include(SetProjectFlags)
 
+set(CANTINA_VERSION 0.0.94
+        CACHE INTERNAL
+        "Cantina version"
+        )
+set(CANTINA_BREW STILL_PERSONAL_BUT_EVEN_BETTER
+        CACHE INTERNAL
+        "Cantina brew"
+        )
+
 set(CANTINA_CXX_FLAGS ${${PROJECT_NAME}_CXX_FLAGS}
         CACHE INTERNAL
         "Cantina project-wide c++ flags"
@@ -106,6 +115,9 @@ add_library(${PROJECT_NAME} INTERFACE)
 # apply Project flags and c++ standard defined in included cmake files.
 # target_compile_options(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_FLAGS})
 target_compile_features(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_STANDARD})
+
+target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_VERSION ${CANTINA_VERSION})
+target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_BREW ${CANTINA_BREW})
 
 target_include_directories(${PROJECT_NAME}
         INTERFACE

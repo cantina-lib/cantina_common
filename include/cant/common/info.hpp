@@ -10,8 +10,6 @@
 #include <cant/common/macro.hpp>
 CANTINA_CANT_NAMESPACE_BEGIN
 
-static CANT_CONSTEXPR char const * CANTINA_VERSION = "0.0.94";
-static CANT_CONSTEXPR char const * CANTINA_BREW    = "STILL_PERSONAL_BUT_BETTER";
 
 CANTINA_CANT_NAMESPACE_END
 #include <cant/common/undef_macro.hpp>
