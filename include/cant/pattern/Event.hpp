@@ -123,7 +123,7 @@ class EventListener
    private:
     /** -- methods -- **/
     void
-      unsubscribeFromAllEvents();
+      unsubscribeFromAll();
 
     void
       addEvent(ShPtr<EventToken<Arg_T, Args...>> & eventToken);

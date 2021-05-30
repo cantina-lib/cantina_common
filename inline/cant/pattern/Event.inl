@@ -78,7 +78,7 @@ Event<Arg_T, Args...>::~Event() = default;
 template <typename Arg_T, typename... Args>
 EventListener<Arg_T, Args...>::~EventListener()
 {
-    unsubscribeFromAllEvents();
+    unsubscribeFromAll();
 }
 
 template <typename Arg_T, typename... Args>
@@ -108,7 +108,7 @@ void
 }
 template <typename Arg_T, typename... Args>
 void
-  EventListener<Arg_T, Args...>::unsubscribeFromAllEvents()
+  EventListener<Arg_T, Args...>::unsubscribeFromAll()
 {
     // Important:
     // Sadly, there's no way to check whether the events point to valid memory.
