@@ -116,8 +116,8 @@ add_library(${PROJECT_NAME} INTERFACE)
 # target_compile_options(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_FLAGS})
 target_compile_features(${PROJECT_NAME} INTERFACE ${CANTINA_CXX_STANDARD})
 
-target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_VERSION ${CANTINA_VERSION})
-target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_BREW ${CANTINA_BREW})
+target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_VERSION="${CANTINA_VERSION}")
+target_compile_definitions(${PROJECT_NAME} INTERFACE CANTINA_BREW="${CANTINA_BREW}")
 
 target_include_directories(${PROJECT_NAME}
         INTERFACE
